@@ -14,7 +14,7 @@ public class Constants {
     public static final String baseUrl = apiEndPoint + apiName + apiVersion;
 
     //Rover names
-    public static final String Curiousity = "curiousity";
+    public static final String Curiosity = "curiosity";
     public static final String Opportunity = "opportunity";
     public static final String Spirit = "spirit";
 }

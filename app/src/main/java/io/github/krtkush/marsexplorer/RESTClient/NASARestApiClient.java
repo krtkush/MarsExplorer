@@ -13,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -48,8 +49,9 @@ public class NASARestApiClient {
 
     public interface NASAMarsPhotosApiInterface {
 
-        @GET("Photos")
+        @GET("{roverName}/photos")
         Observable<PhotoSearchResultDM> getPhotosBySol(
+                @Path("roverName") String roverName,
                 @Query("sol") String SOL,
                 @Query("page") String pageNumber);
     }
