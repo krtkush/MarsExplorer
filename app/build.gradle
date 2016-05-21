@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "io.github.krtkush.marsexplorer"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -46,4 +46,7 @@ dependencies {
     //Rx
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
+
+    //Logging
+    compile 'com.jakewharton.timber:timber:4.1.2'
 }
