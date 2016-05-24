@@ -1,8 +1,12 @@
 package io.github.krtkush.marsexplorer.RESTClient;
 
+import java.io.File;
 import java.io.IOException;
 
 import io.github.krtkush.marsexplorer.JsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.MarsExplorer;
+import io.github.krtkush.marsexplorer.UtilityMethods;
+import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -29,9 +33,16 @@ public class NASARestApiClient {
         if(nasaMarsPhotosApiInterface == null) {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
-                            .setLevel(HttpLoggingInterceptor.Level.BODY))               //Enable logging
-                    .addInterceptor(new DefaultValuesInterceptor(Constants.apiKey))     //Add the api key by default
+                            .setLevel(HttpLoggingInterceptor.Level.BODY))
+                    // Set the cache location and size (10 MB)
+                    .cache(new Cache(new File(MarsExplorer.getApplicationInstance().getCacheDir(),
+                            "apiResponses"), 10 * 1024 * 1024))
+                    // Enable response caching
+                    .addNetworkInterceptor(new CachingControlInterceptor())
+                    // Add the api key by default
+                    .addInterceptor(new DefaultValuesInterceptor(Constants.apiKey))
                     .build();
 
             Retrofit retrofitClient = new Retrofit.Builder()
@@ -77,4 +88,38 @@ public class NASARestApiClient {
             return chain.proceed(request);
         }
     }
+
+    /**
+     * Interceptor that caches responses.
+     *
+     * If internet connection exists, old data response will
+     * be maintained in cache for a minute and response will be picked up from there.
+     *
+     * If internet connection does not work, old data that is at most a week old will be picked up.
+     *
+     */
+    private static class CachingControlInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+
+                if (UtilityMethods.isNetworkAvailable()) {
+                    // 60 seconds
+                    request = request.newBuilder()
+                            .header("Cache-Control", "public, max-age=60")
+                            .build();
+                } else {
+                    // 1 weeks
+                    request = request.newBuilder()
+                            .header("Cache-Control", "public, max-stale=604800")
+                            .build();
+                }
+
+            Response originalResponse = chain.proceed(request);
+            return originalResponse.newBuilder()
+                    .header("Cache-Control", "max-age=600")
+                    .build();
+        }
+    }
+
 }

@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import io.github.krtkush.marsexplorer.JsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.RESTClient.Constants;
-import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -14,8 +13,6 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Interface to the REST client
-    private NASARestApiClient.NASAMarsPhotosApiInterface nasaMarsPhotosApiInterface;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
     @Override
@@ -26,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         Timber.tag(MainActivity.this.getClass().getSimpleName());
 
         getMaxSol(Constants.Curiosity);
-        getMaxSol(Constants.Opportunity);
-        getMaxSol(Constants.Spirit);
+       /* getMaxSol(Constants.Opportunity);
+        getMaxSol(Constants.Spirit);*/
     }
 
     /**
@@ -37,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getMaxSol(final String roverName) {
 
-        nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
-
         //Define the observer
         Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
-                = nasaMarsPhotosApiInterface.getPhotosBySol(roverName, "1", null);
+                = MarsExplorer.getApplicationInstance()
+                .getNasaMarsPhotosApiInterface()
+                .getPhotosBySol(roverName, "1", null);
 
         //Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
             @Override
             public void onCompleted() {
-                Timber.d("Max SOL of %s found", roverName);
+                Timber.i("Max SOL of %s found", roverName);
             }
 
             @Override
