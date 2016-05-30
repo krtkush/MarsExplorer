@@ -33,16 +33,17 @@ public class NASARestApiClient {
         if(nasaMarsPhotosApiInterface == null) {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    // Enable logging
-                    .addInterceptor(new HttpLoggingInterceptor()
-                            .setLevel(HttpLoggingInterceptor.Level.BODY))
+                    // Enable response caching
+                    .addNetworkInterceptor(new ResponseCacheInterceptor())
+                    .addInterceptor(new OfflineResponseCacheInterceptor())
                     // Set the cache location and size (10 MB)
                     .cache(new Cache(new File(MarsExplorer.getApplicationInstance().getCacheDir(),
                             "apiResponses"), 10 * 1024 * 1024))
-                    // Enable response caching
-                    .addNetworkInterceptor(new CachingControlInterceptor())
                     // Add the api key by default
                     .addInterceptor(new DefaultValuesInterceptor(Constants.apiKey))
+                    // Enable logging
+                    .addInterceptor(new HttpLoggingInterceptor()
+                            .setLevel(HttpLoggingInterceptor.Level.BODY))
                     .build();
 
             Retrofit retrofitClient = new Retrofit.Builder()
@@ -89,37 +90,37 @@ public class NASARestApiClient {
         }
     }
 
+
     /**
-     * Interceptor that caches responses.
+     * Interceptor to cache data and maintain it for a minute.
      *
-     * If internet connection exists, old data response will
-     * be maintained in cache for a minute and response will be picked up from there.
-     *
-     * If internet connection does not work, old data that is at most a week old will be picked up.
-     *
+     * If the same network request is sent within a minute, the response is retrieved from cache.
      */
-    private static class CachingControlInterceptor implements Interceptor {
+    private static class ResponseCacheInterceptor implements Interceptor {
         @Override
-        public Response intercept(Chain chain) throws IOException {
-            Request request = chain.request();
-
-                if (UtilityMethods.isNetworkAvailable()) {
-                    // 60 seconds
-                    request = request.newBuilder()
-                            .header("Cache-Control", "public, max-age=60")
-                            .build();
-                } else {
-                    // 1 weeks
-                    request = request.newBuilder()
-                            .header("Cache-Control", "public, max-stale=604800")
-                            .build();
-                }
-
-            Response originalResponse = chain.proceed(request);
-            return originalResponse.newBuilder()
-                    .header("Cache-Control", "max-age=600")
-                    .build();
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            okhttp3.Response originalResponse = chain.proceed(chain.request());
+                return originalResponse.newBuilder()
+                        .header("Cache-Control", "public, max-age=" + 60)
+                        .build();
         }
     }
 
+    /**
+     * Interceptor to cache data and maintain it for four weeks.
+     *
+     * If the device is offline, stale (at most four weeks old) response is fetched from the cache.
+     */
+    private static class OfflineResponseCacheInterceptor implements Interceptor {
+        @Override
+        public okhttp3.Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            if (!UtilityMethods.isNetworkAvailable()) {
+                request = request.newBuilder()
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + 2419200)
+                        .build();
+            }
+            return chain.proceed(request);
+        }
+    }
 }

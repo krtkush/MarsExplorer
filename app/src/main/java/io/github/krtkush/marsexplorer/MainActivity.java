@@ -3,6 +3,8 @@ package io.github.krtkush.marsexplorer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.JsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.RESTClient.Constants;
 import rx.Observable;
@@ -19,10 +21,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         Timber.tag(MainActivity.this.getClass().getSimpleName());
+    }
+
+    @OnClick(R.id.sendRequest)
+    public void sendNetworkRequest() {
 
         getMaxSol(Constants.Curiosity);
+
        /* getMaxSol(Constants.Opportunity);
         getMaxSol(Constants.Spirit);*/
     }
@@ -69,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        nasaMarsPhotoSubscriber.unsubscribe();
+        try {
+            nasaMarsPhotoSubscriber.unsubscribe();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
     }
 }
