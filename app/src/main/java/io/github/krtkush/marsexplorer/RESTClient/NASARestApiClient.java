@@ -94,7 +94,6 @@ public class NASARestApiClient {
         }
     }
 
-
     /**
      * Interceptor to cache data and maintain it for a minute.
      *
@@ -106,7 +105,6 @@ public class NASARestApiClient {
 
             Request request = chain.request();
             if(Boolean.valueOf(request.header("ApplyResponseCache"))) {
-
                 Timber.i("Response cache applied");
                 Response originalResponse = chain.proceed(chain.request());
                 return originalResponse.newBuilder()
@@ -131,9 +129,7 @@ public class NASARestApiClient {
 
             Request request = chain.request();
             if(Boolean.valueOf(request.header("ApplyOfflineCache"))) {
-
                 Timber.i("Offline cache applied");
-
                 if(!UtilityMethods.isNetworkAvailable()) {
                     request = request.newBuilder()
                             .removeHeader("ApplyOfflineCache")
