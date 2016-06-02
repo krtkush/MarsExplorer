@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.JsonDataModels.PhotoSearchResultDM;
-import io.github.krtkush.marsexplorer.RESTClient.Constants;
+import io.github.krtkush.marsexplorer.RESTClient.RestClientConstants;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.sendRequest)
     public void sendNetworkRequest() {
 
-        getMaxSol(Constants.Curiosity);
+        getMaxSol(GeneralConstants.Curiosity);
 
-       /* getMaxSol(Constants.Opportunity);
-        getMaxSol(Constants.Spirit);*/
+       /* getMaxSol(GeneralConstants.Opportunity);
+        getMaxSol(GeneralConstants.Spirit);*/
     }
 
     /**

@@ -42,14 +42,14 @@ public class NASARestApiClient {
                     .cache(new Cache(new File(MarsExplorer.getApplicationInstance().getCacheDir(),
                             "apiResponses"), 5 * 1024 * 1024))
                     // Add the api key by default
-                    .addInterceptor(new DefaultValuesInterceptor(Constants.apiKey))
+                    .addInterceptor(new DefaultValuesInterceptor(RestClientConstants.apiKey))
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
                             .setLevel(HttpLoggingInterceptor.Level.BODY))
                     .build();
 
             Retrofit retrofitClient = new Retrofit.Builder()
-                    .baseUrl(Constants.baseUrl)
+                    .baseUrl(RestClientConstants.baseUrl)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -65,8 +65,8 @@ public class NASARestApiClient {
 
         @GET("{roverName}/photos")
         Observable<PhotoSearchResultDM> getPhotosBySol(
-                @Header("ApplyOfflineCache") boolean offlineCache,
-                @Header("ApplyResponseCache") boolean responseCache,
+                @Header(RestClientConstants.offlineCachingFlagHeader) boolean offlineCache,
+                @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCache,
                 @Path("roverName") String roverName,
                 @Query("sol") String SOL,
                 @Query("page") String pageNumber);
@@ -104,11 +104,11 @@ public class NASARestApiClient {
         public Response intercept(Chain chain) throws IOException {
 
             Request request = chain.request();
-            if(Boolean.valueOf(request.header("ApplyResponseCache"))) {
+            if(Boolean.valueOf(request.header(RestClientConstants.responseCachingFlagHeader))) {
                 Timber.i("Response cache applied");
                 Response originalResponse = chain.proceed(chain.request());
                 return originalResponse.newBuilder()
-                        .removeHeader("ApplyResponseCache")
+                        .removeHeader(RestClientConstants.responseCachingFlagHeader)
                         .header("Cache-Control", "public, max-age=" + 60)
                         .build();
             } else {
@@ -128,11 +128,11 @@ public class NASARestApiClient {
         public Response intercept(Chain chain) throws IOException {
 
             Request request = chain.request();
-            if(Boolean.valueOf(request.header("ApplyOfflineCache"))) {
+            if(Boolean.valueOf(request.header(RestClientConstants.offlineCachingFlagHeader))) {
                 Timber.i("Offline cache applied");
                 if(!UtilityMethods.isNetworkAvailable()) {
                     request = request.newBuilder()
-                            .removeHeader("ApplyOfflineCache")
+                            .removeHeader(RestClientConstants.offlineCachingFlagHeader)
                             .header("Cache-Control", "public, only-if-cached, max-stale=" + 2419200)
                             .build();
                 }

@@ -3,7 +3,7 @@ package io.github.krtkush.marsexplorer.RESTClient;
 /**
  * Created by kartikeykushwaha on 14/05/16.
  */
-public class Constants {
+public class RestClientConstants {
 
     public static final String apiKey = "DEMO_KEY";
 
@@ -13,8 +13,7 @@ public class Constants {
     private static final String apiVersion = "api/v1/rovers/";
     public static final String baseUrl = apiEndPoint + apiName + apiVersion;
 
-    //Rover names
-    public static final String Curiosity = "curiosity";
-    public static final String Opportunity = "opportunity";
-    public static final String Spirit = "spirit";
+    //Custom headers
+    public static final String responseCachingFlagHeader = "ApplyResponseCache";
+    public static final String offlineCachingFlagHeader = "ApplyOfflineCache";
 }
