@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
                 = MarsExplorer.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(roverName, "1", null);
+                .getPhotosBySol(true, true, roverName, "1", null);
 
         //Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
