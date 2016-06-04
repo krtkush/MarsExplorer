@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 23
@@ -25,8 +26,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     //Android Support Libraries
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
@@ -49,4 +50,5 @@ dependencies {
 
     //Logging
     compile 'com.jakewharton.timber:timber:4.1.2'
+
 }

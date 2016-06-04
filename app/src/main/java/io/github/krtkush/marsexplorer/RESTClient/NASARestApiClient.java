@@ -65,8 +65,8 @@ public class NASARestApiClient {
 
         @GET("{roverName}/photos")
         Observable<PhotoSearchResultDM> getPhotosBySol(
-                @Header(RestClientConstants.offlineCachingFlagHeader) boolean offlineCache,
-                @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCache,
+                @Header(RestClientConstants.offlineCachingFlagHeader) boolean offlineCacheFlag,
+                @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCacheFlag,
                 @Path("roverName") String roverName,
                 @Query("sol") String SOL,
                 @Query("page") String pageNumber);
@@ -95,7 +95,7 @@ public class NASARestApiClient {
     }
 
     /**
-     * Interceptor to cache data and maintain it for a minute.
+     * Interceptor to cache data and maintain it for an hour.
      *
      * If the same network request is sent within a minute, the response is retrieved from cache.
      */
@@ -109,7 +109,7 @@ public class NASARestApiClient {
                 Response originalResponse = chain.proceed(chain.request());
                 return originalResponse.newBuilder()
                         .removeHeader(RestClientConstants.responseCachingFlagHeader)
-                        .header("Cache-Control", "public, max-age=" + 60)
+                        .header("Cache-Control", "public, max-age=" + 3600)
                         .build();
             } else {
                 Timber.i("Response cache not applied");
