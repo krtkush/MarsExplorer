@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.krtkush.marsexplorer.JsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

@@ -1,5 +1,5 @@
 
-package io.github.krtkush.marsexplorer.JsonDataModels;
+package io.github.krtkush.marsexplorer.PicturesJsonDataModels;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

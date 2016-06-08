@@ -3,7 +3,7 @@ package io.github.krtkush.marsexplorer.RESTClient;
 import java.io.File;
 import java.io.IOException;
 
-import io.github.krtkush.marsexplorer.JsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.MarsExplorer;
 import io.github.krtkush.marsexplorer.UtilityMethods;
 import okhttp3.Cache;
