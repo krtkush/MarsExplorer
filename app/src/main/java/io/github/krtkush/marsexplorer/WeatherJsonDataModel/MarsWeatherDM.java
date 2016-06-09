@@ -8,30 +8,26 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MarsWeatherDM {
 
-    public class Example {
+    @SerializedName("report")
+    @Expose
+    private Report report;
 
-        @SerializedName("report")
-        @Expose
-        private Report report;
+    /**
+     *
+     * @return
+     *     The report
+     */
+    public Report getReport() {
+        return report;
+    }
 
-        /**
-         *
-         * @return
-         *     The report
-         */
-        public Report getReport() {
-            return report;
-        }
-
-        /**
-         *
-         * @param report
-         *     The report
-         */
-        public void setReport(Report report) {
-            this.report = report;
-        }
-
+    /**
+     *
+     * @param report
+     *     The report
+     */
+    public void setReport(Report report) {
+        this.report = report;
     }
 
 }

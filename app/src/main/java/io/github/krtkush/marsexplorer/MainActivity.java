@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -15,6 +16,7 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivity {
 
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
+    private Subscriber<MarsWeatherDM> maasMarsWeatherSubscriber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,37 @@ public class MainActivity extends AppCompatActivity {
         getMaxSol(GeneralConstants.Curiosity);
         getMaxSol(GeneralConstants.Opportunity);
         getMaxSol(GeneralConstants.Spirit);
+        getWeather();
+    }
+
+    private void getWeather() {
+
+        Observable<MarsWeatherDM> marsWeatherDMObservable
+                = MarsExplorer.getApplicationInstance()
+                .getMaasWeatherApiInterface()
+                .getLatestMarsWeather(true);
+
+        maasMarsWeatherSubscriber = new Subscriber<MarsWeatherDM>() {
+            @Override
+            public void onCompleted() {
+                Timber.i("Weather found");
+            }
+
+            @Override
+            public void onError(Throwable ex) {
+                ex.printStackTrace();
+            }
+
+            @Override
+            public void onNext(MarsWeatherDM marsWeatherDM) {
+                marsWeatherDM.getReport().getMaxTemp();
+            }
+        };
+
+        marsWeatherDMObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(maasMarsWeatherSubscriber);
     }
 
     /**
@@ -77,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             nasaMarsPhotoSubscriber.unsubscribe();
+            maasMarsWeatherSubscriber.unsubscribe();
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         }

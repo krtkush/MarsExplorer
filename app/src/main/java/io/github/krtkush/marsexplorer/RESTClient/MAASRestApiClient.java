@@ -51,7 +51,7 @@ public class MAASRestApiClient {
 
     public interface MAASWeatherApiInterface {
 
-        @GET("/latest")
+        @GET("latest")
         Observable<MarsWeatherDM> getLatestMarsWeather(
                 @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCacheFlag
         );

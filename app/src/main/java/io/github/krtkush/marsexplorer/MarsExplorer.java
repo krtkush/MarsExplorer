@@ -2,6 +2,7 @@ package io.github.krtkush.marsexplorer;
 
 import android.app.Application;
 
+import io.github.krtkush.marsexplorer.RESTClient.MAASRestApiClient;
 import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
 import timber.log.Timber;
 
@@ -12,8 +13,10 @@ public class MarsExplorer extends Application {
 
     // Variable that holds instance of the application class
     private static MarsExplorer marsExplorerInstance;
-    // Variable that holds instance of the photos api interface
+    // Variable that holds instance of the photos API interface
     private NASARestApiClient.NASAMarsPhotosApiInterface nasaMarsPhotosApiInterface;
+    // Variable to hold instance of the weather API interface
+    private MAASRestApiClient.MAASWeatherApiInterface maasWeatherApiInterface;
 
     @Override
     public void onCreate() {
@@ -25,6 +28,7 @@ public class MarsExplorer extends Application {
 
         marsExplorerInstance = this;
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
+        maasWeatherApiInterface = MAASRestApiClient.getMaasWeatherApiInterface();
     }
 
     /**
@@ -35,9 +39,16 @@ public class MarsExplorer extends Application {
     }
 
     /**
-     * @return Instance of the interface
+     * @return Instance of the NASAMarsPhotosApiInterface
      */
     public NASARestApiClient.NASAMarsPhotosApiInterface getNasaMarsPhotosApiInterface() {
         return nasaMarsPhotosApiInterface;
+    }
+
+    /**
+     * @return Instance of MAASWeatherApiInterface
+     */
+    public MAASRestApiClient.MAASWeatherApiInterface getMaasWeatherApiInterface() {
+        return maasWeatherApiInterface;
     }
 }
