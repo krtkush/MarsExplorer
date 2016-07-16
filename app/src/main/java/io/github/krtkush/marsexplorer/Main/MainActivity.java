@@ -11,7 +11,8 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.marsTemperatureTextView) TextView temperatureTextView;
+    @BindView(R.id.maxMarsTemperatureTextView) TextView maxTemperatureTextView;
+    @BindView(R.id.minMarsTemperatureTextView) TextView minTemperatureTextView;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         presenterInteractor = new MainActivityPresenterLayer(this);
 
-        // Send request to fetch mars weather data
+        // Send request to fetch Mars weather data
         presenterInteractor.getMarsWeather();
     }
 
@@ -36,8 +37,15 @@ public class MainActivity extends AppCompatActivity {
         presenterInteractor.unsubscribeMaxSolRequest();
     }
 
-    protected void setMarsTemperature(String marsTemperature) {
+    /**
+     * Method to set the temperature as provided by the report
+     * @param maxMarsTemperature max temperature of the SOL
+     * @param minMarsTemperature min temperature of the SOL
+     */
+    protected void setMarsTemperature(String maxMarsTemperature,
+                                      String minMarsTemperature) {
 
-        temperatureTextView.setText(marsTemperature);
+        maxTemperatureTextView.setText("Maximum Temperature: " + maxMarsTemperature);
+        minTemperatureTextView.setText("Minimum Temperature: " + minMarsTemperature);
     }
 }

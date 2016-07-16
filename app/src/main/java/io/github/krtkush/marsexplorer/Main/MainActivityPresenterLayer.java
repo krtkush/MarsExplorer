@@ -44,12 +44,14 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
+                mainActivityContext.setMarsTemperature("--", "--");
             }
 
             @Override
             public void onNext(MarsWeatherDM marsWeatherDM) {
                 mainActivityContext
-                        .setMarsTemperature(marsWeatherDM.getReport().getMaxTemp().toString());
+                        .setMarsTemperature(marsWeatherDM.getReport().getMaxTemp().toString(),
+                                marsWeatherDM.getReport().getMinTemp().toString());
             }
         };
 
@@ -59,7 +61,6 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(maasMarsWeatherSubscriber);
     }
-
 
     /**
      * Method to get the max possible SOL for a specified rover.
@@ -89,6 +90,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
             @Override
             public void onNext(PhotoSearchResultDM photoSearchResultDM) {
+                //TODO: Handle no data condition
                 photoSearchResultDM.getPhotos().get(0).getRover().getMaxSol();
             }
         };
@@ -101,22 +103,16 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     }
 
     @Override
-    public void unsubscribeMaxSolRequest() throws NullPointerException {
+    public void unsubscribeMaxSolRequest() {
 
-        try {
+        if(nasaMarsPhotoSubscriber != null)
             nasaMarsPhotoSubscriber.unsubscribe();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        }
     }
 
     @Override
     public void unsubscribeMarsWeatherRequest() {
 
-        try {
+        if(maasMarsWeatherSubscriber != null)
             maasMarsWeatherSubscriber.unsubscribe();
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        }
     }
 }

@@ -19,7 +19,7 @@ public class RestClientConstants {
     private static final String maasApiVersion = "v1/";
     public static final String maasApiBaseUrl = maasApiEndPoint + maasApiVersion;
 
-    //Custom headers
+    // Custom headers
     public static final String responseCachingFlagHeader = "ApplyResponseCache";
     public static final String offlineCachingFlagHeader = "ApplyOfflineCache";
 }
