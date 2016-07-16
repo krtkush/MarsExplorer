@@ -22,13 +22,13 @@ public class MarsExplorer extends Application {
     public void onCreate() {
         super.onCreate();
 
-        //Initialize timber logging tool only if in debug mode
-        if(BuildConfig.DEBUG)
-            Timber.plant(new Timber.DebugTree());
-
         marsExplorerInstance = this;
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
         maasWeatherApiInterface = MAASRestApiClient.getMaasWeatherApiInterface();
+
+        // Initialize timber logging tool only if in debug mode
+        if(BuildConfig.DEBUG)
+            Timber.plant(new Timber.DebugTree());
     }
 
     /**
