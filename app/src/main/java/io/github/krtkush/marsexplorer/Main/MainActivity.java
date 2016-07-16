@@ -1,13 +1,17 @@
-package io.github.krtkush.marsexplorer;
+package io.github.krtkush.marsexplorer.Main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.marsTemperatureTextView) TextView temperatureTextView;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -15,19 +19,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        ButterKnife.bind(MainActivity.this);
         Timber.tag(MainActivity.this.getClass().getSimpleName());
 
         presenterInteractor = new MainActivityPresenterLayer(this);
-    }
 
-    @OnClick(R.id.sendRequest)
-    public void sendNetworkRequest() {
-
+        // Send request to fetch mars weather data
         presenterInteractor.getMarsWeather();
-        presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
-        presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
-        presenterInteractor.getMaxSol(GeneralConstants.Spirit);
     }
 
     @Override
@@ -36,5 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         presenterInteractor.unsubscribeMarsWeatherRequest();
         presenterInteractor.unsubscribeMaxSolRequest();
+    }
+
+    protected void setMarsTemperature(String marsTemperature) {
+
+        temperatureTextView.setText(marsTemperature);
     }
 }

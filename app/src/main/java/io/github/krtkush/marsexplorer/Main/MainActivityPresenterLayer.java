@@ -1,5 +1,6 @@
-package io.github.krtkush.marsexplorer;
+package io.github.krtkush.marsexplorer.Main;
 
+import io.github.krtkush.marsexplorer.MarsExplorer;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
@@ -47,7 +48,8 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
             @Override
             public void onNext(MarsWeatherDM marsWeatherDM) {
-                marsWeatherDM.getReport().getMaxTemp();
+                mainActivityContext
+                        .setMarsTemperature(marsWeatherDM.getReport().getMaxTemp().toString());
             }
         };
 

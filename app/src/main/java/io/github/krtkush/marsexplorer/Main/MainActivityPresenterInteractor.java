@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer;
+package io.github.krtkush.marsexplorer.Main;
 
 /**
  * Created by kartikeykushwaha on 16/07/16.
