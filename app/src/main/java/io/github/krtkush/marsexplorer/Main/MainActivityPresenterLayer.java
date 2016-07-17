@@ -165,6 +165,10 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             maasMarsWeatherSubscriber.unsubscribe();
     }
 
+    /**
+     * Method to take user to the rover explore section.
+     * @param roverName Rover which the user wants to explore.
+     */
     @Override
     public void goToRoverSection(String roverName) {
 

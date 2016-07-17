@@ -31,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Send request to fetch Mars weather data
         presenterInteractor.getMarsWeather();
+
+        // Send request to get max SOL for each rover
+        presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
+        presenterInteractor.getMaxSol(GeneralConstants.Spirit);
+        presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
     }
 
     @Override
