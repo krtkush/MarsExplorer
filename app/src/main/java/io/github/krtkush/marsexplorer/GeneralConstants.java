@@ -7,6 +7,6 @@ public class GeneralConstants {
 
     // Rover names
     public static final String Curiosity = "curiosity";
-    public static final String Opportunity = "opportunity";
+    public static final String Opportunity = "Opportunity";
     public static final String Spirit = "spirit";
 }

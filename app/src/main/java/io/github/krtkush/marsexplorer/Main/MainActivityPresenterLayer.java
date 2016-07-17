@@ -1,8 +1,13 @@
 package io.github.krtkush.marsexplorer.Main;
 
-import io.github.krtkush.marsexplorer.MarsExplorer;
+import android.content.Intent;
+
+import io.github.krtkush.marsexplorer.GeneralConstants;
+import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorer;
+import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
 import rx.Subscriber;
@@ -19,6 +24,11 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
     private Subscriber<MarsWeatherDM> maasMarsWeatherSubscriber;
 
+    /**
+     * Variables to store the max SOL available of rovers.
+     */
+    private String curiosityMaxSol, opportunityMaxSol, spiritMaxSol;
+
     public MainActivityPresenterLayer(MainActivity mainActivityContext) {
         this.mainActivityContext = mainActivityContext;
     }
@@ -31,7 +41,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
         // Define the observer
         Observable<MarsWeatherDM> marsWeatherDMObservable
-                = MarsExplorer.getApplicationInstance()
+                = MarsExplorerApplication.getApplicationInstance()
                 .getMaasWeatherApiInterface()
                 .getLatestMarsWeather(true);
 
@@ -94,7 +104,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
         // Define the observer
         Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
-                = MarsExplorer.getApplicationInstance()
+                = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
                 .getPhotosBySol(true, true, roverName, "1", null);
 
@@ -113,7 +123,24 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             @Override
             public void onNext(PhotoSearchResultDM photoSearchResultDM) {
                 //TODO: Handle no data condition
-                photoSearchResultDM.getPhotos().get(0).getRover().getMaxSol();
+
+                switch (roverName) {
+
+                    case GeneralConstants.Curiosity:
+                        curiosityMaxSol = photoSearchResultDM.getPhotos().get(0)
+                                .getRover().getMaxSol().toString();
+                        break;
+
+                    case GeneralConstants.Opportunity:
+                        opportunityMaxSol = photoSearchResultDM.getPhotos().get(0)
+                                .getRover().getMaxSol().toString();
+                        break;
+
+                    case GeneralConstants.Spirit:
+                        spiritMaxSol = photoSearchResultDM.getPhotos().get(0)
+                                .getRover().getMaxSol().toString();
+                        break;
+                }
             }
         };
 
@@ -136,5 +163,35 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
         if(maasMarsWeatherSubscriber != null)
             maasMarsWeatherSubscriber.unsubscribe();
+    }
+
+    @Override
+    public void goToRoverSection(String roverName) {
+
+        Intent goToRoverExplorer = new Intent(mainActivityContext, RoverExplorer.class);
+
+        switch (roverName) {
+
+            case GeneralConstants.Curiosity:
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverNameExtra,
+                        GeneralConstants.Curiosity);
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra, curiosityMaxSol);
+                mainActivityContext.startActivity(goToRoverExplorer);
+                break;
+
+            case GeneralConstants.Opportunity:
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverNameExtra,
+                        GeneralConstants.Opportunity);
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra, opportunityMaxSol);
+                mainActivityContext.startActivity(goToRoverExplorer);
+                break;
+
+            case GeneralConstants.Spirit:
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverNameExtra,
+                        GeneralConstants.Spirit);
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra, spiritMaxSol);
+                mainActivityContext.startActivity(goToRoverExplorer);
+                break;
+        }
     }
 }

@@ -9,10 +9,10 @@ import timber.log.Timber;
 /**
  * Created by kartikeykushwaha on 21/05/16.
  */
-public class MarsExplorer extends Application {
+public class MarsExplorerApplication extends Application {
 
     // Variable that holds instance of the application class
-    private static MarsExplorer marsExplorerInstance;
+    private static MarsExplorerApplication marsExplorerApplicationInstance;
     // Variable that holds instance of the photos API interface
     private NASARestApiClient.NASAMarsPhotosApiInterface nasaMarsPhotosApiInterface;
     // Variable to hold instance of the weather API interface
@@ -22,7 +22,7 @@ public class MarsExplorer extends Application {
     public void onCreate() {
         super.onCreate();
 
-        marsExplorerInstance = this;
+        marsExplorerApplicationInstance = this;
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
         maasWeatherApiInterface = MAASRestApiClient.getMaasWeatherApiInterface();
 
@@ -34,8 +34,8 @@ public class MarsExplorer extends Application {
     /**
      * @return Instance of the application class (App Context)
      */
-    public static MarsExplorer getApplicationInstance() {
-        return marsExplorerInstance;
+    public static MarsExplorerApplication getApplicationInstance() {
+        return marsExplorerApplicationInstance;
     }
 
     /**

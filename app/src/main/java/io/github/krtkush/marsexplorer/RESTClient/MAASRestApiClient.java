@@ -2,7 +2,7 @@ package io.github.krtkush.marsexplorer.RESTClient;
 
 import java.io.File;
 
-import io.github.krtkush.marsexplorer.MarsExplorer;
+import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -29,7 +29,7 @@ public class MAASRestApiClient {
                     // Enable response caching
                     .addNetworkInterceptor(new ResponseCacheInterceptor())
                     // Set the cache location and size (5 MB)
-                    .cache(new Cache(new File(MarsExplorer.getApplicationInstance().getCacheDir(),
+                    .cache(new Cache(new File(MarsExplorerApplication.getApplicationInstance().getCacheDir(),
                             "apiResponses"), 5 * 1024 * 1024))
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()

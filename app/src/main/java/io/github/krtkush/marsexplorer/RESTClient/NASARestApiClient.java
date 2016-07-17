@@ -3,7 +3,7 @@ package io.github.krtkush.marsexplorer.RESTClient;
 import java.io.File;
 import java.io.IOException;
 
-import io.github.krtkush.marsexplorer.MarsExplorer;
+import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
@@ -37,7 +37,7 @@ public class NASARestApiClient {
                     .addNetworkInterceptor(new ResponseCacheInterceptor())
                     .addInterceptor(new OfflineResponseCacheInterceptor())
                     // Set the cache location and size (5 MB)
-                    .cache(new Cache(new File(MarsExplorer.getApplicationInstance().getCacheDir(),
+                    .cache(new Cache(new File(MarsExplorerApplication.getApplicationInstance().getCacheDir(),
                             "apiResponses"), 5 * 1024 * 1024))
                     // Add the api key by default
                     .addInterceptor(new DefaultValuesInterceptor(RestClientConstants.apiKey))

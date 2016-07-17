@@ -13,10 +13,16 @@ public interface MainActivityPresenterInteractor {
     void getMaxSol(String roverName);
 
     /**
-     * Method ot get the latest weather conditions on Mars
+     * Method ot get the latest weather conditions on Mars.
      */
     void getMarsWeather();
 
     void unsubscribeMaxSolRequest();
     void unsubscribeMarsWeatherRequest();
+
+    /**
+     * Method to take user to the rover explore section.
+     * @param roverName Rover which the user wants to explore.
+     */
+    void goToRoverSection(String roverName);
 }

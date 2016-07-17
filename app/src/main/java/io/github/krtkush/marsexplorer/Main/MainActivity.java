@@ -2,10 +2,13 @@ package io.github.krtkush.marsexplorer.Main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
@@ -48,5 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
         maxTemperatureTextView.setText("Maximum Temperature: " + maxMarsTemperature);
         minTemperatureTextView.setText("Minimum Temperature: " + minMarsTemperature);
+    }
+
+    @OnClick(R.id.goToCuriosity)
+    public void goToCuriosity(View view) {
+
+        presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
     }
 }

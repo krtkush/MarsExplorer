@@ -10,8 +10,8 @@ public class UtilityMethods {
     public static boolean isNetworkAvailable() {
 
         ConnectivityManager connectivityManager =
-                (ConnectivityManager) MarsExplorer.getApplicationInstance()
-                        .getSystemService(MarsExplorer.getApplicationInstance().CONNECTIVITY_SERVICE);
+                (ConnectivityManager) MarsExplorerApplication.getApplicationInstance()
+                        .getSystemService(MarsExplorerApplication.getApplicationInstance().CONNECTIVITY_SERVICE);
 
         return connectivityManager.getActiveNetworkInfo() != null
                 && connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
