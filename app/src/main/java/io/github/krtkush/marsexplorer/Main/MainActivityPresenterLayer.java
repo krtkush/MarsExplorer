@@ -2,6 +2,7 @@ package io.github.krtkush.marsexplorer.Main;
 
 import io.github.krtkush.marsexplorer.MarsExplorer;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
 import rx.Subscriber;
@@ -44,14 +45,35 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
-                mainActivityContext.setMarsTemperature("--", "--");
+                mainActivityContext
+                        .setMarsTemperature(
+                                mainActivityContext.getResources().getString(R.string.no_temperature),
+                                mainActivityContext.getResources().getString(R.string.no_temperature));
             }
 
             @Override
             public void onNext(MarsWeatherDM marsWeatherDM) {
-                mainActivityContext
-                        .setMarsTemperature(marsWeatherDM.getReport().getMaxTemp().toString(),
-                                marsWeatherDM.getReport().getMinTemp().toString());
+
+                String maxTemperature, minTemperature;
+
+                /**
+                 * Show "--" in case temperature is not available
+                 */
+                if(marsWeatherDM.getReport().getMaxTemp().toString() != null
+                        && !marsWeatherDM.getReport().getMaxTemp().toString().isEmpty())
+                    maxTemperature = marsWeatherDM.getReport().getMaxTemp().toString();
+                else
+                    maxTemperature = mainActivityContext.getResources()
+                            .getString(R.string.no_temperature);
+
+                if(marsWeatherDM.getReport().getMinTemp().toString() != null
+                        && !marsWeatherDM.getReport().getMinTemp().toString().isEmpty())
+                    minTemperature = marsWeatherDM.getReport().getMinTemp().toString();
+                else
+                    minTemperature = mainActivityContext.getResources()
+                            .getString(R.string.no_temperature);
+
+                mainActivityContext.setMarsTemperature(maxTemperature, minTemperature);
             }
         };
 
@@ -63,7 +85,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     }
 
     /**
-     * Method to get the max possible SOL for a specified rover.
+     * Method to get the max possible SOL for a specific rover.
      * The API is hit for SOL 1, from which the max SOL is extracted.
      * @param roverName Name of the rover for which max SOL is required.
      */
