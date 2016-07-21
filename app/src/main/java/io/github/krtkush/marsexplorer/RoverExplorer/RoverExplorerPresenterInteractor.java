@@ -15,6 +15,9 @@ public interface RoverExplorerPresenterInteractor {
      */
     void getRoverSolFromIntent();
 
+    /**
+     * Method to get all photos for a particular rover
+     */
     void getRoverPhotos();
 
     void unsubscribeRoverPhotosRequest();

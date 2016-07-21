@@ -16,7 +16,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private RoverExplorerActivity roverExplorerActivityContext;
     private String roverName;
     private String roverSol;
-    // The page number for the network request
+    // The page number for a particular SOL
     private int requiredPage;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
@@ -63,6 +63,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             @Override
             public void onNext(PhotoSearchResultDM photoSearchResultDM) {
                 //TODO: Handle no data condition
+                Timber.i("%s photos fetched", photoSearchResultDM.getPhotos().size());
+                photoSearchResultDM.getPhotos().get(0).getImgSrc();
             }
         };
 
