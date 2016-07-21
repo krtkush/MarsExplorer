@@ -13,29 +13,29 @@ import timber.log.Timber;
  */
 public class RoverExplorerPresenterLayer implements RoverExplorerPresenterInteractor {
 
-    private RoverExplorer roverExplorerContext;
+    private RoverExplorerActivity roverExplorerActivityContext;
     private String roverName;
     private String roverSol;
     // The page number for the network request
     private int requiredPage;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
-    public RoverExplorerPresenterLayer(RoverExplorer roverExplorerContext) {
-        this.roverExplorerContext = roverExplorerContext;
+    public RoverExplorerPresenterLayer(RoverExplorerActivity roverExplorerActivityContext) {
+        this.roverExplorerActivityContext = roverExplorerActivityContext;
         requiredPage = 1;
     }
 
     @Override
     public void getRoverNameFromIntent() {
         roverName =
-                roverExplorerContext.getIntent()
+                roverExplorerActivityContext.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverNameExtra);
     }
 
     @Override
     public void getRoverSolFromIntent() {
         roverSol =
-                roverExplorerContext.getIntent()
+                roverExplorerActivityContext.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
     }
 

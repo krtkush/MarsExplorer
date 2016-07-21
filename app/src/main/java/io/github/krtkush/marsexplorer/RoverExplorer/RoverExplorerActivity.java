@@ -7,7 +7,7 @@ import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
-public class RoverExplorer extends AppCompatActivity {
+public class RoverExplorerActivity extends AppCompatActivity {
 
     private RoverExplorerPresenterInteractor presenterInteractor;
 
@@ -18,7 +18,7 @@ public class RoverExplorer extends AppCompatActivity {
 
         // Initialise butterknife, timber and the presenter layer
         ButterKnife.bind(this);
-        Timber.tag(RoverExplorer.this.getClass().getSimpleName());
+        Timber.tag(RoverExplorerActivity.this.getClass().getSimpleName());
         presenterInteractor = new RoverExplorerPresenterLayer(this);
     }
 

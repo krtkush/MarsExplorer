@@ -6,7 +6,7 @@ import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.R;
-import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorer;
+import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerActivity;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
@@ -172,7 +172,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     @Override
     public void goToRoverSection(String roverName) {
 
-        Intent goToRoverExplorer = new Intent(mainActivityContext, RoverExplorer.class);
+        Intent goToRoverExplorer = new Intent(mainActivityContext, RoverExplorerActivity.class);
 
         switch (roverName) {
 
