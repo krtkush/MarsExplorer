@@ -15,11 +15,14 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
     private RoverExplorer roverExplorerContext;
     private String roverName;
-    private String roverMaxSol;
+    private String roverSol;
+    // The page number for the network request
+    private int requiredPage;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
     public RoverExplorerPresenterLayer(RoverExplorer roverExplorerContext) {
         this.roverExplorerContext = roverExplorerContext;
+        requiredPage = 1;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
     @Override
     public void getRoverSolFromIntent() {
-        roverMaxSol =
+        roverSol =
                 roverExplorerContext.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
     }
@@ -43,7 +46,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(true, true, roverName, roverMaxSol, null);
+                .getPhotosBySol(true, true, roverName, roverSol, requiredPage);
 
         // Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {

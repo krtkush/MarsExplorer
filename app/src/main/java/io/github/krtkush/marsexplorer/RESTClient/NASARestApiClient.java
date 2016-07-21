@@ -67,7 +67,7 @@ public class NASARestApiClient {
                 @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCacheFlag,
                 @Path("roverName") String roverName,
                 @Query("sol") String SOL,
-                @Query("page") String pageNumber);
+                @Query("page") int pageNumber);
     }
 
     /**

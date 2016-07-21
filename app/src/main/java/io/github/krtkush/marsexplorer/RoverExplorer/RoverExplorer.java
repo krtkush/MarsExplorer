@@ -29,5 +29,15 @@ public class RoverExplorer extends AppCompatActivity {
         // Get the rover name and its respective max SOL via the intent
         presenterInteractor.getRoverNameFromIntent();
         presenterInteractor.getRoverSolFromIntent();
+
+        // Request for rover's photos
+        presenterInteractor.getRoverPhotos();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        presenterInteractor.unsubscribeRoverPhotosRequest();
     }
 }

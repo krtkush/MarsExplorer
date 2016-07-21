@@ -106,7 +106,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
         Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(true, true, roverName, "1", null);
+                .getPhotosBySol(true, true, roverName, "1", 1);
 
         // Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
