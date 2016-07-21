@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setup butterknife, timber and the presenter layer
+        // Initialise butterknife, timber and the presenter layer
         ButterKnife.bind(MainActivity.this);
         Timber.tag(MainActivity.this.getClass().getSimpleName());
         presenterInteractor = new MainActivityPresenterLayer(this);
