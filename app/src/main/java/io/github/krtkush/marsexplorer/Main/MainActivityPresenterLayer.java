@@ -25,7 +25,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     private Subscriber<MarsWeatherDM> maasMarsWeatherSubscriber;
 
     /**
-     * Variables to store the max SOL available of rovers.
+     * Variables to store the max SOL available for respective rovers.
      */
     private String curiosityMaxSol, opportunityMaxSol, spiritMaxSol;
 
@@ -57,8 +57,10 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                 ex.printStackTrace();
                 mainActivityContext
                         .setMarsTemperature(
-                                mainActivityContext.getResources().getString(R.string.no_temperature),
-                                mainActivityContext.getResources().getString(R.string.no_temperature));
+                                mainActivityContext.getResources()
+                                        .getString(R.string.no_temperature),
+                                mainActivityContext.getResources()
+                                        .getString(R.string.no_temperature));
             }
 
             @Override

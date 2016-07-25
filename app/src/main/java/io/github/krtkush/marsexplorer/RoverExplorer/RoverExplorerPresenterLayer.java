@@ -40,6 +40,11 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     }
 
     @Override
+    public void getRoverBasicDetails() {
+
+    }
+
+    @Override
     public void getRoverPhotos() {
 
         // Define the observer

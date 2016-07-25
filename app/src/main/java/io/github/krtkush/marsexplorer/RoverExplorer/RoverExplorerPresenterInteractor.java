@@ -11,7 +11,7 @@ public interface RoverExplorerPresenterInteractor {
     void getRoverNameFromIntent();
 
     /**
-     * Method to retrieve the rover max SOL passed from the previous activity
+     * Method to retrieve the rover's max SOL passed from the previous activity
      */
     void getRoverSolFromIntent();
 
@@ -21,4 +21,9 @@ public interface RoverExplorerPresenterInteractor {
     void getRoverPhotos();
 
     void unsubscribeRoverPhotosRequest();
+
+    /**
+     * Method to get the basic details of given rover
+     */
+    void getRoverBasicDetails();
 }
