@@ -9,39 +9,18 @@
     android:background="@color/colorAccent"
     tools:context=".Main.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/MyAppbar"
+    <ImageView
+        android:id="@+id/headerImage"
         android:layout_width="match_parent"
         android:layout_height="256dp"
-        android:fitsSystemWindows="true">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapseToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <ImageView
-                android:id="@+id/headerImage"
-                android:layout_width="match_parent"
-                android:layout_height="256dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/main_activity_header_mars_image"/>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/MyToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="parallax" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-    </android.support.design.widget.AppBarLayout>
+        android:scaleType="centerCrop"
+        android:src="@drawable/main_activity_header_mars_image" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp">
+        android:paddingTop="200dp"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -116,6 +95,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="curiosity"/>
+
+                    <TextView
+                        android:layout_below="@+id/goToCuriosity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="During the 1988 Major League Baseball season, pitcher Orel Hershiser of the Los Angeles Dodgers set the MLB record for consecutive scoreless innings pitched. Over 59 consecutive innings, opposing hitters did not score a run against Hershiser. During the streak, he averted numerous high-risk scoring situations. The streak spanned from the sixth inning of an August 30 game against the Montreal Expos to the tenth inning of a September 28 game against the San Diego Padres. The previous record of 58 2⁄3 innings was set by former Dodger pitcher Don Drysdale in 1968; as the team's radio announcer, Drysdale called Hershiser's streak as he pursued the new record. Pundits have described the streak as among the greatest individual feats in sports and among the greatest records in baseball history.
+
+During the streak, the Elias Sports Bureau changed its criteria for the official consecutive scoreless innings record for starting pitchers from including fractional innings in which one or two outs had been recorded to counting only complete scoreless innings. Since the streak was active at the end of the 1988 season, it would have spanned two separate seasons if Hershiser had pitched any additional scoreless innings to begin the next year. However, he yielded a run in his first inning of the 1989 season, thus ending the streak. The streak only includes innings pitched in the regular season, excluding eight scoreless innings Hershiser pitched to start Game 1 of the 1988 National League Championship Series on October 4 (unofficially extending his streak to 67 combined innings). Although he completed the ninth inning in each start, the streak's final game lasted 16 innings, of which he only pitched the first ten. Thus, Hershiser did not match Drysdale's record of six consecutive complete game shutouts. Like Drysdale's streak, the penultimate game of Hershiser's streak was a Dodgers–Giants game that featured a controversial umpire's ruling that saved the streak.
+
+The streak was initially overshadowed by Hershiser achieving 20 wins and the race for the NL Cy Young Award between Hershiser and Danny Jackson until Hershiser reached 40 consecutive innings. Another distraction during the streak was his wife's pregnancy and his son's childbirth complications. The record-setting game was overshadowed by the 1988 Summer Olympics, American football, and baseball pennant races; it was not broadcast on local television in Los Angeles. Following the regular season, Hershiser was awarded the NL Cy Young Award. In the playoffs, he earned both the NL Championship Series Most Valuable Player Award and the World Series MVP Award. He also secured Sportsman of the Year and Associated Press Athlete of the Year honors. Hershiser appeared in the 1989 MLB All-Star Game and continued to be an effective pitcher for many seasons, including two additional appearances in the World Series, one of which was preceded by his winning the 1995 AL Championship Series MVP Award."/>
 
                 </RelativeLayout>
 
