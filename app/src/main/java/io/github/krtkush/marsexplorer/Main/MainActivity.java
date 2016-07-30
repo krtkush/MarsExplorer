@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.Main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,7 @@ import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
@@ -58,14 +65,13 @@ public class MainActivity extends AppCompatActivity {
 
         currentSolTextView.setText(getResources().getString(R.string.main_sol) + " " + currentSol);
         maxTemperatureTextView.setText(getResources().getString(R.string.maximum_temperature)
-                + " " + maxMarsTemperature);
+                + " " + maxMarsTemperature + "\u00B0C");
         minTemperatureTextView.setText(getResources().getString(R.string.minimum_temperature)
-                + " " + minMarsTemperature);
+                + " " + minMarsTemperature + "\u00B0C");
     }
 
     @OnClick(R.id.goToCuriosity)
     public void goToCuriosity(View view) {
-
         presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
     }
 }

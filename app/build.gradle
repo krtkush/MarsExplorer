@@ -30,27 +30,29 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:cardview-v7:24.1.1'
 
-
-    // Retrofit
+    // Retrofit (API handling)
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     // Retrofit - gson
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     // Retrofit - rxJava
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
 
-    // OkHttp
+    // OkHttp (Networking)
     compile 'com.squareup.okhttp3:okhttp:3.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.0'
 
-    // Butterknife
+    // Butterknife (View injection)
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
-    // Rx
+    // Rx (Reactive programming)
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
 
-    // Logging
+    // Timber (Logging)
     compile 'com.jakewharton.timber:timber:4.1.2'
+
+    // Calligraphy (Custom fonts)
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
 }

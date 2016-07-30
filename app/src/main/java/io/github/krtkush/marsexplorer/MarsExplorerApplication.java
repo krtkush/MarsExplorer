@@ -5,6 +5,7 @@ import android.app.Application;
 import io.github.krtkush.marsexplorer.RESTClient.MAASRestApiClient;
 import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by kartikeykushwaha on 21/05/16.
@@ -23,12 +24,21 @@ public class MarsExplorerApplication extends Application {
         super.onCreate();
 
         marsExplorerApplicationInstance = this;
+
+        // Initialize the API interfaces
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
         maasWeatherApiInterface = MAASRestApiClient.getMaasWeatherApiInterface();
 
         // Initialize timber logging tool only if in debug mode
         if(BuildConfig.DEBUG)
             Timber.plant(new Timber.DebugTree());
+
+        // Initialize calligraphy with the required font
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Lato-Light.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
     /**
