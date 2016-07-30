@@ -3,13 +3,13 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24"
 
     defaultConfig {
         applicationId "io.github.krtkush.marsexplorer"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -25,30 +25,32 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 
-    //Android Support Libraries
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
+    // Android Support Libraries
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:cardview-v7:24.1.1'
 
-    //Retrofit
+
+    // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    //Retrofit - gson
+    // Retrofit - gson
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    //Retrofit - rxJava
+    // Retrofit - rxJava
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
 
-    //OkHttp
+    // OkHttp
     compile 'com.squareup.okhttp3:okhttp:3.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.0'
 
-    //Butterknife
+    // Butterknife
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
 
-    //Rx
+    // Rx
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
 
-    //Logging
+    // Logging
     compile 'com.jakewharton.timber:timber:4.1.2'
 
 }

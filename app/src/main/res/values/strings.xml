@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Mars Explorer</string>
     <string name="no_temperature">--</string>
+
+    <!-- Main Activity -->
+    <string name="main_sol">SOL </string>
+    <string name="current_weather_statement">CURRENT CONDITIONS ON MARS</string>
+    <string name="maximum_temperature">Max Temperature: </string>
+    <string name="minimum_temperature">Min Temperature: </string>
 </resources>

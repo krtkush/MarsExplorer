@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.maxMarsTemperatureTextView) TextView maxTemperatureTextView;
     @BindView(R.id.minMarsTemperatureTextView) TextView minTemperatureTextView;
+    @BindView(R.id.currentSol) TextView currentSolTextView;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -52,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
      * @param minMarsTemperature min temperature of the SOL
      */
     protected void setMarsTemperature(String maxMarsTemperature,
-                                      String minMarsTemperature) {
+                                      String minMarsTemperature,
+                                      String currentSol) {
 
-        maxTemperatureTextView.setText("Maximum Temperature: " + maxMarsTemperature);
-        minTemperatureTextView.setText("Minimum Temperature: " + minMarsTemperature);
+        currentSolTextView.setText(getResources().getString(R.string.main_sol) + " " + currentSol);
+        maxTemperatureTextView.setText(getResources().getString(R.string.maximum_temperature)
+                + " " + maxMarsTemperature);
+        minTemperatureTextView.setText(getResources().getString(R.string.minimum_temperature)
+                + " " + minMarsTemperature);
     }
 
     @OnClick(R.id.goToCuriosity)
