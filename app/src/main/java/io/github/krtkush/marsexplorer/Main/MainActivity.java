@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.maxMarsTemperatureTextView) TextView maxTemperatureTextView;
     @BindView(R.id.minMarsTemperatureTextView) TextView minTemperatureTextView;
     @BindView(R.id.currentSol) TextView currentSolTextView;
+    @BindView(R.id.pressureTextView) TextView atmosphericPressureTextView;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -56,18 +57,23 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method to set the temperature as provided by the report
-     * @param maxMarsTemperature max temperature of the SOL
-     * @param minMarsTemperature min temperature of the SOL
+     * @param maxMarsTemperature
+     * @param minMarsTemperature
+     * @param currentSol
+     * @param atmosphericPressure
      */
-    protected void setMarsTemperature(String maxMarsTemperature,
-                                      String minMarsTemperature,
-                                      String currentSol) {
+    protected void setMarsWeather(String maxMarsTemperature,
+                                  String minMarsTemperature,
+                                  String currentSol,
+                                  String atmosphericPressure) {
 
         currentSolTextView.setText(getResources().getString(R.string.main_sol) + " " + currentSol);
         maxTemperatureTextView.setText(getResources().getString(R.string.maximum_temperature)
                 + " " + maxMarsTemperature + "\u00B0C");
         minTemperatureTextView.setText(getResources().getString(R.string.minimum_temperature)
                 + " " + minMarsTemperature + "\u00B0C");
+        atmosphericPressureTextView.setText(getResources().getString(R.string.atmospheric_pressure)
+                + " " + atmosphericPressure + " atm");
     }
 
     @OnClick(R.id.goToCuriosity)

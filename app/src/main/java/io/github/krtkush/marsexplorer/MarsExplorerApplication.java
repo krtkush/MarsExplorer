@@ -33,9 +33,9 @@ public class MarsExplorerApplication extends Application {
         if(BuildConfig.DEBUG)
             Timber.plant(new Timber.DebugTree());
 
-        // Initialize calligraphy with the required font
+        // Initialize calligraphy with the preferred font
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Lato-Light.ttf")
+                .setDefaultFontPath("fonts/Lato-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

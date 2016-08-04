@@ -56,11 +56,12 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             public void onError(Throwable ex) {
                 ex.printStackTrace();
                 mainActivityContext
-                        .setMarsTemperature(
+                        .setMarsWeather(
                                 mainActivityContext.getResources()
                                         .getString(R.string.no_temperature),
                                 mainActivityContext.getResources()
                                         .getString(R.string.no_temperature),
+                                "",
                                 "");
             }
 
@@ -86,9 +87,10 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                     minTemperature = mainActivityContext.getResources()
                             .getString(R.string.no_temperature);
 
-                mainActivityContext.setMarsTemperature(maxTemperature,
+                mainActivityContext.setMarsWeather(maxTemperature,
                         minTemperature,
-                        marsWeatherDM.getReport().getSol().toString());
+                        marsWeatherDM.getReport().getSol().toString(),
+                        marsWeatherDM.getReport().getPressure().toString());
             }
         };
 

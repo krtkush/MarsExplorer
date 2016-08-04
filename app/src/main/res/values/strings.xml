@@ -7,4 +7,5 @@
     <string name="current_weather_statement">CURRENT CONDITIONS ON MARS</string>
     <string name="maximum_temperature">Max Temperature: </string>
     <string name="minimum_temperature">Min Temperature: </string>
+    <string name="atmospheric_pressure">Atmospheric Pressure: </string>
 </resources>
