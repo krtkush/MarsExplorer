@@ -25,4 +25,10 @@ public interface MainActivityPresenterInteractor {
      * @param roverName Rover which the user wants to explore.
      */
     void goToRoverSection(String roverName);
+
+    /**
+     * Method to check if the device is connected to the internet or not and show a warning toast
+     * in case of latter.
+     */
+    void checkInternetConnectivity();
 }

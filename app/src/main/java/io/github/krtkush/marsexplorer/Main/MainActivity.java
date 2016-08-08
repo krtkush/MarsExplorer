@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Check internet connectivity
+        presenterInteractor.checkInternetConnectivity();
+    }
+
+    @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
@@ -67,17 +76,19 @@ public class MainActivity extends AppCompatActivity {
                                   String currentSol,
                                   String atmosphericPressure) {
 
-        currentSolTextView.setText(getResources().getString(R.string.main_sol) + " " + currentSol);
-        maxTemperatureTextView.setText(getResources().getString(R.string.maximum_temperature)
-                + " " + maxMarsTemperature + "\u00B0C");
-        minTemperatureTextView.setText(getResources().getString(R.string.minimum_temperature)
-                + " " + minMarsTemperature + "\u00B0C");
-        atmosphericPressureTextView.setText(getResources().getString(R.string.atmospheric_pressure)
-                + " " + atmosphericPressure + " atm");
+        currentSolTextView.setText(currentSol);
+        maxTemperatureTextView.setText(maxMarsTemperature);
+        minTemperatureTextView.setText(minMarsTemperature);
+        atmosphericPressureTextView.setText(atmosphericPressure);
     }
 
     @OnClick(R.id.goToCuriosity)
     public void goToCuriosity(View view) {
         presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
+    }
+
+    protected void showToast(String message) {
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

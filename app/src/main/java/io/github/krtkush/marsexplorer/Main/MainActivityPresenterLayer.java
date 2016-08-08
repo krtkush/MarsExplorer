@@ -8,6 +8,7 @@ import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerActivity;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
+import io.github.krtkush.marsexplorer.UtilityMethods;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
 import rx.Subscriber;
@@ -31,6 +32,14 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
     public MainActivityPresenterLayer(MainActivity mainActivityContext) {
         this.mainActivityContext = mainActivityContext;
+    }
+
+    @Override
+    public void checkInternetConnectivity() {
+
+        if(!UtilityMethods.isNetworkAvailable())
+            mainActivityContext.showToast(mainActivityContext.getResources()
+                    .getString(R.string.no_internet));
     }
 
     /**
@@ -61,36 +70,25 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                                         .getString(R.string.no_temperature),
                                 mainActivityContext.getResources()
                                         .getString(R.string.no_temperature),
-                                "",
-                                "");
+                                mainActivityContext.getResources()
+                                        .getString(R.string.no_temperature),
+                                mainActivityContext.getResources()
+                                        .getString(R.string.no_temperature));
             }
 
             @Override
             public void onNext(MarsWeatherDM marsWeatherDM) {
 
-                String maxTemperature, minTemperature;
-
-                /**
-                 * Show "--" in case temperature is not available
-                 */
-                if(marsWeatherDM.getReport().getMaxTemp().toString() != null
-                        && !marsWeatherDM.getReport().getMaxTemp().toString().isEmpty())
-                    maxTemperature = marsWeatherDM.getReport().getMaxTemp().toString();
-                else
-                    maxTemperature = mainActivityContext.getResources()
-                            .getString(R.string.no_temperature);
-
-                if(marsWeatherDM.getReport().getMinTemp().toString() != null
-                        && !marsWeatherDM.getReport().getMinTemp().toString().isEmpty())
-                    minTemperature = marsWeatherDM.getReport().getMinTemp().toString();
-                else
-                    minTemperature = mainActivityContext.getResources()
-                            .getString(R.string.no_temperature);
-
-                mainActivityContext.setMarsWeather(maxTemperature,
-                        minTemperature,
-                        marsWeatherDM.getReport().getSol().toString(),
-                        marsWeatherDM.getReport().getPressure().toString());
+                // Prepare the text to be displayed
+                mainActivityContext.setMarsWeather(
+                        mainActivityContext.getResources().getString(R.string.maximum_temperature)
+                                + " " + marsWeatherDM.getReport().getMaxTemp() + "\u00B0C",
+                        mainActivityContext.getResources().getString(R.string.minimum_temperature)
+                                + " " + marsWeatherDM.getReport().getMinTemp() + "\u00B0C",
+                        mainActivityContext.getResources().getString(R.string.main_sol)
+                                + " " + marsWeatherDM.getReport().getSol().toString(),
+                        mainActivityContext.getResources().getString(R.string.atmospheric_pressure)
+                                + " " + marsWeatherDM.getReport().getPressure() + " atm");
             }
         };
 
