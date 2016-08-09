@@ -17,10 +17,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.maxMarsTemperatureTextView) TextView maxTemperatureTextView;
-    @BindView(R.id.minMarsTemperatureTextView) TextView minTemperatureTextView;
+    @BindView(R.id.maxMarsTemperature) TextView maxTemperatureTextView;
+    @BindView(R.id.minMarsTemperature) TextView minTemperatureTextView;
     @BindView(R.id.currentSol) TextView currentSolTextView;
-    @BindView(R.id.pressureTextView) TextView atmosphericPressureTextView;
+    @BindView(R.id.marsPressure) TextView atmosphericPressureTextView;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                                   String minMarsTemperature,
                                   String currentSol,
                                   String atmosphericPressure) {
-
         currentSolTextView.setText(currentSol);
         maxTemperatureTextView.setText(maxMarsTemperature);
         minTemperatureTextView.setText(minMarsTemperature);
@@ -87,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
         presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
     }
 
-    protected void showToast(String message) {
-
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    protected void showToast(String toastMessage, int toastDuration) {
+        Toast.makeText(this, toastMessage, toastDuration).show();
     }
 }

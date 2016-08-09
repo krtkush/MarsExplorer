@@ -1,6 +1,7 @@
 package io.github.krtkush.marsexplorer.Main;
 
 import android.content.Intent;
+import android.widget.Toast;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
@@ -36,10 +37,9 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
     @Override
     public void checkInternetConnectivity() {
-
         if(!UtilityMethods.isNetworkAvailable())
             mainActivityContext.showToast(mainActivityContext.getResources()
-                    .getString(R.string.no_internet));
+                    .getString(R.string.no_internet), Toast.LENGTH_LONG);
     }
 
     /**
@@ -81,14 +81,10 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
                 // Prepare the text to be displayed
                 mainActivityContext.setMarsWeather(
-                        mainActivityContext.getResources().getString(R.string.maximum_temperature)
-                                + " " + marsWeatherDM.getReport().getMaxTemp() + "\u00B0C",
-                        mainActivityContext.getResources().getString(R.string.minimum_temperature)
-                                + " " + marsWeatherDM.getReport().getMinTemp() + "\u00B0C",
-                        mainActivityContext.getResources().getString(R.string.main_sol)
-                                + " " + marsWeatherDM.getReport().getSol().toString(),
-                        mainActivityContext.getResources().getString(R.string.atmospheric_pressure)
-                                + " " + marsWeatherDM.getReport().getPressure() + " atm");
+                        marsWeatherDM.getReport().getMaxTemp() + "\u00B0C",
+                        marsWeatherDM.getReport().getMinTemp() + "\u00B0C",
+                        marsWeatherDM.getReport().getSol().toString(),
+                        marsWeatherDM.getReport().getPressure() + " atm");
             }
         };
 
@@ -158,14 +154,12 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
     @Override
     public void unsubscribeMaxSolRequest() {
-
         if(nasaMarsPhotoSubscriber != null)
             nasaMarsPhotoSubscriber.unsubscribe();
     }
 
     @Override
     public void unsubscribeMarsWeatherRequest() {
-
         if(maasMarsWeatherSubscriber != null)
             maasMarsWeatherSubscriber.unsubscribe();
     }

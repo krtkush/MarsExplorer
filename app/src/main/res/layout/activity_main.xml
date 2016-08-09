@@ -42,9 +42,19 @@
                     android:padding="10dp">
 
                     <TextView
+                        android:id="@+id/currentSolTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:text="@string/main_sol"/>
+
+                    <TextView
                         android:id="@+id/currentSol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/currentSolTitle"
+                        android:layout_toEndOf="@+id/currentSolTitle"
                         android:textStyle="bold"
                         android:textSize="24sp" />
 
@@ -56,26 +66,57 @@
                         android:layout_marginTop="10dp"
                         android:textSize="20sp"
                         android:visibility="gone"
-                        android:text="@string/current_weather_statement"/>
+                        android:text="@string/current_weather_statement" />
 
                     <TextView
-                        android:id="@+id/maxMarsTemperatureTextView"
+                        android:id="@+id/maxMarsTemperatureTitle"
                         android:layout_below="@+id/weatherStatementTextView"
                         android:layout_marginTop="5dp"
                         android:textSize="18sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/maximum_temperature"/>
 
                     <TextView
-                        android:id="@+id/minMarsTemperatureTextView"
-                        android:layout_below="@id/maxMarsTemperatureTextView"
+                        android:id="@+id/maxMarsTemperature"
+                        android:layout_below="@+id/weatherStatementTextView"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/maxMarsTemperatureTitle"
+                        android:layout_toEndOf="@+id/maxMarsTemperatureTitle"
                         android:textSize="18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/pressureTextView"
-                        android:layout_below="@id/minMarsTemperatureTextView"
+                        android:id="@+id/minMarsTemperatureTitle"
+                        android:layout_below="@+id/maxMarsTemperature"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/minimum_temperature"/>
+
+                    <TextView
+                        android:id="@+id/minMarsTemperature"
+                        android:layout_below="@+id/maxMarsTemperature"
+                        android:layout_toRightOf="@+id/minMarsTemperatureTitle"
+                        android:layout_toEndOf="@+id/minMarsTemperatureTitle"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/marsPressureTitle"
+                        android:layout_below="@+id/minMarsTemperature"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/atmospheric_pressure"/>
+
+                    <TextView
+                        android:id="@+id/marsPressure"
+                        android:layout_below="@+id/minMarsTemperature"
+                        android:layout_toRightOf="@+id/marsPressureTitle"
+                        android:layout_toEndOf="@+id/marsPressureTitle"
                         android:textSize="18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
