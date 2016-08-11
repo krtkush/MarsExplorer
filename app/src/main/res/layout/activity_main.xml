@@ -136,27 +136,66 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryLight"
-                    android:padding="10dp">
+                    android:clickable="true"
+                    android:background="@color/colorPrimaryLight">
 
                     <TextView
-                        android:id="@+id/exploreTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="22sp"
-                        android:text="Explore"/>
-
-                    <Button
                         android:id="@+id/goToCuriosity"
-                        android:layout_below="@+id/exploreTextView"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="curiosity"/>
+                        android:padding="20dp"
+                        android:gravity="center"
+                        android:text="CURIOSITY"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="3dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryLight">
 
                     <TextView
-                        android:layout_below="@+id/goToCuriosity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:id="@+id/goToOpportunity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:gravity="center"
+                        android:text="OPPORTUNITY"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="3dp"
+                app:cardPreventCornerOverlap="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryLight">
+
+                    <TextView
+                        android:id="@+id/goToSpirit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:gravity="center"
+                        android:text="SPIRIT"/>
 
                 </RelativeLayout>
 

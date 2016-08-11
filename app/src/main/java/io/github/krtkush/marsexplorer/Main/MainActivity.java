@@ -81,9 +81,23 @@ public class MainActivity extends AppCompatActivity {
         atmosphericPressureTextView.setText(atmosphericPressure);
     }
 
-    @OnClick(R.id.goToCuriosity)
-    public void goToCuriosity(View view) {
-        presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
+    @OnClick({R.id.goToCuriosity, R.id.goToOpportunity, R.id.goToSpirit })
+    public void goToRoverExplorer(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.goToCuriosity:
+                presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
+                break;
+
+            case R.id.goToOpportunity:
+                presenterInteractor.goToRoverSection(GeneralConstants.Opportunity);
+                break;
+
+            case R.id.goToSpirit:
+                presenterInteractor.goToRoverSection(GeneralConstants.Spirit);
+                break;
+        }
     }
 
     protected void showToast(String toastMessage, int toastDuration) {
