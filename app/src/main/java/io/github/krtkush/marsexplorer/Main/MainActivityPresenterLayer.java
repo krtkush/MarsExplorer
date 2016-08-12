@@ -66,13 +66,13 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                 ex.printStackTrace();
                 mainActivityContext
                         .setMarsWeather(
-                                mainActivityContext.getResources()
+                                " " + mainActivityContext.getResources()
                                         .getString(R.string.no_temperature),
-                                mainActivityContext.getResources()
+                                " " + mainActivityContext.getResources()
                                         .getString(R.string.no_temperature),
-                                mainActivityContext.getResources()
+                                " " + mainActivityContext.getResources()
                                         .getString(R.string.no_temperature),
-                                mainActivityContext.getResources()
+                                " " + mainActivityContext.getResources()
                                         .getString(R.string.no_temperature));
             }
 

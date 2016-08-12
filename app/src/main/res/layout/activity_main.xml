@@ -139,12 +139,22 @@
                     android:clickable="true"
                     android:background="@color/colorPrimaryLight">
 
+                    <ImageView
+                        android:id="@+id/goToCuriosityButtonBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="62dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/curiosity"/>
+
                     <TextView
                         android:id="@+id/goToCuriosity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="20dp"
                         android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryLight"
                         android:text="CURIOSITY"/>
 
                 </RelativeLayout>
@@ -164,12 +174,22 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimaryLight">
 
+                    <ImageView
+                        android:id="@+id/goToOpportunityButtonBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="62dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/opportunity"/>
+
                     <TextView
                         android:id="@+id/goToOpportunity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="20dp"
                         android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryLight"
                         android:text="OPPORTUNITY"/>
 
                 </RelativeLayout>
@@ -189,12 +209,22 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimaryLight">
 
+                    <ImageView
+                        android:id="@+id/goToSpiritButtonBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="62dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/spirit"/>
+
                     <TextView
                         android:id="@+id/goToSpirit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="20dp"
                         android:gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryLight"
                         android:text="SPIRIT"/>
 
                 </RelativeLayout>
