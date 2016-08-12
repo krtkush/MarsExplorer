@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/colorAccent"
     tools:context=".Main.MainActivity">
 
     <ImageView
@@ -38,7 +37,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryLight"
+                    android:clickable="true"
                     android:padding="10dp">
 
                     <TextView
@@ -133,31 +132,26 @@
                 app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="true">
 
-                <RelativeLayout
+                <ImageView
+                    android:id="@+id/goToCuriosityButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/curiosity"/>
+
+                <TextView
+                    android:id="@+id/goToCuriosity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:gravity="center"
                     android:clickable="true"
-                    android:background="@color/colorPrimaryLight">
-
-                    <ImageView
-                        android:id="@+id/goToCuriosityButtonBackground"
-                        android:layout_width="match_parent"
-                        android:layout_height="62dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/curiosity"/>
-
-                    <TextView
-                        android:id="@+id/goToCuriosity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:gravity="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryLight"
-                        android:text="CURIOSITY"/>
-
-                </RelativeLayout>
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:text="CURIOSITY"/>
 
             </android.support.v7.widget.CardView>
 
@@ -169,65 +163,57 @@
                 app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="true">
 
-                <RelativeLayout
+                <ImageView
+                    android:id="@+id/goToOpportunityButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryLight">
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/opportunity"/>
 
-                    <ImageView
-                        android:id="@+id/goToOpportunityButtonBackground"
-                        android:layout_width="match_parent"
-                        android:layout_height="62dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/opportunity"/>
-
-                    <TextView
-                        android:id="@+id/goToOpportunity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:gravity="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryLight"
-                        android:text="OPPORTUNITY"/>
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/goToOpportunity"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:text="OPPORTUNITY"/>
 
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 app:cardCornerRadius="2dp"
                 app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="true">
 
-                <RelativeLayout
+                <ImageView
+                    android:id="@+id/goToSpiritButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryLight">
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/spirit"/>
 
-                    <ImageView
-                        android:id="@+id/goToSpiritButtonBackground"
-                        android:layout_width="match_parent"
-                        android:layout_height="62dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/spirit"/>
-
-                    <TextView
-                        android:id="@+id/goToSpirit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        android:gravity="center"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryLight"
-                        android:text="SPIRIT"/>
-
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/goToSpirit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:text="SPIRIT"/>
 
             </android.support.v7.widget.CardView>
 
