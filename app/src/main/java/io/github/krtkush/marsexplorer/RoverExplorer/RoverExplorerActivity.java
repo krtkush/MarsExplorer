@@ -20,11 +20,6 @@ public class RoverExplorerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Timber.tag(RoverExplorerActivity.this.getClass().getSimpleName());
         presenterInteractor = new RoverExplorerPresenterLayer(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         // Get the rover name and its respective max SOL via the intent
         presenterInteractor.getRoverNameFromIntent();
