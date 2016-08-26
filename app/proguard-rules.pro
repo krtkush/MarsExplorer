@@ -29,3 +29,6 @@
 -keep class butterknife.*
 -keepclasseswithmembernames class * { @butterknife.* <methods>; }
 -keepclasseswithmembernames class * { @butterknife.* <fields>; }
+
+# OkHttp
+-dontwarn com.squareup.okhttp.**

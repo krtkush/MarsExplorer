@@ -9,6 +9,10 @@ import android.view.View;
  */
 public class PhotosGridItemDecoration extends RecyclerView.ItemDecoration {
 
+    /**
+     * Copied from: https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
+     */
+
     private int spanCount;
     private int spacing;
     private boolean includeEdge;

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
@@ -41,6 +43,9 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
         // Populate the views with data here here
+        Picasso.with(context)
+                .load(photos.get(position).getImgSrc())
+                .into(photosViewHolder.photoHolder);
     }
 
     @Override
