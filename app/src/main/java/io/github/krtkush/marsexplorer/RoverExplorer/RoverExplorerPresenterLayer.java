@@ -28,10 +28,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
     // Variables related to RecyclerView
-    private RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
     private PhotosRecyclerViewAdapter photosRecyclerViewAdapter;
-
+    // List of all the photos and their respective details
     private List<Photo> photoList;
 
     public RoverExplorerPresenterLayer(RoverExplorerActivity roverExplorerActivityContext) {
@@ -84,7 +82,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             public void onNext(PhotoSearchResultDM photoSearchResultDM) {
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photoSearchResultDM.getPhotos().size());
-                photoSearchResultDM.getPhotos().get(0).getImgSrc();
                 photoList.addAll(photoSearchResultDM.getPhotos());
                 photosRecyclerViewAdapter.notifyDataSetChanged();
             }
@@ -99,12 +96,12 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
     @Override
     public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-        this.recyclerView.setHasFixedSize(true);
-        gridLayoutManager = new GridLayoutManager(roverExplorerActivityContext, 2);
-        this.recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(roverExplorerActivityContext, 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
         photosRecyclerViewAdapter =
                 new PhotosRecyclerViewAdapter(roverExplorerActivityContext, photoList);
+        recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
         recyclerView.setAdapter(photosRecyclerViewAdapter);
     }
 
