@@ -2,14 +2,20 @@ package io.github.krtkush.marsexplorer.RoverExplorer;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
 public class RoverExplorerActivity extends AppCompatActivity {
 
+    @BindView(R.id.photosRecyclerView) RecyclerView photosRecyclerView;
+
     private RoverExplorerPresenterInteractor presenterInteractor;
+    private GridLayoutManager gridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,11 @@ public class RoverExplorerActivity extends AppCompatActivity {
 
         // Request for rover's photos
         presenterInteractor.getRoverPhotos();
+
+        // Initialize the recyclerview
+        photosRecyclerView.setHasFixedSize(true);
+        gridLayoutManager = new GridLayoutManager(RoverExplorerActivity.this, 2);
+        photosRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     @Override
