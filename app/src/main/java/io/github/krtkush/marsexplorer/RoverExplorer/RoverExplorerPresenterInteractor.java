@@ -1,5 +1,7 @@
 package io.github.krtkush.marsexplorer.RoverExplorer;
 
+import android.support.v7.widget.RecyclerView;
+
 /**
  * Created by kartikeykushwaha on 17/07/16.
  */
@@ -26,4 +28,9 @@ public interface RoverExplorerPresenterInteractor {
      * Method to get the basic details of given rover
      */
     void getRoverBasicDetails();
+
+    /**
+     * Method to initialize the RecyclerView and set the data via the adapter
+     */
+    void prepareRecyclerViewAndAddData(RecyclerView recyclerView);
 }

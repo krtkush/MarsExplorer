@@ -1,6 +1,13 @@
 package io.github.krtkush.marsexplorer.RoverExplorer;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import rx.Observable;
 import rx.Subscriber;
@@ -20,8 +27,16 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private int requiredPage;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
+    // Variables related to RecyclerView
+    private RecyclerView recyclerView;
+    private GridLayoutManager gridLayoutManager;
+    private PhotosRecyclerViewAdapter photosRecyclerViewAdapter;
+
+    private List<Photo> photoList;
+
     public RoverExplorerPresenterLayer(RoverExplorerActivity roverExplorerActivityContext) {
         this.roverExplorerActivityContext = roverExplorerActivityContext;
+        photoList = new ArrayList<>();
         requiredPage = 1;
     }
 
@@ -70,6 +85,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photoSearchResultDM.getPhotos().size());
                 photoSearchResultDM.getPhotos().get(0).getImgSrc();
+                photoList.addAll(photoSearchResultDM.getPhotos());
+                photosRecyclerViewAdapter.notifyDataSetChanged();
             }
         };
 
@@ -78,6 +95,17 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(nasaMarsPhotoSubscriber);
+    }
+
+    @Override
+    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+        this.recyclerView.setHasFixedSize(true);
+        gridLayoutManager = new GridLayoutManager(roverExplorerActivityContext, 2);
+        this.recyclerView.setLayoutManager(gridLayoutManager);
+        photosRecyclerViewAdapter =
+                new PhotosRecyclerViewAdapter(roverExplorerActivityContext, photoList);
+        recyclerView.setAdapter(photosRecyclerViewAdapter);
     }
 
     @Override

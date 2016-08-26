@@ -27,17 +27,18 @@ public class RoverExplorerActivity extends AppCompatActivity {
         Timber.tag(RoverExplorerActivity.this.getClass().getSimpleName());
         presenterInteractor = new RoverExplorerPresenterLayer(this);
 
+        // Initialize the RecyclerView
+        presenterInteractor.prepareRecyclerViewAndAddData(photosRecyclerView);
+        photosRecyclerView.setHasFixedSize(true);
+        gridLayoutManager = new GridLayoutManager(RoverExplorerActivity.this, 2);
+        photosRecyclerView.setLayoutManager(gridLayoutManager);
+
         // Get the rover name and its respective max SOL via the intent
         presenterInteractor.getRoverNameFromIntent();
         presenterInteractor.getRoverSolFromIntent();
 
         // Request for rover's photos
         presenterInteractor.getRoverPhotos();
-
-        // Initialize the recyclerview
-        photosRecyclerView.setHasFixedSize(true);
-        gridLayoutManager = new GridLayoutManager(RoverExplorerActivity.this, 2);
-        photosRecyclerView.setLayoutManager(gridLayoutManager);
     }
 
     @Override
