@@ -101,7 +101,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         recyclerView.setLayoutManager(gridLayoutManager);
         photosRecyclerViewAdapter =
                 new PhotosRecyclerViewAdapter(roverExplorerActivityContext, photoList);
-        recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
+        //recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(photosRecyclerViewAdapter);
     }
 

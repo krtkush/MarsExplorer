@@ -30,7 +30,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        RecyclerView.ViewHolder viewHolder = null;
+        RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.photos_grid_element_layout, parent, false);
         viewHolder = new PhotosViewHolder(view);
@@ -43,8 +43,10 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
         // Populate the views with data here here
-        Picasso.with(context)
+        Picasso
+                .with(context)
                 .load(photos.get(position).getImgSrc())
+                .fit()
                 .into(photosViewHolder.photoHolder);
     }
 
