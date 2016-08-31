@@ -42,7 +42,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
-        // Populate the views with data here here
+        // Populate the views with the data
         Picasso
                 .with(context)
                 .load(photos.get(position).getImgSrc())

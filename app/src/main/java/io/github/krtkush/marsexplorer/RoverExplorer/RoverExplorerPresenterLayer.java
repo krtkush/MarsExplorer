@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.krtkush.marsexplorer.InfinityScrollListener;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
@@ -95,14 +96,19 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     }
 
     @Override
-    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
+    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView,
+                                              GridLayoutManager gridLayoutManager) {
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(roverExplorerActivityContext, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int pageIndex) {
+                Timber.i("Time to load more data");
+            }
+        });
         photosRecyclerViewAdapter =
                 new PhotosRecyclerViewAdapter(roverExplorerActivityContext, photoList);
-        //recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
-        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
         recyclerView.setAdapter(photosRecyclerViewAdapter);
     }
 

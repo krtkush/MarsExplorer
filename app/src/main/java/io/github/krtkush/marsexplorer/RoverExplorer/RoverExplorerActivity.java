@@ -15,7 +15,6 @@ public class RoverExplorerActivity extends AppCompatActivity {
     @BindView(R.id.photosRecyclerView) RecyclerView photosRecyclerView;
 
     private RoverExplorerPresenterInteractor presenterInteractor;
-    private GridLayoutManager gridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +27,9 @@ public class RoverExplorerActivity extends AppCompatActivity {
         presenterInteractor = new RoverExplorerPresenterLayer(this);
 
         // Initialize the RecyclerView
-        presenterInteractor.prepareRecyclerViewAndAddData(photosRecyclerView);
         photosRecyclerView.setHasFixedSize(true);
-        gridLayoutManager = new GridLayoutManager(RoverExplorerActivity.this, 2);
-        photosRecyclerView.setLayoutManager(gridLayoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(RoverExplorerActivity.this, 2);
+        presenterInteractor.prepareRecyclerViewAndAddData(photosRecyclerView, gridLayoutManager);
 
         // Get the rover name and its respective max SOL via the intent
         presenterInteractor.getRoverNameFromIntent();

@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.RoverExplorer;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 /**
@@ -32,5 +33,5 @@ public interface RoverExplorerPresenterInteractor {
     /**
      * Method to initialize the RecyclerView and set the data via the adapter
      */
-    void prepareRecyclerViewAndAddData(RecyclerView recyclerView);
+    void prepareRecyclerViewAndAddData(RecyclerView recyclerView, GridLayoutManager gridLayoutManager);
 }
