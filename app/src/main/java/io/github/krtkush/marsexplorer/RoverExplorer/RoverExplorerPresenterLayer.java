@@ -24,9 +24,14 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private RoverExplorerActivity roverExplorerActivityContext;
     private String roverName;
     private String roverSol;
-    // The page number for a particular SOL
-    private int requiredPage;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
+
+    // The index number of the page to load
+    private int pageIndex = 1;
+    // Flag to indicate if an API request is in process or not
+    private boolean isFetchingDataFromApi;
+    // Flag to indicate if the last page of given SOL has been hit or not
+    private boolean isMaxPage = false;
 
     // Variables related to RecyclerView
     private PhotosRecyclerViewAdapter photosRecyclerViewAdapter;
@@ -36,7 +41,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     public RoverExplorerPresenterLayer(RoverExplorerActivity roverExplorerActivityContext) {
         this.roverExplorerActivityContext = roverExplorerActivityContext;
         photoList = new ArrayList<>();
-        requiredPage = 1;
     }
 
     @Override
@@ -65,30 +69,39 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(true, true, roverName, roverSol, requiredPage);
+                .getPhotosBySol(true, true, roverName, roverSol, pageIndex);
 
         // Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
             @Override
             public void onCompleted() {
                 Timber.i("Photos of %s retrieved", roverName);
+                isFetchingDataFromApi = false;
             }
 
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
+                isFetchingDataFromApi = false;
             }
 
             @Override
             public void onNext(PhotoSearchResultDM photoSearchResultDM) {
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photoSearchResultDM.getPhotos().size());
-                photoList.addAll(photoSearchResultDM.getPhotos());
+
+                if(photoSearchResultDM.getPhotos().size() != 0)
+                    photoList.addAll(photoSearchResultDM.getPhotos());
+                else
+                    // Reached end of page for given SOL
+                    isMaxPage = true;
+
                 photosRecyclerViewAdapter.notifyDataSetChanged();
             }
         };
 
         // Subscribe to the observable
+        isFetchingDataFromApi = true;
         nasaMarsPhotosObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
@@ -100,10 +113,14 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                                               GridLayoutManager gridLayoutManager) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager) {
+        recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
             @Override
-            public void onLoadMore(int pageIndex) {
-                Timber.i("Time to load more data");
+            public void loadMore(int newPageIndex) {
+                pageIndex = newPageIndex;
+                // Attempt to load more pics only if we have not reached the max page
+                // and any previous API request is not active
+                if(!isMaxPage && !isFetchingDataFromApi)
+                    getRoverPhotos();
             }
         });
         photosRecyclerViewAdapter =
