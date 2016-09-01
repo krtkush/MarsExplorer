@@ -20,6 +20,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private RoverExplorerTabHostActivity context;
     private String roverName;
     private String roverSol;
+    // Variable to keep track of how many SOLs have had their respective fragments added
+    // to the viewpager
     private int roverSolTracker;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity context) {
@@ -54,28 +56,67 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     @Override
-    public void prepareViewPager(final ViewPager viewPager, TabLayout tabLayout) {
+    public void prepareViewPager(final ViewPager viewPager, final TabLayout tabLayout) {
 
-        List<Fragment> fragmentCollection = new ArrayList<>();
+        int numberOfInitialTabs = 10;
+
+        final List<Fragment> fragmentList = new ArrayList<>();
+        final List<String> solList = new ArrayList<>();
+        final TabData tabData = new TabData();
+
         roverSolTracker = Integer.valueOf(roverSol);
 
-        // Initiate three fragments for the last three SOLs respectively
-        for(int fragmentCount = Integer.valueOf(roverSol);
-            fragmentCount > Integer.valueOf(roverSol) - 3;
+        // Initiate and three fragments into the  for the last three SOLs respectively
+        for(int fragmentCount = roverSolTracker;
+            fragmentCount > Integer.valueOf(roverSol) - numberOfInitialTabs;
             fragmentCount--) {
 
             Bundle args = new Bundle();
             args.putInt("sol", roverSolTracker);
 
-            fragmentCollection.add(Fragment.instantiate(context,
+            fragmentList.add(Fragment.instantiate(context,
                     RoverExplorerFragment.class.getName(), args));
+            solList.add(String.valueOf(roverSolTracker));
+            tabData.setFragmentList(fragmentList);
+            tabData.setSolList(solList);
 
             roverSolTracker--;
         }
 
-        ViewPagerAdapter viewPagerAdapter =
-                new ViewPagerAdapter(context.getSupportFragmentManager(), fragmentCollection);
+        final ViewPagerAdapter viewPagerAdapter =
+                new ViewPagerAdapter(context.getSupportFragmentManager(), tabData);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                // Check if the user has reached the second last or last tab.
+                // If he/ she has and the SOL is not below 0, add another tab
+                if(fragmentList.size() - position <= 2 && roverSolTracker >= 0) {
+
+                    Bundle args = new Bundle();
+                    args.putInt("sol", roverSolTracker);
+                    fragmentList.add(Fragment.instantiate(context,
+                            RoverExplorerFragment.class.getName(), args));
+                    solList.add(String.valueOf(roverSolTracker));
+                    tabData.setFragmentList(fragmentList);
+                    tabData.setSolList(solList);
+
+                    viewPagerAdapter.notifyDataSetChanged();
+                    roverSolTracker--;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 }

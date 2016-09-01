@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways"
                 android:layout_gravity="bottom"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:tabMode="scrollable" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

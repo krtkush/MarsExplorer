@@ -4,37 +4,32 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.List;
-
 /**
  * Created by kartikeykushwaha on 01/09/16.
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private int pageCount = 3;
-    private String sol;
-    private String roverName;
-    private List<Fragment> fragmentCollection;
+    private TabData tabData;
 
     public ViewPagerAdapter(FragmentManager fragmentManager,
-                            List<Fragment> fragmentCollection) {
+                            TabData tabData) {
         super(fragmentManager);
 
-        this.fragmentCollection = fragmentCollection;
+        this.tabData = tabData;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragmentCollection.get(position);
+        return tabData.getFragmentList().get(position);
     }
 
     @Override
     public int getCount() {
-        return fragmentCollection.size();
+        return tabData.getFragmentList().size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "SOL";
+        return  "SOL " + tabData.getSolList().get(position);
     }
 }
