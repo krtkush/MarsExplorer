@@ -22,7 +22,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private RoverExplorerTabHostActivity context;
     private String roverName;
     private String roverSol;
-    // Variable to keep track of how many SOLs have had their respective fragments added
+    // Variable to keep track of how many SOLs have had their respective fragments have been added
     // to the viewpager
     private int roverSolTracker;
 
@@ -107,6 +107,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                     viewPagerAdapter.notifyDataSetChanged();
                     roverSolTracker--;
                 }
+
+                viewPager.setCurrentItem(position);
             }
 
             @Override
