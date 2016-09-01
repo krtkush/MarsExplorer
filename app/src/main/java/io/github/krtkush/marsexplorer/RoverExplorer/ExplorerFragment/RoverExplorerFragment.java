@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RoverExplorer;
+package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,23 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import timber.log.Timber;
 
 /**
  * Created by kartikeykushwaha on 01/09/16.
  */
 public class RoverExplorerFragment extends Fragment {
-    
-    public static RoverExplorerFragment newInstance(String sol, String roverName) {
-        
-        Bundle args = new Bundle();
-        RoverExplorerFragment fragment = new RoverExplorerFragment();
-
-        args.putString("sol", sol);
-        args.putString("roverName", roverName);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onResume() {
@@ -41,9 +31,8 @@ public class RoverExplorerFragment extends Fragment {
         Timber.tag(getActivity().getClass().getSimpleName());
 
         Bundle args = getArguments();
-        int testVal = args.getInt("sol");
-        Timber.i("Sol: %s", String.valueOf(testVal));
-        Timber.i("Fragment created");
+        int testVal = args.getInt(RoverExplorerConstants.roverSolTrack);
+        Timber.i("Fragment for Sol %s created", String.valueOf(testVal));
 
         return rootView;
     }

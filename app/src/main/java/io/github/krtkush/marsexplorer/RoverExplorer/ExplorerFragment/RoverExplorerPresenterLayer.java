@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RoverExplorer;
+package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,8 @@ import io.github.krtkush.marsexplorer.InfinityScrollListener;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
+import io.github.krtkush.marsexplorer.RoverExplorer.TabHost.RoverExplorerTabHostActivity;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

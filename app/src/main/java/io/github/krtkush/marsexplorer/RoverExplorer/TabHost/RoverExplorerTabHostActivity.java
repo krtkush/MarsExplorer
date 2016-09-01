@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RoverExplorer;
+package io.github.krtkush.marsexplorer.RoverExplorer.TabHost;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -33,7 +33,7 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         presenterInteractor.getRoverSolFromIntent();
 
         // Prepare the tabs
-        presenterInteractor.prepareViewPager(viewPager, tabLayout);
+        presenterInteractor.prepareAndImplementViewPager(viewPager, tabLayout);
     }
 
     @Override

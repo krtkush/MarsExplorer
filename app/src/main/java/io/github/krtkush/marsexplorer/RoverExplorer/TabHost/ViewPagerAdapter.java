@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RoverExplorer;
+package io.github.krtkush.marsexplorer.RoverExplorer.TabHost;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

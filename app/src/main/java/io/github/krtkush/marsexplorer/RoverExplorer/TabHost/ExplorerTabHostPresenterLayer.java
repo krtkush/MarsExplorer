@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RoverExplorer;
+package io.github.krtkush.marsexplorer.RoverExplorer.TabHost;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
+import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.UtilityMethods;
 
 /**
@@ -25,7 +27,6 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private int roverSolTracker;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity context) {
-
         this.context = context;
     }
 
@@ -34,11 +35,6 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         if(!UtilityMethods.isNetworkAvailable())
             context.showToast(context.getResources()
                     .getString(R.string.no_internet), Toast.LENGTH_LONG);
-    }
-
-    @Override
-    public void getRoverBasicDetails() {
-
     }
 
     @Override
@@ -56,7 +52,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     @Override
-    public void prepareViewPager(final ViewPager viewPager, final TabLayout tabLayout) {
+    public void prepareAndImplementViewPager(final ViewPager viewPager, final TabLayout tabLayout) {
 
         int numberOfInitialTabs = 10;
 
@@ -72,7 +68,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
             fragmentCount--) {
 
             Bundle args = new Bundle();
-            args.putInt("sol", roverSolTracker);
+            args.putInt(RoverExplorerConstants.roverSolTrack, roverSolTracker);
 
             fragmentList.add(Fragment.instantiate(context,
                     RoverExplorerFragment.class.getName(), args));
@@ -101,7 +97,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                 if(fragmentList.size() - position <= 2 && roverSolTracker >= 0) {
 
                     Bundle args = new Bundle();
-                    args.putInt("sol", roverSolTracker);
+                    args.putInt(RoverExplorerConstants.roverSolTrack, roverSolTracker);
                     fragmentList.add(Fragment.instantiate(context,
                             RoverExplorerFragment.class.getName(), args));
                     solList.add(String.valueOf(roverSolTracker));

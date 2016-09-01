@@ -8,4 +8,5 @@ public class RoverExplorerConstants {
     // Constants for identifying data being passed via intents
     public static final String roverNameExtra = "roverName";
     public static final String roverMaxSolExtra = "maxSol";
+    public static final String roverSolTrack = "solTrack";
 }

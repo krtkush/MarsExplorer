@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RoverExplorer;
+package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
