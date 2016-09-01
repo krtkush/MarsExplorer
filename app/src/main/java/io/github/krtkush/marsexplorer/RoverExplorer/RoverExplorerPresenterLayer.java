@@ -2,7 +2,6 @@ package io.github.krtkush.marsexplorer.RoverExplorer;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,6 @@ import io.github.krtkush.marsexplorer.InfinityScrollListener;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
-import io.github.krtkush.marsexplorer.R;
-import io.github.krtkush.marsexplorer.UtilityMethods;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,7 +21,7 @@ import timber.log.Timber;
  */
 public class RoverExplorerPresenterLayer implements RoverExplorerPresenterInteractor {
 
-    private RoverExplorerActivity roverExplorerActivityContext;
+    private RoverExplorerTabHostActivity roverExplorerTabHostActivity;
     private String roverName;
     private String roverSol;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
@@ -41,29 +38,22 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // List of all the photos and their respective details
     private List<Photo> photoList;
 
-    public RoverExplorerPresenterLayer(RoverExplorerActivity roverExplorerActivityContext) {
-        this.roverExplorerActivityContext = roverExplorerActivityContext;
+    public RoverExplorerPresenterLayer(RoverExplorerTabHostActivity roverExplorerTabHostActivity) {
+        this.roverExplorerTabHostActivity = roverExplorerTabHostActivity;
         photoList = new ArrayList<>();
-    }
-
-    @Override
-    public void checkInternetConnectivity() {
-        if(!UtilityMethods.isNetworkAvailable())
-            roverExplorerActivityContext.showToast(roverExplorerActivityContext.getResources()
-                    .getString(R.string.no_internet), Toast.LENGTH_LONG);
     }
 
     @Override
     public void getRoverNameFromIntent() {
         roverName =
-                roverExplorerActivityContext.getIntent()
+                roverExplorerTabHostActivity.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverNameExtra);
     }
 
     @Override
     public void getRoverSolFromIntent() {
         roverSol =
-                roverExplorerActivityContext.getIntent()
+                roverExplorerTabHostActivity.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
     }
 
@@ -134,7 +124,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             }
         });
         photosRecyclerViewAdapter =
-                new PhotosRecyclerViewAdapter(roverExplorerActivityContext, photoList);
+                new PhotosRecyclerViewAdapter(roverExplorerTabHostActivity, photoList);
         recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
         recyclerView.setAdapter(photosRecyclerViewAdapter);
     }

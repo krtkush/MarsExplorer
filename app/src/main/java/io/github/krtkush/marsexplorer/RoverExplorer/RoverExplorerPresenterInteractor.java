@@ -34,10 +34,4 @@ public interface RoverExplorerPresenterInteractor {
      * Method to initialize the RecyclerView and set the data via the adapter
      */
     void prepareRecyclerViewAndAddData(RecyclerView recyclerView, GridLayoutManager gridLayoutManager);
-
-    /**
-     * Method to check if the device is connected to the internet or not and show a warning toast
-     * in case of latter.
-     */
-    void checkInternetConnectivity();
 }

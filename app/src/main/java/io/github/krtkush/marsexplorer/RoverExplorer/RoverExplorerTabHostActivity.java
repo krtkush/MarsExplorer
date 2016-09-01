@@ -1,8 +1,9 @@
 package io.github.krtkush.marsexplorer.RoverExplorer;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
@@ -11,11 +12,13 @@ import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
-public class RoverExplorerActivity extends AppCompatActivity {
+public class RoverExplorerTabHostActivity extends AppCompatActivity {
 
     @BindView(R.id.photosRecyclerView) RecyclerView photosRecyclerView;
+    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.viewPager) ViewPager viewPager;
 
-    private RoverExplorerPresenterInteractor presenterInteractor;
+    private ExplorerTabHostPresenterInteractor presenterInteractor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,35 +27,22 @@ public class RoverExplorerActivity extends AppCompatActivity {
 
         // Initialise butterknife, timber and the presenter layer
         ButterKnife.bind(this);
-        Timber.tag(RoverExplorerActivity.this.getClass().getSimpleName());
-        presenterInteractor = new RoverExplorerPresenterLayer(this);
-
-        // Initialize the RecyclerView
-        photosRecyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(RoverExplorerActivity.this, 2);
-        presenterInteractor.prepareRecyclerViewAndAddData(photosRecyclerView, gridLayoutManager);
+        Timber.tag(RoverExplorerTabHostActivity.this.getClass().getSimpleName());
+        presenterInteractor = new ExplorerTabHostPresenterLayer(this);
 
         // Get the rover name and its respective max SOL via the intent
         presenterInteractor.getRoverNameFromIntent();
         presenterInteractor.getRoverSolFromIntent();
 
-        // Request for rover's photos
-        presenterInteractor.getRoverPhotos();
+        // Prepare the tabs
+        presenterInteractor.prepareViewPager(viewPager, tabLayout);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        // Check internet connectivity
         presenterInteractor.checkInternetConnectivity();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        presenterInteractor.unsubscribeRoverPhotosRequest();
     }
 
     /**
