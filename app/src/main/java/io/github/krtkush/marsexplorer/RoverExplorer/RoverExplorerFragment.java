@@ -14,6 +14,17 @@ import timber.log.Timber;
  * Created by kartikeykushwaha on 01/09/16.
  */
 public class RoverExplorerFragment extends Fragment {
+    
+    public static RoverExplorerFragment newInstance(String sol, String roverName) {
+        
+        Bundle args = new Bundle();
+        RoverExplorerFragment fragment = new RoverExplorerFragment();
+
+        args.putString("sol", sol);
+        args.putString("roverName", roverName);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onResume() {
@@ -27,8 +38,12 @@ public class RoverExplorerFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.common_recyclerview_layout, container, false);
-
         Timber.tag(getActivity().getClass().getSimpleName());
+
+        Bundle args = getArguments();
+        int testVal = args.getInt("sol");
+        Timber.i("Sol: %s", String.valueOf(testVal));
+        Timber.i("Fragment created");
 
         return rootView;
     }

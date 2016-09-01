@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -14,7 +13,6 @@ import timber.log.Timber;
 
 public class RoverExplorerTabHostActivity extends AppCompatActivity {
 
-    @BindView(R.id.photosRecyclerView) RecyclerView photosRecyclerView;
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.viewPager) ViewPager viewPager;
 

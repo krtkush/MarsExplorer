@@ -55,7 +55,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         return photos.size();
     }
 
-    class PhotosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class PhotosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView photoHolder;
 

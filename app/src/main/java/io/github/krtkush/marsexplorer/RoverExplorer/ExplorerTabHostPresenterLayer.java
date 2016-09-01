@@ -1,8 +1,13 @@
 package io.github.krtkush.marsexplorer.RoverExplorer;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.UtilityMethods;
@@ -15,6 +20,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private RoverExplorerTabHostActivity context;
     private String roverName;
     private String roverSol;
+    private int roverSolTracker;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity context) {
 
@@ -48,27 +54,28 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     @Override
-    public void prepareViewPager(ViewPager viewPager, TabLayout tabLayout) {
+    public void prepareViewPager(final ViewPager viewPager, TabLayout tabLayout) {
+
+        List<Fragment> fragmentCollection = new ArrayList<>();
+        roverSolTracker = Integer.valueOf(roverSol);
+
+        // Initiate three fragments for the last three SOLs respectively
+        for(int fragmentCount = Integer.valueOf(roverSol);
+            fragmentCount > Integer.valueOf(roverSol) - 3;
+            fragmentCount--) {
+
+            Bundle args = new Bundle();
+            args.putInt("sol", roverSolTracker);
+
+            fragmentCollection.add(Fragment.instantiate(context,
+                    RoverExplorerFragment.class.getName(), args));
+
+            roverSolTracker--;
+        }
 
         ViewPagerAdapter viewPagerAdapter =
-                new ViewPagerAdapter(context.getSupportFragmentManager());
+                new ViewPagerAdapter(context.getSupportFragmentManager(), fragmentCollection);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
     }
 }
