@@ -11,7 +11,7 @@ import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
-import io.github.krtkush.marsexplorer.RoverExplorer.TabHost.RoverExplorerTabHostActivity;
+import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
