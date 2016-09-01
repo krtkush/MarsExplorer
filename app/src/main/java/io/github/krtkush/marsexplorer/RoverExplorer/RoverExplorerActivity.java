@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,9 +41,26 @@ public class RoverExplorerActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Check internet connectivity
+        presenterInteractor.checkInternetConnectivity();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
         presenterInteractor.unsubscribeRoverPhotosRequest();
+    }
+
+    /**
+     * Method to make toast on this activity
+     * @param toastMessage The message to be displayed
+     * @param toastDuration Duration for the toast to be visible
+     */
+    protected void showToast(String toastMessage, int toastDuration) {
+        Toast.makeText(this, toastMessage, toastDuration).show();
     }
 }

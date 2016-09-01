@@ -100,6 +100,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to make toast on this activity
+     * @param toastMessage The message to be displayed
+     * @param toastDuration Duration for the toast to be visible
+     */
     protected void showToast(String toastMessage, int toastDuration) {
         Toast.makeText(this, toastMessage, toastDuration).show();
     }
