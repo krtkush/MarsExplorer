@@ -1,5 +1,7 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -11,7 +13,6 @@ import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
-import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -23,7 +24,7 @@ import timber.log.Timber;
  */
 public class RoverExplorerPresenterLayer implements RoverExplorerPresenterInteractor {
 
-    private RoverExplorerTabHostActivity roverExplorerTabHostActivity;
+    private Fragment fragment;
     private String roverName;
     private String roverSol;
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
@@ -40,28 +41,17 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // List of all the photos and their respective details
     private List<Photo> photoList;
 
-    public RoverExplorerPresenterLayer(RoverExplorerTabHostActivity roverExplorerTabHostActivity) {
-        this.roverExplorerTabHostActivity = roverExplorerTabHostActivity;
+    public RoverExplorerPresenterLayer(RoverExplorerFragment fragment) {
+        this.fragment = fragment;
         photoList = new ArrayList<>();
     }
 
     @Override
-    public void getRoverNameFromIntent() {
-        roverName =
-                roverExplorerTabHostActivity.getIntent()
-                        .getStringExtra(RoverExplorerConstants.roverNameExtra);
-    }
+    public void getValuesFromIntent() {
 
-    @Override
-    public void getRoverSolFromIntent() {
-        roverSol =
-                roverExplorerTabHostActivity.getIntent()
-                        .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
-    }
-
-    @Override
-    public void getRoverBasicDetails() {
-
+        Bundle bundleArgs = fragment.getArguments();
+        roverSol = String.valueOf(bundleArgs.getInt(RoverExplorerConstants.roverSolTrackExtra));
+        roverName = bundleArgs.getString(RoverExplorerConstants.roverNameExtra);
     }
 
     @Override
@@ -111,8 +101,13 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     }
 
     @Override
-    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView,
-                                              GridLayoutManager gridLayoutManager) {
+    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
+
+        // Number of columns to show in the GridView
+        int numberOfColumnsToCreate = 2;
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
+                numberOfColumnsToCreate);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
@@ -126,7 +121,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             }
         });
         photosRecyclerViewAdapter =
-                new PhotosRecyclerViewAdapter(roverExplorerTabHostActivity, photoList);
+                new PhotosRecyclerViewAdapter(fragment.getActivity(), photoList);
         recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
         recyclerView.setAdapter(photosRecyclerViewAdapter);
     }

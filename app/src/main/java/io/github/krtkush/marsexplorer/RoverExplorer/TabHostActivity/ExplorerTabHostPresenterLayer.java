@@ -69,7 +69,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
             fragmentCount--) {
 
             Bundle args = new Bundle();
-            args.putInt(RoverExplorerConstants.roverSolTrack, roverSolTracker);
+            args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
+            args.putString(RoverExplorerConstants.roverNameExtra, roverName);
 
             fragmentList.add(Fragment.instantiate(context,
                     RoverExplorerFragment.class.getName(), args));
@@ -99,7 +100,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                         && roverSolTracker >= 0) {
 
                     Bundle args = new Bundle();
-                    args.putInt(RoverExplorerConstants.roverSolTrack, roverSolTracker);
+                    args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
                     fragmentList.add(Fragment.instantiate(context,
                             RoverExplorerFragment.class.getName(), args));
                     solList.add(String.valueOf(roverSolTracker));
