@@ -101,6 +101,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
                     Bundle args = new Bundle();
                     args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
+                    args.putString(RoverExplorerConstants.roverNameExtra, roverName);
                     fragmentList.add(Fragment.instantiate(context,
                             RoverExplorerFragment.class.getName(), args));
                     solList.add(String.valueOf(roverSolTracker));

@@ -52,6 +52,9 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         Bundle bundleArgs = fragment.getArguments();
         roverSol = String.valueOf(bundleArgs.getInt(RoverExplorerConstants.roverSolTrackExtra));
         roverName = bundleArgs.getString(RoverExplorerConstants.roverNameExtra);
+
+        Timber.i("Sol: %s", roverSol);
+        Timber.i("Rover Name: %s", roverName);
     }
 
     @Override
