@@ -19,43 +19,43 @@ import io.github.krtkush.marsexplorer.UtilityMethods;
  */
 public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterInteractor {
 
-    private RoverExplorerTabHostActivity context;
+    private RoverExplorerTabHostActivity activity;
     private String roverName;
     private String roverSol;
     // Variable to keep track of how many SOLs have had their respective fragments have been added
     // to the viewpager
     private int roverSolTracker;
 
-    public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity context) {
-        this.context = context;
+    public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity activity) {
+        this.activity = activity;
     }
 
     @Override
     public void checkInternetConnectivity() {
         if(!UtilityMethods.isNetworkAvailable())
-            context.showToast(context.getResources()
+            activity.showToast(activity.getResources()
                     .getString(R.string.no_internet), Toast.LENGTH_LONG);
     }
 
     @Override
     public void getRoverNameFromIntent() {
         roverName =
-                context.getIntent()
+                activity.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverNameExtra);
     }
 
     @Override
     public void getRoverSolFromIntent() {
         roverSol =
-                context.getIntent()
+                activity.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
     }
 
     @Override
     public void prepareAndImplementViewPager(final ViewPager viewPager, final TabLayout tabLayout) {
 
-        int numberOfInitialTabs = 10;
-        final int positionAfterWhichToLoadData = 2;
+        final int numberOfInitialTabs = 10;
+        final int numberOfTabsLeftAfterWhichToAdd = 2;
 
         final List<Fragment> fragmentList = new ArrayList<>();
         final List<String> solList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
             args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
             args.putString(RoverExplorerConstants.roverNameExtra, roverName);
 
-            fragmentList.add(Fragment.instantiate(context,
+            fragmentList.add(Fragment.instantiate(activity,
                     RoverExplorerFragment.class.getName(), args));
             solList.add(String.valueOf(roverSolTracker));
             tabData.setFragmentList(fragmentList);
@@ -82,7 +82,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         }
 
         final ViewPagerAdapter viewPagerAdapter =
-                new ViewPagerAdapter(context.getSupportFragmentManager(), tabData);
+                new ViewPagerAdapter(activity.getSupportFragmentManager(), tabData);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -96,13 +96,13 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
                 // Check if the user has reached the second last or last tab.
                 // If he/ she has and the SOL is not below 0, add another tab
-                if(fragmentList.size() - position <= positionAfterWhichToLoadData
+                if(fragmentList.size() - position <= numberOfTabsLeftAfterWhichToAdd
                         && roverSolTracker >= 0) {
 
                     Bundle args = new Bundle();
                     args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
                     args.putString(RoverExplorerConstants.roverNameExtra, roverName);
-                    fragmentList.add(Fragment.instantiate(context,
+                    fragmentList.add(Fragment.instantiate(activity,
                             RoverExplorerFragment.class.getName(), args));
                     solList.add(String.valueOf(roverSolTracker));
                     tabData.setFragmentList(fragmentList);
