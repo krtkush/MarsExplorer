@@ -37,8 +37,8 @@ public class NASARestApiClient {
                     .addNetworkInterceptor(new ResponseCacheInterceptor())
                     .addInterceptor(new OfflineResponseCacheInterceptor())
                     // Set the cache location and size (5 MB)
-                    .cache(new Cache(new File(MarsExplorerApplication.getApplicationInstance().getCacheDir(),
-                            "apiResponses"), 5 * 1024 * 1024))
+                    .cache(new Cache(new File(MarsExplorerApplication.getApplicationInstance()
+                            .getCacheDir(), "apiResponses"), 5 * 1024 * 1024))
                     // Add the api key by default
                     .addInterceptor(new DefaultValuesInterceptor(RestClientConstants.apiKey))
                     // Enable logging

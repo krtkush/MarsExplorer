@@ -38,16 +38,11 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     @Override
-    public void getRoverNameFromIntent() {
-        roverName =
-                activity.getIntent()
+    public void getValuesFromIntent() {
+        roverName = activity.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverNameExtra);
-    }
 
-    @Override
-    public void getRoverSolFromIntent() {
-        roverSol =
-                activity.getIntent()
+        roverSol = activity.getIntent()
                         .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
     }
 
@@ -63,7 +58,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
         roverSolTracker = Integer.valueOf(roverSol);
 
-        // Initiate and three fragments into the  for the last three SOLs respectively
+        // Initiate and three fragments into the for the last three SOLs respectively
         for(int fragmentCount = roverSolTracker;
             fragmentCount > Integer.valueOf(roverSol) - numberOfInitialTabs;
             fragmentCount--) {
@@ -87,7 +82,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                                       int positionOffsetPixels) {
 
             }
 

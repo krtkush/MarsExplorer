@@ -15,14 +15,9 @@ public interface ExplorerTabHostPresenterInteractor {
     void prepareAndImplementViewPager(ViewPager viewPager, TabLayout tabLayout);
 
     /**
-     * Method to retrieve the rover name passed from the previous activity
+     * Method to retrieve all the data sent from the previous activity via intent
      */
-    void getRoverNameFromIntent();
-
-    /**
-     * Method to retrieve the rover's max SOL passed from the previous activity
-     */
-    void getRoverSolFromIntent();
+    void getValuesFromIntent();
 
     /**
      * Method to check if the device is connected to the internet or not and show a warning toast
