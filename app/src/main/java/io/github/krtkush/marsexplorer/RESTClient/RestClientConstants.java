@@ -12,7 +12,8 @@ public class RestClientConstants {
     private static final String nasaApiEndPoint = "https://api.nasa.gov/";
     private static final String nasaApiServiceName = "mars-photos/";
     private static final String nasaApiVersion = "api/v1/rovers/";
-    public static final String nasaApiBaseUrl = nasaApiEndPoint + nasaApiServiceName + nasaApiVersion;
+    public static final String nasaApiBaseUrl = nasaApiEndPoint + nasaApiServiceName
+            + nasaApiVersion;
 
     // Strings related to MAAS's API
     private static final String maasApiEndPoint = "http://marsweather.ingenology.com/";
@@ -22,4 +23,7 @@ public class RestClientConstants {
     // Custom headers
     public static final String responseCachingFlagHeader = "ApplyResponseCache";
     public static final String offlineCachingFlagHeader = "ApplyOfflineCache";
+
+    // Cache directory name
+    public static final String apiResponsesCache = "apiResponses";
 }

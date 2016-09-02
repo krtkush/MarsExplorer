@@ -29,8 +29,9 @@ public class MAASRestApiClient {
                     // Enable response caching
                     .addNetworkInterceptor(new ResponseCacheInterceptor())
                     // Set the cache location and size (5 MB)
-                    .cache(new Cache(new File(MarsExplorerApplication.getApplicationInstance().getCacheDir(),
-                            "apiResponses"), 5 * 1024 * 1024))
+                    .cache(new Cache(new File(MarsExplorerApplication.getApplicationInstance()
+                            .getCacheDir(), RestClientConstants.apiResponsesCache),
+                            5 * 1024 * 1024))
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
                             .setLevel(HttpLoggingInterceptor.Level.BODY))
