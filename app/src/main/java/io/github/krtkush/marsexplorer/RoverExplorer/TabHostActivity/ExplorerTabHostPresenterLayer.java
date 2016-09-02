@@ -55,6 +55,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     public void prepareAndImplementViewPager(final ViewPager viewPager, final TabLayout tabLayout) {
 
         int numberOfInitialTabs = 10;
+        final int positionAfterWhichToLoadData = 2;
 
         final List<Fragment> fragmentList = new ArrayList<>();
         final List<String> solList = new ArrayList<>();
@@ -94,7 +95,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
                 // Check if the user has reached the second last or last tab.
                 // If he/ she has and the SOL is not below 0, add another tab
-                if(fragmentList.size() - position <= 2 && roverSolTracker >= 0) {
+                if(fragmentList.size() - position <= positionAfterWhichToLoadData
+                        && roverSolTracker >= 0) {
 
                     Bundle args = new Bundle();
                     args.putInt(RoverExplorerConstants.roverSolTrack, roverSolTracker);
