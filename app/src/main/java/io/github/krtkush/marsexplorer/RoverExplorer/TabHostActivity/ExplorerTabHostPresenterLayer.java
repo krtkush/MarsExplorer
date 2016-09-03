@@ -46,6 +46,11 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     @Override
+    public void setViewsValue() {
+        activity.setToolbarTitle(roverName);
+    }
+
+    @Override
     public void prepareAndImplementViewPager(final ViewPager viewPager, final TabLayout tabLayout) {
 
         final int numberOfInitialTabs = 10;

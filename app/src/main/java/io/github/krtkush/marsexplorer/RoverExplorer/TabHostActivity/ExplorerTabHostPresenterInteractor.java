@@ -24,4 +24,9 @@ public interface ExplorerTabHostPresenterInteractor {
      * in case of latter.
      */
     void checkInternetConnectivity();
+
+    /**
+     * Method to set values, sources etc to all the UI elements
+     */
+    void setViewsValue();
 }

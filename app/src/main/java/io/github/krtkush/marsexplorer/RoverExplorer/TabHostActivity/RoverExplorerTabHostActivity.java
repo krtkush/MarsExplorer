@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -15,6 +16,7 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
 
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.viewPager) ViewPager viewPager;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private ExplorerTabHostPresenterInteractor presenterInteractor;
 
@@ -28,9 +30,14 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         Timber.tag(RoverExplorerTabHostActivity.this.getClass().getSimpleName());
         presenterInteractor = new ExplorerTabHostPresenterLayer(this);
 
+        // Setup the toolbar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Get all the data via the intent.
         presenterInteractor.getValuesFromIntent();
-
+        // Set the basic UI values
+        presenterInteractor.setViewsValue();
         // Prepare the tabs.
         presenterInteractor.prepareAndImplementViewPager(viewPager, tabLayout);
     }
@@ -49,5 +56,14 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
      */
     protected void showToast(String toastMessage, int toastDuration) {
         Toast.makeText(this, toastMessage, toastDuration).show();
+    }
+
+    /**
+     * Method to set the toolbar title (usually the name of the rover)
+     * @param title
+     */
+    protected void setToolbarTitle(String title) {
+
+        toolbar.setTitle(title);
     }
 }
