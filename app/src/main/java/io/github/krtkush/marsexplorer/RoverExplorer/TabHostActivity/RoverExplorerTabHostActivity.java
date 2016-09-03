@@ -23,16 +23,15 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rover_explorer);
 
-        // Initialise Butterknife, Timber and the presenter layer
+        // Initialise Butterknife, Timber and the presenter layer.
         ButterKnife.bind(this);
         Timber.tag(RoverExplorerTabHostActivity.this.getClass().getSimpleName());
         presenterInteractor = new ExplorerTabHostPresenterLayer(this);
 
-        // Get the rover name and its respective max SOL via the intent
-        presenterInteractor.getRoverNameFromIntent();
-        presenterInteractor.getRoverSolFromIntent();
+        // Get all the data via the intent.
+        presenterInteractor.getValuesFromIntent();
 
-        // Prepare the tabs
+        // Prepare the tabs.
         presenterInteractor.prepareAndImplementViewPager(viewPager, tabLayout);
     }
 

@@ -22,8 +22,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private RoverExplorerTabHostActivity activity;
     private String roverName;
     private String roverSol;
-    // Variable to keep track of how many SOLs have had their respective fragments have been added
-    // to the viewpager
+    // Variable to keep track of how many SOLs have had their respective tabs added to the viewpager.
     private int roverSolTracker;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity activity) {
@@ -58,11 +57,12 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
         roverSolTracker = Integer.valueOf(roverSol);
 
-        // Initiate and three fragments into the for the last three SOLs respectively
+        // Initiate and three fragments for the last three SOLs respectively.
         for(int fragmentCount = roverSolTracker;
             fragmentCount > Integer.valueOf(roverSol) - numberOfInitialTabs;
             fragmentCount--) {
 
+            // Arguments to be sent to the fragment
             Bundle args = new Bundle();
             args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
             args.putString(RoverExplorerConstants.roverNameExtra, roverName);
@@ -91,7 +91,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
             public void onPageSelected(int position) {
 
                 // Check if the user has reached the second last or last tab.
-                // If he/ she has and the SOL is not below 0, add another tab
+                // If he/ she has and the SOL is not below 0, add another tab.
                 if(fragmentList.size() - position <= numberOfTabsLeftAfterWhichToAdd
                         && roverSolTracker >= 0) {
 
