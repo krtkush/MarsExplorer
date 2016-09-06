@@ -137,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/curiosity"/>
+                    android:src="@drawable/curiosity_crop"/>
 
                 <TextView
                     android:id="@+id/goToCuriosity"
@@ -168,7 +168,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/opportunity"/>
+                    android:src="@drawable/opportunity_spirit_crop"/>
 
                 <TextView
                     android:id="@+id/goToOpportunity"
