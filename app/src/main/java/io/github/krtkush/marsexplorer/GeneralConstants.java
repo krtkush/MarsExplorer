@@ -6,7 +6,7 @@ package io.github.krtkush.marsexplorer;
 public class GeneralConstants {
 
     // Rover names
-    public static final String Curiosity = "curiosity";
+    public static final String Curiosity = "Curiosity";
     public static final String Opportunity = "Opportunity";
     public static final String Spirit = "spirit";
 }

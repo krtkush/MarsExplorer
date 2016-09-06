@@ -64,6 +64,6 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
      */
     protected void setToolbarTitle(String title) {
 
-        toolbar.setTitle(title);
+        getSupportActionBar().setTitle(title);
     }
 }

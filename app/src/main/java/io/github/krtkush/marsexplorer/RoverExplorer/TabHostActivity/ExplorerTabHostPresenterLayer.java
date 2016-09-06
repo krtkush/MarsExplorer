@@ -60,6 +60,9 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         final List<String> solList = new ArrayList<>();
         final TabData tabData = new TabData();
 
+        // TODO: If explorer scene is accessed too soon, Intents may not have values passed. Will have to figure out a solution
+        // Throws NumberFormatException
+        // Probably attempt to fetch max SOL again.
         roverSolTracker = Integer.valueOf(roverSol);
 
         // Initiate and three fragments for the last three SOLs respectively.
