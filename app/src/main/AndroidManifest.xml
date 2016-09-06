@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity"></activity>
+        <activity
+            android:name=".RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity"
+            android:parentActivityName="io.github.krtkush.marsexplorer.Main.MainActivity">
+        </activity>
     </application>
 
 </manifest>

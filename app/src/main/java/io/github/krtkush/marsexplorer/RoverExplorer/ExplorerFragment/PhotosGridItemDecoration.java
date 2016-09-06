@@ -11,6 +11,7 @@ public class PhotosGridItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Copied from: https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
+     * Modified according to app's need.
      */
 
     private int spanCount;
@@ -30,7 +31,7 @@ public class PhotosGridItemDecoration extends RecyclerView.ItemDecoration {
         int column = position % spanCount; // item column
 
         if (includeEdge) {
-            outRect.left = (spacing - column * spacing / spanCount) + 4; // spacing - column * ((1f / spanCount) * spacing)
+            outRect.left = (spacing - column * spacing / spanCount) + 3; // spacing - column * ((1f / spanCount) * spacing)
             outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
 
             if (position < spanCount) { // top edge

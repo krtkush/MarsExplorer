@@ -9,6 +9,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
@@ -47,7 +48,22 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
     @Override
     public void setViewsValue() {
+
+        // Set the toolbar title
         activity.setToolbarTitle(roverName);
+
+        // Set the rover image
+        switch (roverName) {
+
+            case GeneralConstants.Curiosity:
+                break;
+
+            case GeneralConstants.Opportunity:
+                break;
+
+            case GeneralConstants.Spirit:
+                break;
+        }
     }
 
     @Override
@@ -55,12 +71,13 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
         final int numberOfInitialTabs = 10;
         final int numberOfTabsLeftAfterWhichToAdd = 2;
+        final int offScreenPageLimit = 0;
 
         final List<Fragment> fragmentList = new ArrayList<>();
         final List<String> solList = new ArrayList<>();
         final TabData tabData = new TabData();
 
-        // TODO: If explorer scene is accessed too soon, Intents may not have values passed. Will have to figure out a solution
+        // TODO: If explorer scene is accessed too soon, SOl Intent may not had value passed.
         // Throws NumberFormatException
         // Probably attempt to fetch max SOL again.
         roverSolTracker = Integer.valueOf(roverSol);
@@ -88,6 +105,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                 new ViewPagerAdapter(activity.getSupportFragmentManager(), tabData);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(offScreenPageLimit);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset,
