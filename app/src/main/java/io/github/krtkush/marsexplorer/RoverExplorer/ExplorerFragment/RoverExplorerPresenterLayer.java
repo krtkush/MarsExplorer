@@ -107,10 +107,11 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
 
         // Number of columns to show in the GridView
-        int numberOfColumnsToCreate = 2;
+        int numberOfColumns = 2;
+        int gridItemSpacing = 15;
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
-                numberOfColumnsToCreate);
+                numberOfColumns);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
@@ -125,7 +126,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         });
         photosRecyclerViewAdapter =
                 new PhotosRecyclerViewAdapter(fragment.getActivity(), photoList);
-        recyclerView.addItemDecoration(new PhotosGridItemDecoration(2, 50, true));
+        recyclerView.addItemDecoration(new PhotosGridItemDecoration(numberOfColumns,
+                gridItemSpacing, true));
         recyclerView.setAdapter(photosRecyclerViewAdapter);
     }
 

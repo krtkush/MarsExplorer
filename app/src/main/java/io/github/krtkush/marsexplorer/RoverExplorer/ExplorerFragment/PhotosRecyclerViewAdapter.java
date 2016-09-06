@@ -11,8 +11,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
 import io.github.krtkush.marsexplorer.R;
+import timber.log.Timber;
 
 /**
  * Created by kartikeykushwaha on 25/08/16.
@@ -55,20 +59,19 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         return photos.size();
     }
 
-    class PhotosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class PhotosViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView photoHolder;
+        @BindView(R.id.photoHolder) ImageView photoHolder;
 
         public PhotosViewHolder(View view) {
             super(view);
-
-            view.setOnClickListener(this);
-            photoHolder = (ImageView) view.findViewById(R.id.photoHolder);
+            ButterKnife.bind(this, view);
         }
 
-        @Override
-        public void onClick(View view) {
+        @OnClick(R.id.photoHolderLayout)
+        public void expandPhoto() {
 
+            Timber.i("Photo clicked");
         }
     }
 }
