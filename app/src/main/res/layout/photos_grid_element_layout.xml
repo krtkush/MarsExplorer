@@ -7,8 +7,6 @@
 
     <ImageView
         android:id="@+id/photoHolder"
-        android:background="@color/colorPrimaryLight"
-        android:scaleType="centerCrop"
         android:layout_width="210dp"
         android:layout_height="250dp" />
 

@@ -51,7 +51,9 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         Picasso
                 .with(context)
                 .load(photos.get(position).getImgSrc()).config(Bitmap.Config.RGB_565)
+                .placeholder(R.drawable.square_placeholder)
                 .fit()
+                .centerCrop()
                 .into(photosViewHolder.photoHolder);
     }
 
