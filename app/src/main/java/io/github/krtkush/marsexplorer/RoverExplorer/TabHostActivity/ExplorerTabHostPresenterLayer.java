@@ -56,12 +56,15 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         switch (roverName) {
 
             case GeneralConstants.Curiosity:
+                activity.setCollapsibleToolbarImage(R.drawable.curiosity_full);
                 break;
 
             case GeneralConstants.Opportunity:
+                activity.setCollapsibleToolbarImage(R.drawable.oppertunity_spirit_full);
                 break;
 
             case GeneralConstants.Spirit:
+                activity.setCollapsibleToolbarImage(R.drawable.oppertunity_spirit_full);
                 break;
         }
     }
@@ -71,7 +74,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
         final int numberOfInitialTabs = 10;
         final int numberOfTabsLeftAfterWhichToAdd = 2;
-        final int offScreenPageLimit = 0;
+        final int offScreenPageLimit = 1;
 
         final List<Fragment> fragmentList = new ArrayList<>();
         final List<String> solList = new ArrayList<>();
@@ -80,6 +83,10 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         // TODO: If explorer scene is accessed too soon, SOl Intent may not had value passed.
         // Throws NumberFormatException
         // Probably attempt to fetch max SOL again.
+
+        if(roverSol == null) {
+
+        }
         roverSolTracker = Integer.valueOf(roverSol);
 
         // Initiate and three fragments for the last three SOLs respectively.
@@ -133,8 +140,6 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                     viewPagerAdapter.notifyDataSetChanged();
                     roverSolTracker--;
                 }
-
-                viewPager.setCurrentItem(position);
             }
 
             @Override

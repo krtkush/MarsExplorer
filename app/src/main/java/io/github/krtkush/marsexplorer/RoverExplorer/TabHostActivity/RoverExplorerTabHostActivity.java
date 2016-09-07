@@ -1,11 +1,15 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +21,7 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.viewPager) ViewPager viewPager;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.collapsibleImage) ImageView collapsibleImage;
 
     private ExplorerTabHostPresenterInteractor presenterInteractor;
 
@@ -66,8 +71,13 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
-    protected void setToolbarImage(String imagePath) {
+    protected void setCollapsibleToolbarImage(int drawablePath) {
 
-
+        Picasso
+                .with(this)
+                .load(drawablePath).config(Bitmap.Config.RGB_565)
+                .fit()
+                .centerCrop()
+                .into(collapsibleImage);
     }
 }
