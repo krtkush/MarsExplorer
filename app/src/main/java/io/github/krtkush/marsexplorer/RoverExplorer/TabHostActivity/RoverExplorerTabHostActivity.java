@@ -1,6 +1,5 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -67,7 +66,8 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
-    protected void setToolbarImage(Drawable drawable) {
+    protected void setToolbarImage(String imagePath) {
+
 
     }
 }

@@ -1,6 +1,7 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         // Populate the views with the data
         Picasso
                 .with(context)
-                .load(photos.get(position).getImgSrc())
+                .load(photos.get(position).getImgSrc()).config(Bitmap.Config.RGB_565)
                 .fit()
                 .into(photosViewHolder.photoHolder);
     }
