@@ -3,6 +3,7 @@ package io.github.krtkush.marsexplorer.RESTClient;
 import java.io.File;
 import java.io.IOException;
 
+import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import okhttp3.Cache;
@@ -32,6 +33,14 @@ public class NASARestApiClient {
 
         if(nasaMarsPhotosApiInterface == null) {
 
+            // Log level depending on build type. No log in case of production APK
+            HttpLoggingInterceptor.Level logLevel;
+
+            if(BuildConfig.DEBUG)
+                logLevel = HttpLoggingInterceptor.Level.BODY;
+            else
+                logLevel = HttpLoggingInterceptor.Level.NONE;
+
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     // Enable response caching
                     .addNetworkInterceptor(new ResponseCacheInterceptor())
@@ -44,7 +53,7 @@ public class NASARestApiClient {
                     .addInterceptor(new DefaultValuesInterceptor(RestClientConstants.apiKey))
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
-                            .setLevel(HttpLoggingInterceptor.Level.BODY))
+                            .setLevel(logLevel))
                     .build();
 
             Retrofit retrofitClient = new Retrofit.Builder()

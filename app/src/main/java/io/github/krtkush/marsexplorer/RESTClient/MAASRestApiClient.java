@@ -2,6 +2,7 @@ package io.github.krtkush.marsexplorer.RESTClient;
 
 import java.io.File;
 
+import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import okhttp3.Cache;
@@ -25,6 +26,14 @@ public class MAASRestApiClient {
 
         if(maasWeatherApiInterface == null) {
 
+            // Log level depending on build type. No log in case of production APK
+            HttpLoggingInterceptor.Level logLevel;
+
+            if(BuildConfig.DEBUG)
+                logLevel = HttpLoggingInterceptor.Level.BODY;
+            else
+                logLevel = HttpLoggingInterceptor.Level.NONE;
+
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     // Enable response caching
                     .addNetworkInterceptor(new ResponseCacheInterceptor())
@@ -34,7 +43,7 @@ public class MAASRestApiClient {
                             5 * 1024 * 1024))
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
-                            .setLevel(HttpLoggingInterceptor.Level.BODY))
+                            .setLevel(logLevel))
                     .build();
 
             Retrofit retrofitClient = new Retrofit.Builder()

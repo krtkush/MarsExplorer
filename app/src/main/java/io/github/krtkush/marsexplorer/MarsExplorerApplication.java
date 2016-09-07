@@ -2,6 +2,8 @@ package io.github.krtkush.marsexplorer;
 
 import android.app.Application;
 
+import com.squareup.picasso.Picasso;
+
 import io.github.krtkush.marsexplorer.RESTClient.MAASRestApiClient;
 import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
 import timber.log.Timber;
@@ -25,20 +27,32 @@ public class MarsExplorerApplication extends Application {
 
         marsExplorerApplicationInstance = this;
 
-        // Initialize the API interfaces
+        // Initialize the API interfaces.
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
         maasWeatherApiInterface = MAASRestApiClient.getMaasWeatherApiInterface();
 
-        // Initialize timber logging tool only if in debug mode
+        // Initialize timber logging tool only if in debug mode.
         if(BuildConfig.DEBUG)
             Timber.plant(new Timber.DebugTree());
 
-        // Initialize calligraphy with the preferred font
+        // Initialize calligraphy with the preferred font.
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Lato-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        // Initialize picasso cache indicator and logging only if in debug mode.
+        if(BuildConfig.DEBUG) {
+            Picasso
+                    .with(marsExplorerApplicationInstance)
+                    .setIndicatorsEnabled(true);
+
+            Picasso
+                    .with(marsExplorerApplicationInstance)
+                    .setLoggingEnabled(true);
+        }
+
     }
 
     /**
