@@ -29,4 +29,6 @@ public interface ExplorerTabHostPresenterInteractor {
      * Method to set values, sources etc to all the UI elements
      */
     void setViewsValue();
+
+    void unsubscribeMaxSolRequest();
 }

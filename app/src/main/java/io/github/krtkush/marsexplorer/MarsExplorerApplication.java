@@ -2,8 +2,6 @@ package io.github.krtkush.marsexplorer;
 
 import android.app.Application;
 
-import com.squareup.picasso.Picasso;
-
 import io.github.krtkush.marsexplorer.RESTClient.MAASRestApiClient;
 import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
 import timber.log.Timber;
@@ -43,7 +41,7 @@ public class MarsExplorerApplication extends Application {
         );
 
         // Initialize picasso cache indicator and logging only if in debug mode.
-        if(BuildConfig.DEBUG) {
+        /*if(BuildConfig.DEBUG) {
             Picasso
                     .with(marsExplorerApplicationInstance)
                     .setIndicatorsEnabled(true);
@@ -51,7 +49,7 @@ public class MarsExplorerApplication extends Application {
             Picasso
                     .with(marsExplorerApplicationInstance)
                     .setLoggingEnabled(true);
-        }
+        }*/
 
     }
 

@@ -1,6 +1,5 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -50,8 +49,13 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         presenterInteractor.checkInternetConnectivity();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenterInteractor.unsubscribeMaxSolRequest();
     }
 
     /**
@@ -75,7 +79,7 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
 
         Picasso
                 .with(this)
-                .load(drawablePath).config(Bitmap.Config.RGB_565)
+                .load(drawablePath)
                 .fit()
                 .centerCrop()
                 .into(collapsibleImage);

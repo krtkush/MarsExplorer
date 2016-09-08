@@ -10,10 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
+import io.github.krtkush.marsexplorer.MarsExplorerApplication;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.UtilityMethods;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by kartikeykushwaha on 01/09/16.
@@ -25,6 +32,11 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private String roverSol;
     // Variable to keep track of how many SOLs have had their respective tabs added to the viewpager.
     private int roverSolTracker;
+
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+
+    private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity activity) {
         this.activity = activity;
@@ -40,10 +52,10 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     @Override
     public void getValuesFromIntent() {
         roverName = activity.getIntent()
-                        .getStringExtra(RoverExplorerConstants.roverNameExtra);
+                .getStringExtra(RoverExplorerConstants.roverNameExtra);
 
         roverSol = activity.getIntent()
-                        .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
+                .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
     }
 
     @Override
@@ -80,72 +92,117 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         final List<String> solList = new ArrayList<>();
         final TabData tabData = new TabData();
 
-        // TODO: If explorer scene is accessed too soon, SOl Intent may not had value passed.
-        // Throws NumberFormatException
-        // Probably attempt to fetch max SOL again.
+        if(roverSol == null || roverSol.isEmpty()) {
+            getMaxSol(roverName);
+            this.viewPager = viewPager;
+            this.tabLayout = tabLayout;
+        } else {
+            roverSolTracker = Integer.valueOf(roverSol);
 
-        if(roverSol == null) {
+            // Initiate and three fragments for the last three SOLs respectively.
+            for(int fragmentCount = roverSolTracker;
+                fragmentCount > Integer.valueOf(roverSol) - numberOfInitialTabs;
+                fragmentCount--) {
 
-        }
-        roverSolTracker = Integer.valueOf(roverSol);
+                // Arguments to be sent to the fragment
+                Bundle args = new Bundle();
+                args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
+                args.putString(RoverExplorerConstants.roverNameExtra, roverName);
 
-        // Initiate and three fragments for the last three SOLs respectively.
-        for(int fragmentCount = roverSolTracker;
-            fragmentCount > Integer.valueOf(roverSol) - numberOfInitialTabs;
-            fragmentCount--) {
+                fragmentList.add(Fragment.instantiate(activity,
+                        RoverExplorerFragment.class.getName(), args));
+                solList.add(String.valueOf(roverSolTracker));
+                tabData.setFragmentList(fragmentList);
+                tabData.setSolList(solList);
 
-            // Arguments to be sent to the fragment
-            Bundle args = new Bundle();
-            args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
-            args.putString(RoverExplorerConstants.roverNameExtra, roverName);
-
-            fragmentList.add(Fragment.instantiate(activity,
-                    RoverExplorerFragment.class.getName(), args));
-            solList.add(String.valueOf(roverSolTracker));
-            tabData.setFragmentList(fragmentList);
-            tabData.setSolList(solList);
-
-            roverSolTracker--;
-        }
-
-        final ViewPagerAdapter viewPagerAdapter =
-                new ViewPagerAdapter(activity.getSupportFragmentManager(), tabData);
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(offScreenPageLimit);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset,
-                                       int positionOffsetPixels) {
-
+                roverSolTracker--;
             }
 
-            @Override
-            public void onPageSelected(int position) {
+            final ViewPagerAdapter viewPagerAdapter =
+                    new ViewPagerAdapter(activity.getSupportFragmentManager(), tabData);
+            viewPager.setAdapter(viewPagerAdapter);
+            tabLayout.setupWithViewPager(viewPager);
+            viewPager.setOffscreenPageLimit(offScreenPageLimit);
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset,
+                                           int positionOffsetPixels) {
 
-                // Check if the user has reached the second last or last tab.
-                // If he/ she has and the SOL is not below 0, add another tab.
-                if(fragmentList.size() - position <= numberOfTabsLeftAfterWhichToAdd
-                        && roverSolTracker >= 0) {
-
-                    Bundle args = new Bundle();
-                    args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
-                    args.putString(RoverExplorerConstants.roverNameExtra, roverName);
-                    fragmentList.add(Fragment.instantiate(activity,
-                            RoverExplorerFragment.class.getName(), args));
-                    solList.add(String.valueOf(roverSolTracker));
-                    tabData.setFragmentList(fragmentList);
-                    tabData.setSolList(solList);
-
-                    viewPagerAdapter.notifyDataSetChanged();
-                    roverSolTracker--;
                 }
+
+                @Override
+                public void onPageSelected(int position) {
+
+                    // Check if the user has reached the second last or last tab.
+                    // If he/ she has and the SOL is not below 0, add another tab.
+                    if(fragmentList.size() - position <= numberOfTabsLeftAfterWhichToAdd
+                            && roverSolTracker >= 0) {
+
+                        Bundle args = new Bundle();
+                        args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
+                        args.putString(RoverExplorerConstants.roverNameExtra, roverName);
+                        fragmentList.add(Fragment.instantiate(activity,
+                                RoverExplorerFragment.class.getName(), args));
+                        solList.add(String.valueOf(roverSolTracker));
+                        tabData.setFragmentList(fragmentList);
+                        tabData.setSolList(solList);
+
+                        viewPagerAdapter.notifyDataSetChanged();
+                        roverSolTracker--;
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }
+    }
+
+    /**
+     * Method to get the max SOL of
+     * @param roverName
+     */
+    public void getMaxSol(final String roverName) {
+
+        // Define the observer
+        Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
+                = MarsExplorerApplication.getApplicationInstance()
+                .getNasaMarsPhotosApiInterface()
+                .getPhotosBySol(true, true, roverName, "1", 1);
+
+        // Define the subscriber
+        nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
+            @Override
+            public void onCompleted() {
+                Timber.i("Max SOL of %s found", roverName);
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onError(Throwable ex) {
+                ex.printStackTrace();
             }
-        });
+
+            @Override
+            public void onNext(PhotoSearchResultDM photoSearchResultDM) {
+                //TODO: Handle no data condition
+
+                roverSol = photoSearchResultDM.getPhotos().get(0).getRover().getMaxSol().toString();
+                prepareAndImplementViewPager(viewPager, tabLayout);
+            }
+        };
+
+        // Subscribe to the observable
+        nasaMarsPhotosObservable
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(nasaMarsPhotoSubscriber);
+    }
+
+    @Override
+    public void unsubscribeMaxSolRequest() {
+        if(nasaMarsPhotoSubscriber != null)
+            nasaMarsPhotoSubscriber.unsubscribe();
     }
 }
