@@ -58,4 +58,9 @@ dependencies {
 
     // Picasso (Image loading)
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Leak Canary (Detect memory leaks)
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }

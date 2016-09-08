@@ -11,7 +11,7 @@ public class PhotosGridItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Copied from: https://stackoverflow.com/questions/28531996/android-recyclerview-gridlayoutmanager-column-spacing
-     * Modified according to app's need.
+     * Modified according to app's requirements.
      */
 
     private int spanCount;
