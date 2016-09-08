@@ -33,8 +33,10 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     // Variable to keep track of how many SOLs have had their respective tabs added to the viewpager.
     private int roverSolTracker;
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    // Viewpager and TabLayout instance. Only used and initiated if maxSol is not passed
+    // from previous activity.
+    private ViewPager viewPager = null;
+    private TabLayout tabLayout = null;
 
     private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
 
@@ -161,7 +163,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     /**
-     * Method to get the max SOL of
+     * Method to get the max SOL of the selected rover.
+     * This request is sent only if the previous fails to send maxSol.
      * @param roverName
      */
     public void getMaxSol(final String roverName) {
