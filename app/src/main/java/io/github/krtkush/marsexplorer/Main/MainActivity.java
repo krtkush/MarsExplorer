@@ -57,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        Timber.i("Current memory status %s", level);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
 
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         atmosphericPressureTextView.setText(atmosphericPressure);
     }
 
-    @OnClick({R.id.goToCuriosity, R.id.goToOpportunity, R.id.goToSpirit })
+    @OnClick({R.id.goToCuriosity, R.id.goToOpportunity, R.id.goToSpirit})
     public void goToRoverExplorer(View view) {
 
         switch (view.getId()) {

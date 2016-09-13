@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -53,6 +54,13 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+
+        Timber.i("Current memory status %s", level);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         presenterInteractor.unsubscribeMaxSolRequest();
@@ -75,11 +83,16 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
     }
 
+    /**
+     * Method to set the image of the collapsible toolbar
+     * @param drawablePath
+     */
     protected void setCollapsibleToolbarImage(int drawablePath) {
 
         Picasso
                 .with(this)
                 .load(drawablePath)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .fit()
                 .centerCrop()
                 .into(collapsibleImage);

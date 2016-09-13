@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
@@ -21,6 +22,7 @@ public class RoverExplorerFragment extends Fragment {
     @BindView(R.id.photosRecyclerView) RecyclerView recyclerView;
 
     private RoverExplorerPresenterInteractor roverExplorerPresenterInteractor;
+    private Unbinder unbinder;
 
     @Override
     public void onResume() {
@@ -36,7 +38,7 @@ public class RoverExplorerFragment extends Fragment {
         View view = inflater.inflate(R.layout.common_recyclerview_layout, container, false);
 
         // Initialise Butterknife, Timber and the presenter layer
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         Timber.tag(getActivity().getClass().getSimpleName());
         roverExplorerPresenterInteractor = new RoverExplorerPresenterLayer(this);
 
@@ -51,8 +53,15 @@ public class RoverExplorerFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        unbinder.unbind();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
 
         roverExplorerPresenterInteractor.unsubscribeRoverPhotosRequest();
     }
