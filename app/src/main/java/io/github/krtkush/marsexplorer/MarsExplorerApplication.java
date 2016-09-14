@@ -55,8 +55,8 @@ public class MarsExplorerApplication extends Application {
         }
 
         // Initialize Leak Canary
-        LeakCanary.install(this);
-
+        if(BuildConfig.DEBUG)
+            LeakCanary.install(this);
     }
 
     /**

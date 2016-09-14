@@ -54,13 +54,6 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onTrimMemory(int level) {
-        super.onTrimMemory(level);
-
-        Timber.i("Current memory status %s", level);
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         presenterInteractor.unsubscribeMaxSolRequest();
