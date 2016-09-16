@@ -22,45 +22,40 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
     // Android Support Libraries
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
     compile 'com.android.support:cardview-v7:24.2.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
-
     // Retrofit (API handling)
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     // Retrofit - gson
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     // Retrofit - rxJava
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-
     // OkHttp (Networking)
     compile 'com.squareup.okhttp3:okhttp:3.0.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.0'
-
     // Butterknife (View injection)
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
-
     // Rx (Reactive programming)
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.5'
-
     // Timber (Logging)
     compile 'com.jakewharton.timber:timber:4.1.2'
-
     // Calligraphy (Custom fonts)
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
-
     // Picasso (Image loading)
     compile 'com.squareup.picasso:picasso:2.5.2'
-
     // Leak Canary (Detect memory leaks)
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    // AutoValues (Replacements for POJOs)
+    apt 'com.google.auto.value:auto-value:1.2'
+    provided 'com.jakewharton.auto.value:auto-value-annotations:1.2-update1'
+    apt 'com.ryanharter.auto.value:auto-value-gson:0.3.1'
 }
