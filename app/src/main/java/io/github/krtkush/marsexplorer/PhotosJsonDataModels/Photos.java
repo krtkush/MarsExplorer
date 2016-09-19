@@ -17,14 +17,19 @@ public abstract class Photos {
 
     @SerializedName("id")
     public abstract Integer id();
+
     @SerializedName("sol")
     public abstract Integer sol();
+
     @SerializedName("img_src")
     public abstract String imgSource();
+
     @SerializedName("earth_date")
     public abstract String earthDate();
+
     @SerializedName("rover")
     public abstract Rover rover();
+
     @SerializedName("camera")
     public abstract Camera camera();
 

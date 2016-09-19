@@ -19,10 +19,13 @@ public abstract class Rover {
 
     @SerializedName("id")
     public abstract Integer id();
+
     @SerializedName("name")
     public abstract String name();
+
     @SerializedName("max_sol")
     public abstract Integer maxSol();
+
     @SerializedName("cameras")
     public abstract List<Cameras> allCamerasList();
 

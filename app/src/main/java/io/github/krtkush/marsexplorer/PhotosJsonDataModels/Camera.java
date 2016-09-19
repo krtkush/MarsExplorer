@@ -17,10 +17,13 @@ public abstract class Camera {
 
     @SerializedName("id")
     public abstract Integer id();
+
     @SerializedName("name")
     public abstract String name();
+
     @SerializedName("rover_id")
     public abstract Integer roverId();
+
     @SerializedName("full_name")
     public abstract String cameraFullName();
 
