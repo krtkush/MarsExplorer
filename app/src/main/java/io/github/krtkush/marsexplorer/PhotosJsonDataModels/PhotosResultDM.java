@@ -13,6 +13,10 @@ import java.util.List;
 @AutoValue
 public abstract class PhotosResultDM {
 
+    /**
+     * List of all the photos and their respective details taken by a rover.
+     */
+
     @SerializedName("photos")
     public abstract List<Photos> photos();
 

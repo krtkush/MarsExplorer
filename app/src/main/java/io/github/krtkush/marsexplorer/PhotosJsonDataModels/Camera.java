@@ -5,11 +5,17 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by kartikeykushwaha on 19/09/16.
  */
 @AutoValue
 public abstract class Camera {
+
+    /**
+     * Details of the camera from which a particular image has been taken.
+     */
 
     @SerializedName("id")
     public abstract Integer id();
@@ -19,6 +25,8 @@ public abstract class Camera {
     public abstract Integer roverId();
     @SerializedName("full_name")
     public abstract String cameraFullName();
+    @SerializedName("cameras")
+    public abstract List<Cameras> allCamerasList();
 
     public static TypeAdapter<Camera> typeAdapter(Gson gson) {
         return new AutoValue_Camera.GsonTypeAdapter(gson);

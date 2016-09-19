@@ -11,6 +11,10 @@ import com.google.gson.annotations.SerializedName;
 @AutoValue
 public abstract class Photos {
 
+    /**
+     *Details of the image taken by the rover
+     */
+
     @SerializedName("id")
     public abstract Integer id();
     @SerializedName("sol")
