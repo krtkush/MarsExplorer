@@ -11,7 +11,7 @@ import java.util.List;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;

@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photos;
+import io.github.krtkush.marsexplorer.PhotosJsonDataModels.Photos;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 

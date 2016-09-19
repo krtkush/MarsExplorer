@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
@@ -114,6 +114,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             @Override
             public void onCompleted() {
                 Timber.i("Max SOL of %s found", roverName);
+                Timber.i("Request completed at: %s", System.currentTimeMillis());
             }
 
             @Override
