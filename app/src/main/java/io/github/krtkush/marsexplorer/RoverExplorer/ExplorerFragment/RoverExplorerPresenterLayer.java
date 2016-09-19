@@ -71,6 +71,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             @Override
             public void onCompleted() {
                 Timber.i("PhotosResultDM of %s retrieved", roverName);
+                Timber.i("Request completed at %s", System.currentTimeMillis());
                 isFetchingDataFromApi = false;
             }
 
