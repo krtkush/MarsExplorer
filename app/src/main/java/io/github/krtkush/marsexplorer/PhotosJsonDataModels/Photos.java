@@ -21,6 +21,8 @@ public abstract class Photos {
     public abstract String earthDate();
     @SerializedName("rover")
     public abstract Rover rover();
+    @SerializedName("camera")
+    public abstract Camera camera();
 
     public static TypeAdapter<Photos> typeAdapter(Gson gson) {
         return new AutoValue_Photos.GsonTypeAdapter(gson);
