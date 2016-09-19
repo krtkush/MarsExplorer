@@ -1,11 +1,14 @@
 package io.github.krtkush.marsexplorer.RESTClient;
 
+import com.google.gson.GsonBuilder;
+import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
+
 import java.io.File;
 import java.io.IOException;
 
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotosResultDM;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -56,10 +59,15 @@ public class NASARestApiClient {
                             .setLevel(logLevel))
                     .build();
 
+            GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
+                    new GsonBuilder().registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+                    .create()
+            );
+
             Retrofit retrofitClient = new Retrofit.Builder()
                     .baseUrl(RestClientConstants.nasaApiBaseUrl)
                     .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
 
@@ -72,7 +80,7 @@ public class NASARestApiClient {
     public interface NASAMarsPhotosApiInterface {
 
         @GET("{roverName}/photos")
-        Observable<PhotoSearchResultDM> getPhotosBySol(
+        Observable<PhotosResultDM> getPhotosBySol(
                 @Header(RestClientConstants.offlineCachingFlagHeader) boolean offlineCacheFlag,
                 @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCacheFlag,
                 @Path("roverName") String roverName,

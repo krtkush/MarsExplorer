@@ -11,7 +11,7 @@ import java.util.List;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
@@ -38,7 +38,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private ViewPager viewPager = null;
     private TabLayout tabLayout = null;
 
-    private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
+    private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity activity) {
         this.activity = activity;
@@ -170,13 +170,13 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     public void getMaxSol(final String roverName) {
 
         // Define the observer
-        Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
+        Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
                 .getPhotosBySol(true, true, roverName, "1", 1);
 
         // Define the subscriber
-        nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
+        nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {
             @Override
             public void onCompleted() {
                 Timber.i("Max SOL of %s found", roverName);
@@ -188,10 +188,10 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
             }
 
             @Override
-            public void onNext(PhotoSearchResultDM photoSearchResultDM) {
+            public void onNext(PhotosResultDM photosResultDM) {
                 //TODO: Handle no data condition
 
-                roverSol = photoSearchResultDM.getPhotos().get(0).getRover().getMaxSol().toString();
+                roverSol = photosResultDM.photos().get(0).rover().maxSol().toString();
                 prepareAndImplementViewPager(viewPager, tabLayout);
             }
         };

@@ -5,10 +5,10 @@ import android.widget.Toast;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
-import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
+import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import io.github.krtkush.marsexplorer.UtilityMethods;
 import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
 import rx.Observable;
@@ -23,7 +23,7 @@ import timber.log.Timber;
 public class MainActivityPresenterLayer implements MainActivityPresenterInteractor {
 
     private MainActivity mainActivityContext;
-    private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
+    private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
     private Subscriber<MarsWeatherDM> maasMarsWeatherSubscriber;
 
     /**
@@ -104,13 +104,13 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     public void getMaxSol(final String roverName) {
 
         // Define the observer
-        Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
+        Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
                 .getPhotosBySol(true, true, roverName, "1", 1);
 
         // Define the subscriber
-        nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
+        nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {
             @Override
             public void onCompleted() {
                 Timber.i("Max SOL of %s found", roverName);
@@ -122,24 +122,24 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             }
 
             @Override
-            public void onNext(PhotoSearchResultDM photoSearchResultDM) {
+            public void onNext(PhotosResultDM photosResultDM) {
                 //TODO: Handle no data condition
 
                 switch (roverName) {
 
                     case GeneralConstants.Curiosity:
-                        curiosityMaxSol = photoSearchResultDM.getPhotos().get(0)
-                                .getRover().getMaxSol().toString();
+                        curiosityMaxSol = photosResultDM.photos().get(0).rover()
+                                .maxSol().toString();
                         break;
 
                     case GeneralConstants.Opportunity:
-                        opportunityMaxSol = photoSearchResultDM.getPhotos().get(0)
-                                .getRover().getMaxSol().toString();
+                        opportunityMaxSol = photosResultDM.photos().get(0).rover()
+                                .maxSol().toString();
                         break;
 
                     case GeneralConstants.Spirit:
-                        spiritMaxSol = photoSearchResultDM.getPhotos().get(0)
-                                .getRover().getMaxSol().toString();
+                        spiritMaxSol = photosResultDM.photos().get(0).rover()
+                                .maxSol().toString();
                         break;
                 }
             }
@@ -171,28 +171,32 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     @Override
     public void goToRoverSection(String roverName) {
 
-        Intent goToRoverExplorer = new Intent(mainActivityContext, RoverExplorerTabHostActivity.class);
+        Intent goToRoverExplorer = new Intent(mainActivityContext,
+                RoverExplorerTabHostActivity.class);
 
         switch (roverName) {
 
             case GeneralConstants.Curiosity:
                 goToRoverExplorer.putExtra(RoverExplorerConstants.roverNameExtra,
                         GeneralConstants.Curiosity);
-                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra, curiosityMaxSol);
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra,
+                        curiosityMaxSol);
                 mainActivityContext.startActivity(goToRoverExplorer);
                 break;
 
             case GeneralConstants.Opportunity:
                 goToRoverExplorer.putExtra(RoverExplorerConstants.roverNameExtra,
                         GeneralConstants.Opportunity);
-                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra, opportunityMaxSol);
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra,
+                        opportunityMaxSol);
                 mainActivityContext.startActivity(goToRoverExplorer);
                 break;
 
             case GeneralConstants.Spirit:
                 goToRoverExplorer.putExtra(RoverExplorerConstants.roverNameExtra,
                         GeneralConstants.Spirit);
-                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra, spiritMaxSol);
+                goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra,
+                        spiritMaxSol);
                 mainActivityContext.startActivity(goToRoverExplorer);
                 break;
         }

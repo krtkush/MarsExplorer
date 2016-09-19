@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photos;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
@@ -26,9 +26,9 @@ import timber.log.Timber;
 public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<Photo> photos;
+    private List<Photos> photos;
 
-    public PhotosRecyclerViewAdapter(Context context, List<Photo> photos) {
+    public PhotosRecyclerViewAdapter(Context context, List<Photos> photos) {
         this.context = context;
         this.photos = photos;
     }
@@ -51,7 +51,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         // Populate the views with the data
         Picasso
                 .with(context)
-                .load(photos.get(position).getImgSrc()).config(Bitmap.Config.RGB_565)
+                .load(photos.get(position).imgSource()).config(Bitmap.Config.RGB_565)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .placeholder(R.drawable.square_placeholder)
                 .fit()
@@ -76,7 +76,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         @OnClick(R.id.photoHolderLayout)
         public void expandPhoto() {
 
-            Timber.i("Photo clicked");
+            Timber.i("PhotosResultDM clicked");
         }
     }
 }

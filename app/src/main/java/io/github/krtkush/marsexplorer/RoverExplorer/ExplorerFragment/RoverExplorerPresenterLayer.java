@@ -10,8 +10,8 @@ import java.util.List;
 
 import io.github.krtkush.marsexplorer.InfinityScrollListener;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photo;
-import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotoSearchResultDM;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.Photos;
+import io.github.krtkush.marsexplorer.PicturesJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import rx.Observable;
 import rx.Subscriber;
@@ -27,7 +27,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private Fragment fragment;
     private String roverName;
     private String roverSol;
-    private Subscriber<PhotoSearchResultDM> nasaMarsPhotoSubscriber;
+    private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
 
     // The index number of the page to load
     private int pageIndex = 1;
@@ -39,7 +39,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // Variables related to RecyclerView
     private PhotosRecyclerViewAdapter photosRecyclerViewAdapter;
     // List of all the photos and their respective details
-    private List<Photo> photoList;
+    private List<Photos> photoList;
 
     public RoverExplorerPresenterLayer(RoverExplorerFragment fragment) {
         this.fragment = fragment;
@@ -61,16 +61,16 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     public void getRoverPhotos() {
 
         // Define the observer
-        Observable<PhotoSearchResultDM> nasaMarsPhotosObservable
+        Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
                 .getPhotosBySol(true, true, roverName, roverSol, pageIndex);
 
         // Define the subscriber
-        nasaMarsPhotoSubscriber = new Subscriber<PhotoSearchResultDM>() {
+        nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {
             @Override
             public void onCompleted() {
-                Timber.i("Photos of %s retrieved", roverName);
+                Timber.i("PhotosResultDM of %s retrieved", roverName);
                 isFetchingDataFromApi = false;
             }
 
@@ -81,12 +81,12 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             }
 
             @Override
-            public void onNext(PhotoSearchResultDM photoSearchResultDM) {
+            public void onNext(PhotosResultDM photosResultDM) {
                 //TODO: Handle no data condition
-                Timber.i("%s photos fetched", photoSearchResultDM.getPhotos().size());
+                Timber.i("%s photos fetched", photosResultDM.photos().size());
 
-                if(photoSearchResultDM.getPhotos().size() != 0)
-                    photoList.addAll(photoSearchResultDM.getPhotos());
+                if(photosResultDM.photos().size() != 0)
+                    photoList.addAll(photosResultDM.photos());
                 else
                     // Reached end of page for given SOL
                     isMaxPage = true;
