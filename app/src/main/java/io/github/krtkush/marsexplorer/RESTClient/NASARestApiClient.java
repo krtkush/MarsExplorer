@@ -36,7 +36,7 @@ public class NASARestApiClient {
 
         if(nasaMarsPhotosApiInterface == null) {
 
-            // Log level depending on build type. No log in case of production APK
+            // Log level depending on build type. No logging in case of production APK
             HttpLoggingInterceptor.Level logLevel;
 
             if(BuildConfig.DEBUG)
