@@ -88,6 +88,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
         final int numberOfInitialTabs = 10;
         final int numberOfTabsLeftAfterWhichToAdd = 2;
+        final int numberOfTabsToAdd = 5;
         final int offScreenPageLimit = 1;
 
         final List<Fragment> fragmentList = new ArrayList<>();
@@ -136,21 +137,24 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                 public void onPageSelected(int position) {
 
                     // Check if the user has reached the second last or last tab.
-                    // If he/ she has and the SOL is not below 0, add another tab.
+                    // If he/ she has and the SOL is not below 0, add required number of tabs
                     if(fragmentList.size() - position <= numberOfTabsLeftAfterWhichToAdd
                             && roverSolTracker >= 0) {
 
-                        Bundle args = new Bundle();
-                        args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
-                        args.putString(RoverExplorerConstants.roverNameExtra, roverName);
-                        fragmentList.add(Fragment.instantiate(activity,
-                                RoverExplorerFragment.class.getName(), args));
-                        solList.add(String.valueOf(roverSolTracker));
-                        tabData.setFragmentList(fragmentList);
-                        tabData.setSolList(solList);
+                        for(int newTabCount = 0; newTabCount <= numberOfTabsToAdd; newTabCount++) {
 
-                        viewPagerAdapter.notifyDataSetChanged();
-                        roverSolTracker--;
+                            Bundle args = new Bundle();
+                            args.putInt(RoverExplorerConstants.roverSolTrackExtra, roverSolTracker);
+                            args.putString(RoverExplorerConstants.roverNameExtra, roverName);
+                            fragmentList.add(Fragment.instantiate(activity,
+                                    RoverExplorerFragment.class.getName(), args));
+                            solList.add(String.valueOf(roverSolTracker));
+                            tabData.setFragmentList(fragmentList);
+                            tabData.setSolList(solList);
+
+                            viewPagerAdapter.notifyDataSetChanged();
+                            roverSolTracker--;
+                        }
                     }
                 }
 

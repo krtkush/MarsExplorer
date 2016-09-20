@@ -34,7 +34,7 @@ public class RoverExplorerFragment extends Fragment {
                 public void run() {
                     roverExplorerPresenterInteractor.getRoverPhotos();
                 }
-            }, 1000);
+            }, 1500);
         }
     };
 

@@ -2,12 +2,12 @@ package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by kartikeykushwaha on 01/09/16.
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private TabData tabData;
 
