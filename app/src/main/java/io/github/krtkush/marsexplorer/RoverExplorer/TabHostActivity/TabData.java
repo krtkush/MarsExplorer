@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class TabData {
 
+    //TODO: Convert to AutoValue
+
     /**
      * Data structure to hold fragment instances and their respective SOLs in lists
      */
