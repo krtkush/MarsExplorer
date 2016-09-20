@@ -70,8 +70,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {
             @Override
             public void onCompleted() {
-                Timber.i("PhotosResultDM of %s retrieved", roverName);
-                Timber.i("Request completed at %s", System.currentTimeMillis());
+                Timber.i("Photos of %s retrieved", roverName);
                 isFetchingDataFromApi = false;
             }
 

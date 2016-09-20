@@ -1,6 +1,7 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -24,10 +25,18 @@ public class RoverExplorerFragment extends Fragment {
     private RoverExplorerPresenterInteractor roverExplorerPresenterInteractor;
     private Unbinder unbinder;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    roverExplorerPresenterInteractor.getRoverPhotos();
+                }
+            }, 1000);
+        }
+    };
 
     @Nullable
     @Override
@@ -47,9 +56,18 @@ public class RoverExplorerFragment extends Fragment {
 
         // Request data for photos from API
         roverExplorerPresenterInteractor.prepareRecyclerViewAndAddData(recyclerView);
-        roverExplorerPresenterInteractor.getRoverPhotos();
+        // roverExplorerPresenterInteractor.getRoverPhotos();
+
+        runnable.run();
 
         return view;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
+        roverExplorerPresenterInteractor.unsubscribeRoverPhotosRequest();
     }
 
     @Override
@@ -57,12 +75,5 @@ public class RoverExplorerFragment extends Fragment {
         super.onDestroyView();
 
         unbinder.unbind();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        roverExplorerPresenterInteractor.unsubscribeRoverPhotosRequest();
     }
 }
