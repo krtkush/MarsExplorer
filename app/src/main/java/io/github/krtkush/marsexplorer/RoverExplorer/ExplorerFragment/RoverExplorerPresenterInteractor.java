@@ -12,7 +12,7 @@ public interface RoverExplorerPresenterInteractor {
     /**
      * Method to get all photos for a particular rover
      */
-    void getRoverPhotos();
+    void getRoverPhotos(boolean delayRequest);
 
     void unsubscribeRoverPhotosRequest();
 

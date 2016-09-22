@@ -152,9 +152,9 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                             tabData.setFragmentList(fragmentList);
                             tabData.setSolList(solList);
 
-                            viewPagerAdapter.notifyDataSetChanged();
                             roverSolTracker--;
                         }
+                        viewPagerAdapter.notifyDataSetChanged();
                     }
                 }
 

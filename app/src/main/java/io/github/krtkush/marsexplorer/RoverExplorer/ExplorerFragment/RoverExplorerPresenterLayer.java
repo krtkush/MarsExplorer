@@ -1,6 +1,7 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,22 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // List of all the photos and their respective details
     private List<Photos> photoList;
 
+    /**
+     * Handler and Runnable to delay the photos API call by 1.5 seconds.
+     */
+    private Handler fetchPhotosHandler = new Handler();
+    private Runnable fetchPhotosRunnable = new Runnable() {
+        @Override
+        public void run() {
+            fetchPhotosHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    requestPhotosApiCall();
+                }
+            }, 1500);
+        }
+    };
+
     public RoverExplorerPresenterLayer(RoverExplorerFragment fragment) {
         this.fragment = fragment;
         photoList = new ArrayList<>();
@@ -58,7 +75,56 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     }
 
     @Override
-    public void getRoverPhotos() {
+    public void getRoverPhotos(boolean delayApiRequest) {
+
+        if(delayApiRequest)
+            fetchPhotosRunnable.run();
+        else
+            requestPhotosApiCall();
+    }
+
+    @Override
+    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
+
+        // Number of columns to show in the GridView
+        int numberOfColumns = 2;
+        int gridItemSpacing = 15;
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
+                numberOfColumns);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
+            @Override
+            public void loadMore(int newPageIndex) {
+                pageIndex = newPageIndex;
+                // Attempt to load more pics only if we have not reached the max page
+                // and any previous API request is not active
+                if(!isMaxPage && !isFetchingDataFromApi)
+                    getRoverPhotos(false);
+            }
+        });
+        photosRecyclerViewAdapter =
+                new PhotosRecyclerViewAdapter(fragment.getActivity(), photoList);
+        recyclerView.addItemDecoration(new PhotosGridItemDecoration(numberOfColumns,
+                gridItemSpacing, true));
+        recyclerView.setAdapter(photosRecyclerViewAdapter);
+    }
+
+    @Override
+    public void unsubscribeRoverPhotosRequest() {
+
+        if(nasaMarsPhotoSubscriber != null)
+            nasaMarsPhotoSubscriber.unsubscribe();
+
+        if(fetchPhotosHandler != null)
+            fetchPhotosHandler.removeCallbacks(fetchPhotosRunnable);
+    }
+
+    /**
+     * Method to make the API call
+     */
+    private void requestPhotosApiCall() {
 
         // Define the observer
         Observable<PhotosResultDM> nasaMarsPhotosObservable
@@ -101,40 +167,5 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(nasaMarsPhotoSubscriber);
-    }
-
-    @Override
-    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
-
-        // Number of columns to show in the GridView
-        int numberOfColumns = 2;
-        int gridItemSpacing = 15;
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
-                numberOfColumns);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
-            @Override
-            public void loadMore(int newPageIndex) {
-                pageIndex = newPageIndex;
-                // Attempt to load more pics only if we have not reached the max page
-                // and any previous API request is not active
-                if(!isMaxPage && !isFetchingDataFromApi)
-                    getRoverPhotos();
-            }
-        });
-        photosRecyclerViewAdapter =
-                new PhotosRecyclerViewAdapter(fragment.getActivity(), photoList);
-        recyclerView.addItemDecoration(new PhotosGridItemDecoration(numberOfColumns,
-                gridItemSpacing, true));
-        recyclerView.setAdapter(photosRecyclerViewAdapter);
-    }
-
-    @Override
-    public void unsubscribeRoverPhotosRequest() {
-
-        if(nasaMarsPhotoSubscriber != null)
-            nasaMarsPhotoSubscriber.unsubscribe();
     }
 }
