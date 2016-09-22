@@ -11,6 +11,10 @@ public interface RoverExplorerPresenterInteractor {
 
     /**
      * Method to get all photos for a particular rover
+     * @param delayRequest flag to let the method know whether to delay API request
+     *                     by few seconds or not. Delay is needed when the
+     *                     user is swiping tabs very quickly; helping reduce RAM usage and
+     *                     network calls.
      */
     void getRoverPhotos(boolean delayRequest);
 
