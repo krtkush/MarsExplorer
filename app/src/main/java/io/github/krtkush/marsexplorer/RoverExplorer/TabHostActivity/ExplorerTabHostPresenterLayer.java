@@ -102,7 +102,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         } else {
             roverSolTracker = Integer.valueOf(roverSol);
 
-            // Initiate and three fragments for the last three SOLs respectively.
+            // Initiate and add fragments for the new SOL tabs respectively.
             for(int fragmentCount = roverSolTracker;
                 fragmentCount > Integer.valueOf(roverSol) - numberOfInitialTabs;
                 fragmentCount--) {
