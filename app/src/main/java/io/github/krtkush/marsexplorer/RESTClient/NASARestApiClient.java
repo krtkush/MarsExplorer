@@ -9,6 +9,8 @@ import java.io.IOException;
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.RESTClient.Interceptors.OfflineResponseCacheInterceptor;
+import io.github.krtkush.marsexplorer.RESTClient.Interceptors.ResponseCacheInterceptor;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;

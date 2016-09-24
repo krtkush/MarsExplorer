@@ -1,7 +1,8 @@
-package io.github.krtkush.marsexplorer.RESTClient;
+package io.github.krtkush.marsexplorer.RESTClient.Interceptors;
 
 import java.io.IOException;
 
+import io.github.krtkush.marsexplorer.RESTClient.RestClientConstants;
 import io.github.krtkush.marsexplorer.UtilityMethods;
 import okhttp3.Interceptor;
 import okhttp3.Request;
