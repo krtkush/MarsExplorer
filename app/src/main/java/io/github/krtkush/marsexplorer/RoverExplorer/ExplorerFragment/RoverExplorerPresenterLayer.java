@@ -88,6 +88,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
         // Number of columns to show in the GridView
         int numberOfColumns = 2;
+        // Spacing between columns
         int gridItemSpacing = 15;
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
@@ -117,6 +118,9 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         if(nasaMarsPhotoSubscriber != null)
             nasaMarsPhotoSubscriber.unsubscribe();
 
+        /**
+         * Also, stop the handler which is responsible for the API call delay.
+         */
         if(fetchPhotosHandler != null)
             fetchPhotosHandler.removeCallbacks(fetchPhotosRunnable);
     }

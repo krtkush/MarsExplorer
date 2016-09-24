@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RoverExplorerTabHostActivity extends AppCompatActivity {
 
@@ -45,6 +47,11 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         presenterInteractor.setViewsValue();
         // Prepare the tabs.
         presenterInteractor.prepareAndImplementViewPager(viewPager, tabLayout);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
