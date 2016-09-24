@@ -1,10 +1,13 @@
 package io.github.krtkush.marsexplorer.RESTClient;
 
+import com.google.gson.GsonBuilder;
+import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
+
 import java.io.File;
 
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
+import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherResultDM;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -18,13 +21,13 @@ import rx.Observable;
 /**
  * Created by kartikeykushwaha on 08/06/16.
  */
-public class MAASRestApiClient {
+public class MarsWeatherClient {
 
-    private static MAASWeatherApiInterface maasWeatherApiInterface;
+    private static MarsWeatherInterface marsWeatherInterface;
 
-    public static MAASWeatherApiInterface getMaasWeatherApiInterface() {
+    public static MarsWeatherInterface getMarsWeatherInterface() {
 
-        if(maasWeatherApiInterface == null) {
+        if(marsWeatherInterface == null) {
 
             // Log level depending on build type. No logging in case of production APK
             HttpLoggingInterceptor.Level logLevel;
@@ -46,23 +49,28 @@ public class MAASRestApiClient {
                             .setLevel(logLevel))
                     .build();
 
+            GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
+                    new GsonBuilder().registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+                            .create()
+            );
+
             Retrofit retrofitClient = new Retrofit.Builder()
-                    .baseUrl(RestClientConstants.maasApiBaseUrl)
+                    .baseUrl(RestClientConstants.marsWeatherBaseUrl)
                     .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
 
-            maasWeatherApiInterface = retrofitClient.create(MAASWeatherApiInterface.class);
+            marsWeatherInterface = retrofitClient.create(MarsWeatherInterface.class);
         }
 
-        return maasWeatherApiInterface;
+        return marsWeatherInterface;
     }
 
-    public interface MAASWeatherApiInterface {
+    public interface MarsWeatherInterface {
 
-        @GET("latest")
-        Observable<MarsWeatherDM> getLatestMarsWeather(
+        @GET("api.php")
+        Observable<MarsWeatherResultDM> getLatestMarsWeather(
                 @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCacheFlag
         );
     }

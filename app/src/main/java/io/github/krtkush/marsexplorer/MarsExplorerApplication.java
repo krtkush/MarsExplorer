@@ -3,8 +3,9 @@ package io.github.krtkush.marsexplorer;
 import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.picasso.Picasso;
 
-import io.github.krtkush.marsexplorer.RESTClient.MAASRestApiClient;
+import io.github.krtkush.marsexplorer.RESTClient.MarsWeatherClient;
 import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -19,7 +20,7 @@ public class MarsExplorerApplication extends Application {
     // Variable that holds instance of the photos API interface
     private NASARestApiClient.NASAMarsPhotosApiInterface nasaMarsPhotosApiInterface;
     // Variable to hold instance of the weather API interface
-    private MAASRestApiClient.MAASWeatherApiInterface maasWeatherApiInterface;
+    private MarsWeatherClient.MarsWeatherInterface marsWeatherInterface;
 
     @Override
     public void onCreate() {
@@ -29,7 +30,7 @@ public class MarsExplorerApplication extends Application {
 
         // Initialize the API interfaces.
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
-        maasWeatherApiInterface = MAASRestApiClient.getMaasWeatherApiInterface();
+        marsWeatherInterface = MarsWeatherClient.getMarsWeatherInterface();
 
         // Initialize timber logging tool only if in debug mode.
         if(BuildConfig.DEBUG)
@@ -43,15 +44,15 @@ public class MarsExplorerApplication extends Application {
         );
 
         // Initialize picasso cache indicator and logging only if in debug mode.
-        /*if(BuildConfig.DEBUG) {
+        if(BuildConfig.DEBUG) {
             Picasso
                     .with(marsExplorerApplicationInstance)
                     .setIndicatorsEnabled(true);
 
-            Picasso
+            /*Picasso
                     .with(marsExplorerApplicationInstance)
-                    .setLoggingEnabled(true);
-        }*/
+                    .setLoggingEnabled(true);*/
+        }
 
         // Initialize Leak Canary
         if(BuildConfig.DEBUG)
@@ -73,9 +74,9 @@ public class MarsExplorerApplication extends Application {
     }
 
     /**
-     * @return Instance of MAASWeatherApiInterface
+     * @return Instance of MarsWeatherInterface
      */
-    public MAASRestApiClient.MAASWeatherApiInterface getMaasWeatherApiInterface() {
-        return maasWeatherApiInterface;
+    public MarsWeatherClient.MarsWeatherInterface getMarsWeatherInterface() {
+        return marsWeatherInterface;
     }
 }

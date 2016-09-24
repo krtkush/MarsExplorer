@@ -10,7 +10,7 @@ import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import io.github.krtkush.marsexplorer.UtilityMethods;
-import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherDM;
+import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherResultDM;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,7 +24,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
     private MainActivity mainActivityContext;
     private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
-    private Subscriber<MarsWeatherDM> maasMarsWeatherSubscriber;
+    private Subscriber<MarsWeatherResultDM> maasMarsWeatherSubscriber;
 
     /**
      * Variables to store the max SOL available for respective rovers.
@@ -49,13 +49,13 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     public void getMarsWeather() {
 
         // Define the observer
-        Observable<MarsWeatherDM> marsWeatherDMObservable
+        Observable<MarsWeatherResultDM> marsWeatherDMObservable
                 = MarsExplorerApplication.getApplicationInstance()
-                .getMaasWeatherApiInterface()
+                .getMarsWeatherInterface()
                 .getLatestMarsWeather(true);
 
         // Define the subscriber
-        maasMarsWeatherSubscriber = new Subscriber<MarsWeatherDM>() {
+        maasMarsWeatherSubscriber = new Subscriber<MarsWeatherResultDM>() {
             @Override
             public void onCompleted() {
                 Timber.i("Weather found");
@@ -77,14 +77,14 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             }
 
             @Override
-            public void onNext(MarsWeatherDM marsWeatherDM) {
+            public void onNext(MarsWeatherResultDM marsWeatherResultDM) {
 
                 // Prepare the text to be displayed
                 mainActivityContext.setMarsWeather(
-                        " " + marsWeatherDM.getReport().getMaxTemp() + "\u00B0C",
-                        " " + marsWeatherDM.getReport().getMinTemp() + "\u00B0C",
-                        " " + marsWeatherDM.getReport().getSol().toString(),
-                        " " + marsWeatherDM.getReport().getPressure() + " atm");
+                        " " + marsWeatherResultDM.weatherReportList().get(0).maxTemp() + "\u00B0C",
+                        " " + marsWeatherResultDM.weatherReportList().get(0).minTemp() + "\u00B0C",
+                        " " + marsWeatherResultDM.weatherReportList().get(0).sol(),
+                        " " + marsWeatherResultDM.weatherReportList().get(0).pressure() + " atm");
             }
         };
 

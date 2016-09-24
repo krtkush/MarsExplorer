@@ -16,9 +16,9 @@ public class RestClientConstants {
             + nasaApiVersion;
 
     // Strings related to MAAS's API
-    private static final String maasApiEndPoint = "http://marsweather.ingenology.com/";
-    private static final String maasApiVersion = "v1/";
-    public static final String maasApiBaseUrl = maasApiEndPoint + maasApiVersion;
+    private static final String marsWeatherEndPoint = "http://cab.inta-csic.es/";
+    private static final String marsWeatherAddress = "rems/wp-content/plugins/marsweather-widget/";
+    public static final String marsWeatherBaseUrl = marsWeatherEndPoint + marsWeatherAddress;
 
     // Custom headers
     public static final String responseCachingFlagHeader = "ApplyResponseCache";
