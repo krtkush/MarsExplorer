@@ -5,8 +5,8 @@ import android.app.Application;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
 
-import io.github.krtkush.marsexplorer.RESTClient.MarsWeatherClient;
-import io.github.krtkush.marsexplorer.RESTClient.NASARestApiClient;
+import io.github.krtkush.marsexplorer.RESTClients.MarsWeatherClient;
+import io.github.krtkush.marsexplorer.RESTClients.NASARestApiClient;
 import timber.log.Timber;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 

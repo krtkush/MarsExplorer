@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RESTClient;
+package io.github.krtkush.marsexplorer.RESTClients;
 
 /**
  * Created by kartikeykushwaha on 14/05/16.
@@ -15,7 +15,7 @@ public class RestClientConstants {
     public static final String nasaApiBaseUrl = nasaApiEndPoint + nasaApiServiceName
             + nasaApiVersion;
 
-    // Strings related to MAAS's API
+    // Strings related to Mars Weather's API
     private static final String marsWeatherEndPoint = "http://cab.inta-csic.es/";
     private static final String marsWeatherAddress = "rems/wp-content/plugins/marsweather-widget/";
     public static final String marsWeatherBaseUrl = marsWeatherEndPoint + marsWeatherAddress;

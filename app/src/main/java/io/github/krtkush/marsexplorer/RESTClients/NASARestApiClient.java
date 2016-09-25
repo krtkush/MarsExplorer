@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.RESTClient;
+package io.github.krtkush.marsexplorer.RESTClients;
 
 import com.google.gson.GsonBuilder;
 import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
@@ -9,8 +9,8 @@ import java.io.IOException;
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
-import io.github.krtkush.marsexplorer.RESTClient.Interceptors.OfflineResponseCacheInterceptor;
-import io.github.krtkush.marsexplorer.RESTClient.Interceptors.ResponseCacheInterceptor;
+import io.github.krtkush.marsexplorer.RESTClients.Interceptors.OfflineResponseCacheInterceptor;
+import io.github.krtkush.marsexplorer.RESTClients.Interceptors.ResponseCacheInterceptor;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -62,8 +62,9 @@ public class NASARestApiClient {
                     .build();
 
             GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
-                    new GsonBuilder().registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
-                    .create()
+                    new GsonBuilder()
+                            .registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+                            .create()
             );
 
             Retrofit retrofitClient = new Retrofit.Builder()
