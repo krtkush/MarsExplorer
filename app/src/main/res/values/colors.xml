@@ -10,5 +10,5 @@
     <color name="colorSecondaryLightText">#B3FFFFFF</color>
     <color name="colorDivider">#B6B6B6</color>
     <color name="colorPrimaryBackground">#F6F6F6</color>
-    <color name="colorTransparentBackground">#40F6F6F6</color>
+    <color name="colorTransparentBackground">#50212121</color>
 </resources>

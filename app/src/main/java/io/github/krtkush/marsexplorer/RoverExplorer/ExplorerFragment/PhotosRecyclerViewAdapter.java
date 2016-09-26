@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +48,9 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
-        // Populate the views with the data
+        // Populate the views
+
+        // Photo
         Picasso
                 .with(context)
                 .load(photos.get(position).imgSource()).config(Bitmap.Config.RGB_565)
@@ -55,6 +58,12 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 .fit()
                 .centerCrop()
                 .into(photosViewHolder.photoHolder);
+
+        // Photo Id
+        photosViewHolder.photoId.setText(String.valueOf(photos.get(position).id()));
+
+        // Camera Initials
+        photosViewHolder.cameraInitial.setText(photos.get(position).camera().name());
     }
 
     @Override
@@ -62,9 +71,11 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         return photos.size();
     }
 
-    class PhotosViewHolder extends RecyclerView.ViewHolder {
+    public class PhotosViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.photoHolder) ImageView photoHolder;
+        @BindView(R.id.cameraInitial) TextView cameraInitial;
+        @BindView(R.id.photoId) TextView photoId;
 
         public PhotosViewHolder(View view) {
             super(view);

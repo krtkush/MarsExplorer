@@ -12,9 +12,25 @@
 
     <RelativeLayout
         android:layout_width="210dp"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
         android:background="@color/colorTransparentBackground"
         android:layout_alignBottom="@+id/photoHolder">
+
+        <TextView
+            android:id="@+id/photoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/cameraInitial"
+            android:layout_below="@+id/photoId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent" />
 
     </RelativeLayout>
 
