@@ -89,7 +89,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         // Number of columns to show in the GridView
         int numberOfColumns = 2;
         // Spacing between columns
-        int gridItemSpacing = 15;
+        int gridItemSpacing = 13;
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
                 numberOfColumns);
