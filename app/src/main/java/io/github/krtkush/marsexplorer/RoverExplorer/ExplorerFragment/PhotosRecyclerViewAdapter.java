@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -52,7 +51,6 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         Picasso
                 .with(context)
                 .load(photos.get(position).imgSource()).config(Bitmap.Config.RGB_565)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .placeholder(R.drawable.square_placeholder)
                 .fit()
                 .centerCrop()

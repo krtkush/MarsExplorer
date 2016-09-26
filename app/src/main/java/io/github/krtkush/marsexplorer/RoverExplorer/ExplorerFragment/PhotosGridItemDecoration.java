@@ -31,7 +31,7 @@ public class PhotosGridItemDecoration extends RecyclerView.ItemDecoration {
         int column = position % spanCount; // item column
 
         if (includeEdge) {
-            outRect.left = (spacing - column * spacing / spanCount) + 3; // spacing - column * ((1f / spanCount) * spacing)
+            outRect.left = (spacing - column * spacing / spanCount) + 2; // spacing - column * ((1f / spanCount) * spacing) + 2
             outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
 
             if (position < spanCount) { // top edge
