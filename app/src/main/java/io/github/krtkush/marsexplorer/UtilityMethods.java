@@ -15,7 +15,8 @@ public class UtilityMethods {
 
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) MarsExplorerApplication.getApplicationInstance()
-                        .getSystemService(MarsExplorerApplication.getApplicationInstance().CONNECTIVITY_SERVICE);
+                        .getSystemService(MarsExplorerApplication.getApplicationInstance()
+                                .CONNECTIVITY_SERVICE);
 
         return connectivityManager.getActiveNetworkInfo() != null
                 && connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();

@@ -93,16 +93,36 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
                 numberOfColumns);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (photosRecyclerViewAdapter.getItemViewType(position)) {
+
+                    case 0: // PROGRESS_ITEM
+                        return 2;   // Two columns
+
+                    case 1: // PHOTO_ITEM
+                        return 1;   // One column
+
+                    default:
+                        return -1;
+                }
+            }
+        });
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
             @Override
             public void loadMore(int newPageIndex) {
                 pageIndex = newPageIndex;
-                // Attempt to load more pics only if we have not reached the max page
-                // and any previous API request is not active
-                if(!isMaxPage && !isFetchingDataFromApi)
+                // Add progress bar and attempt to load more pics only if we have not
+                // reached the max page and any previous API request is not active.
+                if(!isMaxPage && !isFetchingDataFromApi) {
+                    isFetchingDataFromApi = true;
+                    photoList.add(null);
+                    photosRecyclerViewAdapter.notifyItemInserted(photoList.size());
                     getRoverPhotos(false);
+                }
             }
         });
         photosRecyclerViewAdapter =
@@ -118,9 +138,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         if(nasaMarsPhotoSubscriber != null)
             nasaMarsPhotoSubscriber.unsubscribe();
 
-        /**
-         * Also, stop the handler which is responsible for the API call delay.
-         */
+        // Also, stop the handler which is responsible for the API call delay.
         if(fetchPhotosHandler != null)
             fetchPhotosHandler.removeCallbacks(fetchPhotosRunnable);
     }
@@ -155,6 +173,12 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photosResultDM.photos().size());
 
+                if (photoList != null && photoList.size() != 0) {
+                    // Remove the progress bar
+                    photoList.remove(photoList.size() - 1);
+                    photosRecyclerViewAdapter.notifyItemRemoved(photoList.size());
+                }
+
                 if(photosResultDM.photos().size() != 0)
                     photoList.addAll(photosResultDM.photos());
                 else
@@ -166,7 +190,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         };
 
         // Subscribe to the observable
-        isFetchingDataFromApi = true;
         nasaMarsPhotosObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
