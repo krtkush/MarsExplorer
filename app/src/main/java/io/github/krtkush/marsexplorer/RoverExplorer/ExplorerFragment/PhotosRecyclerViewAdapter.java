@@ -59,7 +59,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             lastPosition = position;
         }
 
-        // Populate the views
+        // Populate the views with the data
 
         // Photo
         Picasso

@@ -25,16 +25,16 @@ public abstract class InfinityScrollListener extends RecyclerView.OnScrollListen
     /**
      * Method to check whether user has scrolled in down direction. If scroll is downward,
      * identify end of list and give a callback to load more.
-     * @param dy Scroll value: +ve value is scroll down. -ve value is scroll up.
+     * @param dy Scroll value: +ve value is scroll down. Negative value means scroll up.
      */
     private void checkScrollDirectionAndCallNextPage(int dy) {
-        // Proceed only of the user is scrolling down
+        // Proceed only if the user is scrolling down
         if(dy > 0) {
             int currentlyVisibleItemCount = gridLayoutManager.getChildCount();
             int totalItemCount = gridLayoutManager.getItemCount();
             int previouslyVisibleItems = gridLayoutManager.findFirstVisibleItemPosition();
 
-            if ((currentlyVisibleItemCount + previouslyVisibleItems) >= totalItemCount) {
+            if((currentlyVisibleItemCount + previouslyVisibleItems) >= totalItemCount) {
                 // Reached the bottom of RecyclerView (list); we can attempt to load the next page.
                 loadMore(pageIndex++);
             }
