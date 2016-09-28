@@ -3,6 +3,7 @@ package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import timber.log.Timber;
 public class RoverExplorerFragment extends Fragment {
 
     @BindView(R.id.photosRecyclerView) RecyclerView recyclerView;
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
     private RoverExplorerPresenterInteractor roverExplorerPresenterInteractor;
     private Unbinder unbinder;
@@ -41,7 +43,8 @@ public class RoverExplorerFragment extends Fragment {
         roverExplorerPresenterInteractor.getValuesFromIntent();
 
         // Request data for photos from API
-        roverExplorerPresenterInteractor.prepareRecyclerViewAndAddData(recyclerView);
+        roverExplorerPresenterInteractor.prepareRecyclerViewAndAddData(recyclerView,
+                swipeRefreshLayout);
         roverExplorerPresenterInteractor.getRoverPhotos(true);
 
         return view;

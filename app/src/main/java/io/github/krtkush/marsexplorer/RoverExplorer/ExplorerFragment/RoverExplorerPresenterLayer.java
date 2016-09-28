@@ -3,6 +3,7 @@ package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -42,6 +43,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // List of all the photos and their respective details
     private List<Photos> photoList;
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     /**
      * Handler and Runnable to delay the photos API call by 1.5 seconds.
      */
@@ -49,12 +52,15 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private Runnable fetchPhotosRunnable = new Runnable() {
         @Override
         public void run() {
+
+            long photoApiRequestDelayTime = 1500;
+
             fetchPhotosHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     requestPhotosApiCall();
                 }
-            }, 1500);
+            }, photoApiRequestDelayTime);
         }
     };
 
@@ -84,7 +90,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     }
 
     @Override
-    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView) {
+    public void prepareRecyclerViewAndAddData(RecyclerView recyclerView,
+                                              final SwipeRefreshLayout swipeRefreshLayout) {
 
         // Number of columns to show in the GridView
         int numberOfColumns = 2;
@@ -125,11 +132,22 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 }
             }
         });
+
         photosRecyclerViewAdapter =
                 new PhotosRecyclerViewAdapter(fragment.getActivity(), photoList);
         recyclerView.addItemDecoration(new PhotosGridItemDecoration(numberOfColumns,
                 gridItemSpacing, true));
         recyclerView.setAdapter(photosRecyclerViewAdapter);
+
+        // Define the action when user pulls down to refresh.
+        this.swipeRefreshLayout = swipeRefreshLayout;
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getRoverPhotos(false);
+            }
+        });
     }
 
     @Override
@@ -144,7 +162,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     }
 
     /**
-     * Method to make the API call
+     * Method to make the API call.
+     * Always call this method via getRoverPhotos(flag) method not directly.
      */
     private void requestPhotosApiCall() {
 
@@ -160,12 +179,14 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             public void onCompleted() {
                 Timber.i("Photos of %s retrieved", roverName);
                 isFetchingDataFromApi = false;
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
                 isFetchingDataFromApi = false;
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override

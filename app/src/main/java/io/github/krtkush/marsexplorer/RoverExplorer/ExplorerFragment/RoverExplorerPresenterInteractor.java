@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 /**
@@ -21,7 +22,8 @@ public interface RoverExplorerPresenterInteractor {
     void unsubscribeRoverPhotosRequest();
 
     /**
-     * Method to initialize the RecyclerView and set the data via the adapter
+     * Method to initialize the RecyclerView and set the data via the adapter.
      */
-    void prepareRecyclerViewAndAddData(RecyclerView recyclerView);
+    void prepareRecyclerViewAndAddData(RecyclerView recyclerView,
+                                       SwipeRefreshLayout swipeRefreshLayout);
 }
