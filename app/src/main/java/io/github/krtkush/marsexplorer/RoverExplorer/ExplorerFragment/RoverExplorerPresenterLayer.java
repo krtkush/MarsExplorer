@@ -173,7 +173,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photosResultDM.photos().size());
 
-                if (photoList != null && photoList.size() != 0) {
+                if(photoList != null && photoList.size() != 0) {
                     // Remove the progress bar
                     photoList.remove(photoList.size() - 1);
                     photosRecyclerViewAdapter.notifyItemRemoved(photoList.size());
