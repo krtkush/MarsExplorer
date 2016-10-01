@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.PhotosJsonDataModels;
+package io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;

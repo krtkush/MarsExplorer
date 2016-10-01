@@ -1,4 +1,4 @@
-package io.github.krtkush.marsexplorer.WeatherJsonDataModel;
+package io.github.krtkush.marsexplorer.RESTClients.DataModels.WeatherJsonDataModel;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;

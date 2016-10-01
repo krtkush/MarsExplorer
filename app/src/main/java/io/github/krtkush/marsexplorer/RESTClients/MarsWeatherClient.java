@@ -8,7 +8,7 @@ import java.io.File;
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.RESTClients.Interceptors.ResponseCacheInterceptor;
-import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.WeatherJsonDataModel.MarsWeatherResultDM;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

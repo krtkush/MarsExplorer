@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PhotosJsonDataModels.Photos;
-import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.Photos;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import rx.Observable;
 import rx.Subscriber;

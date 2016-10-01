@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RESTClients.Interceptors.OfflineResponseCacheInterceptor;
 import io.github.krtkush.marsexplorer.RESTClients.Interceptors.ResponseCacheInterceptor;
 import okhttp3.Cache;

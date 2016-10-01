@@ -5,12 +5,12 @@ import android.widget.Toast;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import io.github.krtkush.marsexplorer.UtilityMethods;
-import io.github.krtkush.marsexplorer.WeatherJsonDataModel.MarsWeatherResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.WeatherJsonDataModel.MarsWeatherResultDM;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
