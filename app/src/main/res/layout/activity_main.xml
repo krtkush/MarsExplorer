@@ -145,9 +145,8 @@
                     android:id="@+id/goToCuriosityButtonBackground"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:transitionName="roverImageTransition"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/curiosity_crop"/>
+                    android:transitionName="roverImageTransition" />
 
                 <TextView
                     android:id="@+id/goToCuriosity"
@@ -176,9 +175,7 @@
                 <ImageView
                     android:id="@+id/goToOpportunityButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/opportunity_spirit_crop"/>
+                    android:layout_height="80dp" />
 
                 <TextView
                     android:id="@+id/goToOpportunity"
@@ -207,9 +204,7 @@
                 <ImageView
                     android:id="@+id/goToSpiritButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/spirit"/>
+                    android:layout_height="80dp" />
 
                 <TextView
                     android:id="@+id/goToSpirit"

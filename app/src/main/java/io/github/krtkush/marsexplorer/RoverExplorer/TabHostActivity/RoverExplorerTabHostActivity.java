@@ -3,11 +3,15 @@ package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,6 +90,26 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
      */
     protected void setCollapsibleToolbarImage(int drawablePath) {
 
-        collapsibleImage.setImageResource(drawablePath);
+        //collapsibleImage.setImageResource(drawablePath);
+        //collapsibleImage.setImageDrawable(ActivityCompat.getDrawable(this, drawablePath));
+
+        ActivityCompat.postponeEnterTransition(this);
+        Picasso.with(this.getApplicationContext())
+                .load(drawablePath)
+                .noFade()
+                .fit()
+                .into(collapsibleImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        ActivityCompat
+                                .startPostponedEnterTransition(RoverExplorerTabHostActivity.this);
+                    }
+
+                    @Override
+                    public void onError() {
+                        ActivityCompat
+                                .startPostponedEnterTransition(RoverExplorerTabHostActivity.this);
+                    }
+                });
     }
 }

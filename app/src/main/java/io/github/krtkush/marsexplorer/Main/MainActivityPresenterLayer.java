@@ -195,7 +195,6 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                         GeneralConstants.Opportunity);
                 goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra,
                         opportunityMaxSol);
-                mainActivityContext.startActivity(goToRoverExplorer);
                 break;
 
             case GeneralConstants.Spirit:
@@ -203,7 +202,6 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                         GeneralConstants.Spirit);
                 goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra,
                         spiritMaxSol);
-                mainActivityContext.startActivity(goToRoverExplorer);
                 break;
         }
 

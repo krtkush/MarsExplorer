@@ -70,15 +70,15 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         switch (roverName) {
 
             case GeneralConstants.Curiosity:
-                activity.setCollapsibleToolbarImage(R.drawable.curiosity_crop);
+                activity.setCollapsibleToolbarImage(R.drawable.curiosity_full);
                 break;
 
             case GeneralConstants.Opportunity:
-                activity.setCollapsibleToolbarImage(R.drawable.opportunity_spirit_crop);
+                activity.setCollapsibleToolbarImage(R.drawable.oppertunity_spirit_full);
                 break;
 
             case GeneralConstants.Spirit:
-                activity.setCollapsibleToolbarImage(R.drawable.opportunity_spirit_crop);
+                activity.setCollapsibleToolbarImage(R.drawable.oppertunity_spirit_full);
                 break;
         }
     }

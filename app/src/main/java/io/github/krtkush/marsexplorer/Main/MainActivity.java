@@ -4,8 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.minMarsTemperature) TextView minTemperatureTextView;
     @BindView(R.id.currentSol) TextView currentSolTextView;
     @BindView(R.id.marsPressure) TextView atmosphericPressureTextView;
+    @BindView(R.id.goToCuriosityButtonBackground) ImageView goToCuriosityButtonBackground;
+    @BindView(R.id.goToOpportunityButtonBackground) ImageView goToOpportunityButtonBackground;
+    @BindView(R.id.goToSpiritButtonBackground) ImageView goToSpiritButtonBackground;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -41,6 +47,27 @@ public class MainActivity extends AppCompatActivity {
         presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
         presenterInteractor.getMaxSol(GeneralConstants.Spirit);
         presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
+
+        Picasso
+                .with(this)
+                .load(R.drawable.curiosity_full)
+                .fit()
+                .centerCrop()
+                .into(goToCuriosityButtonBackground);
+
+        Picasso
+                .with(this)
+                .load(R.drawable.oppertunity_spirit_full)
+                .fit()
+                .centerCrop()
+                .into(goToOpportunityButtonBackground);
+
+        Picasso
+                .with(this)
+                .load(R.drawable.oppertunity_spirit_full)
+                .fit()
+                .centerCrop()
+                .into(goToSpiritButtonBackground);
     }
 
     @Override
