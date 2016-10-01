@@ -6,8 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,10 +53,8 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
         // Animate the view
-        if(viewHolder.getAdapterPosition() > lastPosition) {
-            Animation scrollUpAnimation =
-                    AnimationUtils.loadAnimation(context, R.anim.scroll_up_animation);
-            viewHolder.itemView.startAnimation(scrollUpAnimation);
+        if(viewHolder.getAdapterPosition() >= lastPosition) {
+            setAnimation(viewHolder.itemView);
             lastPosition = viewHolder.getAdapterPosition();
         }
 
@@ -74,6 +73,30 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         // Camera Initials
         photosViewHolder.cameraInitial.setText(photos.get(position).camera().name());
+    }
+
+    /**
+     * Method to add
+     * 1. Fade in effect
+     * 2. Scroll up animation
+     * @param view
+     */
+    private void setAnimation(View view) {
+
+        // Prepare the fade in effect
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f, 1.0f);
+        alphaAnimation.setDuration(1500);
+
+        // Prepare the translate effect
+        TranslateAnimation translateAnimation = new TranslateAnimation(0.0f, 0.0f, 1000.0f, 0.0f);
+        translateAnimation.setDuration(700);
+
+        // Consolidate all the animations
+        AnimationSet animationSet = new AnimationSet(true);
+        animationSet.addAnimation(alphaAnimation);
+        animationSet.addAnimation(translateAnimation);
+
+        view.startAnimation(animationSet);
     }
 
     @Override
