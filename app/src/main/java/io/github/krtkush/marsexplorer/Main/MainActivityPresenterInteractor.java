@@ -1,5 +1,7 @@
 package io.github.krtkush.marsexplorer.Main;
 
+import android.view.View;
+
 /**
  * Created by kartikeykushwaha on 16/07/16.
  */
@@ -24,7 +26,7 @@ public interface MainActivityPresenterInteractor {
      * Method to take user to the rover explore section.
      * @param roverName Rover which the user wants to explore.
      */
-    void goToRoverSection(String roverName);
+    void goToRoverSection(String roverName, View view);
 
     /**
      * Method to check if the device is connected to the internet or not and show a warning toast

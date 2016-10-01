@@ -1,16 +1,18 @@
 package io.github.krtkush.marsexplorer.Main;
 
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.view.View;
 import android.widget.Toast;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.WeatherJsonDataModel.MarsWeatherResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity;
 import io.github.krtkush.marsexplorer.UtilityMethods;
-import io.github.krtkush.marsexplorer.RESTClients.DataModels.WeatherJsonDataModel.MarsWeatherResultDM;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -171,7 +173,10 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
      * @param roverName Rover which the user wants to explore.
      */
     @Override
-    public void goToRoverSection(String roverName) {
+    public void goToRoverSection(String roverName, View view) {
+
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(mainActivityContext, view, "roverImageTransition");
 
         Intent goToRoverExplorer = new Intent(mainActivityContext,
                 RoverExplorerTabHostActivity.class);
@@ -183,7 +188,6 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                         GeneralConstants.Curiosity);
                 goToRoverExplorer.putExtra(RoverExplorerConstants.roverMaxSolExtra,
                         curiosityMaxSol);
-                mainActivityContext.startActivity(goToRoverExplorer);
                 break;
 
             case GeneralConstants.Opportunity:
@@ -202,5 +206,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                 mainActivityContext.startActivity(goToRoverExplorer);
                 break;
         }
+
+        mainActivityContext.startActivity(goToRoverExplorer, activityOptionsCompat.toBundle());
     }
 }

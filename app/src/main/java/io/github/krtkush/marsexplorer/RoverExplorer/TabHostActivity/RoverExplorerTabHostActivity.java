@@ -9,9 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
@@ -89,12 +86,6 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
      */
     protected void setCollapsibleToolbarImage(int drawablePath) {
 
-        Picasso
-                .with(this)
-                .load(drawablePath)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .fit()
-                .centerCrop()
-                .into(collapsibleImage);
+        collapsibleImage.setImageResource(drawablePath);
     }
 }

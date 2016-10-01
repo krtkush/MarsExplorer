@@ -87,15 +87,15 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
 
             case R.id.goToCuriosity:
-                presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
+                presenterInteractor.goToRoverSection(GeneralConstants.Curiosity, view);
                 break;
 
             case R.id.goToOpportunity:
-                presenterInteractor.goToRoverSection(GeneralConstants.Opportunity);
+                presenterInteractor.goToRoverSection(GeneralConstants.Opportunity, view);
                 break;
 
             case R.id.goToSpirit:
-                presenterInteractor.goToRoverSection(GeneralConstants.Spirit);
+                presenterInteractor.goToRoverSection(GeneralConstants.Spirit, view);
                 break;
         }
     }
