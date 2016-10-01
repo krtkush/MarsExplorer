@@ -5,6 +5,7 @@ import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
@@ -59,6 +60,8 @@ public class NASARestApiClient {
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
                             .setLevel(logLevel))
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .connectTimeout(60, TimeUnit.SECONDS)
                     .build();
 
             GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
@@ -87,8 +90,7 @@ public class NASARestApiClient {
                 @Header(RestClientConstants.offlineCachingFlagHeader) boolean offlineCacheFlag,
                 @Header(RestClientConstants.responseCachingFlagHeader) boolean responseCacheFlag,
                 @Path("roverName") String roverName,
-                @Query("sol") String SOL,
-                @Query("page") int pageNumber);
+                @Query("sol") String SOL);
     }
 
     /**

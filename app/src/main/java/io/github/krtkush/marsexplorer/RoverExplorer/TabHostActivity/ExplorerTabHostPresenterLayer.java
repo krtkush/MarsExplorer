@@ -177,7 +177,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(true, true, roverName, "1", 1);
+                .getPhotosBySol(true, true, roverName, "1");
 
         // Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {

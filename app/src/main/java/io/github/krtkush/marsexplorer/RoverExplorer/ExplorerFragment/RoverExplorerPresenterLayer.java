@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.krtkush.marsexplorer.InfinityScrollListener;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.PhotosJsonDataModels.Photos;
 import io.github.krtkush.marsexplorer.PhotosJsonDataModels.PhotosResultDM;
@@ -30,13 +29,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     private String roverName;
     private String roverSol;
     private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
-
-    // The index number of the page to load
-    private int pageIndex = 1;
-    // Flag to indicate if an API request is in process or not
-    private boolean isFetchingDataFromApi;
-    // Flag to indicate if the last page of given SOL has been hit or not
-    private boolean isMaxPage = false;
 
     // Variables related to RecyclerView
     private PhotosRecyclerViewAdapter photosRecyclerViewAdapter;
@@ -100,38 +92,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(fragment.getActivity(),
                 numberOfColumns);
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                switch (photosRecyclerViewAdapter.getItemViewType(position)) {
-
-                    case 0: // PROGRESS_ITEM
-                        return 2;   // Two columns
-
-                    case 1: // PHOTO_ITEM
-                        return 1;   // One column
-
-                    default:
-                        return -1;
-                }
-            }
-        });
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.addOnScrollListener(new InfinityScrollListener(gridLayoutManager, pageIndex) {
-            @Override
-            public void loadMore(int newPageIndex) {
-                pageIndex = newPageIndex;
-                // Add progress bar and attempt to load more pics only if we have not
-                // reached the max page and any previous API request is not active.
-                if(!isMaxPage && !isFetchingDataFromApi) {
-                    isFetchingDataFromApi = true;
-                    photoList.add(null);
-                    photosRecyclerViewAdapter.notifyItemInserted(photoList.size());
-                    getRoverPhotos(false);
-                }
-            }
-        });
 
         photosRecyclerViewAdapter =
                 new PhotosRecyclerViewAdapter(fragment.getActivity(), photoList);
@@ -156,7 +118,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         if(nasaMarsPhotoSubscriber != null)
             nasaMarsPhotoSubscriber.unsubscribe();
 
-        // Also, stop the handler which is responsible for the API call delay.
+        // Also, stop the handler which is responsible for the delay in API call.
         if(fetchPhotosHandler != null)
             fetchPhotosHandler.removeCallbacks(fetchPhotosRunnable);
     }
@@ -171,21 +133,19 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(true, true, roverName, roverSol, pageIndex);
+                .getPhotosBySol(true, true, roverName, roverSol);
 
         // Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {
             @Override
             public void onCompleted() {
                 Timber.i("Photos of %s retrieved", roverName);
-                isFetchingDataFromApi = false;
                 swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
-                isFetchingDataFromApi = false;
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -194,17 +154,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photosResultDM.photos().size());
 
-                if(photoList != null && photoList.size() != 0) {
-                    // Remove the progress bar
-                    photoList.remove(photoList.size() - 1);
-                    photosRecyclerViewAdapter.notifyItemRemoved(photoList.size());
-                }
-
                 if(photosResultDM.photos().size() != 0)
                     photoList.addAll(photosResultDM.photos());
-                else
-                    // Reached end of page for given SOL
-                    isMaxPage = true;
 
                 photosRecyclerViewAdapter.notifyDataSetChanged();
             }

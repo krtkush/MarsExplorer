@@ -98,7 +98,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
     /**
      * Method to get the max possible SOL for a specific rover.
-     * The API is hit for SOL 1, from which the max SOL is extracted.
+     * The API is hit for SOL 0, from which the max SOL is extracted.
      * @param roverName Name of the rover for which max SOL is required.
      */
     @Override
@@ -108,7 +108,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
         Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
                 .getNasaMarsPhotosApiInterface()
-                .getPhotosBySol(true, true, roverName, "1", 1);
+                .getPhotosBySol(true, true, roverName, "1");
 
         // Define the subscriber
         nasaMarsPhotoSubscriber = new Subscriber<PhotosResultDM>() {
