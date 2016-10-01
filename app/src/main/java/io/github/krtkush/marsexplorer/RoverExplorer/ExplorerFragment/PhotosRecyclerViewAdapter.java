@@ -79,7 +79,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
      * Method to add
      * 1. Fade in effect
      * 2. Scroll up animation
-     * @param view
+     * @param view item to which the affects are to be applied.
      */
     private void setAnimation(View view) {
 
