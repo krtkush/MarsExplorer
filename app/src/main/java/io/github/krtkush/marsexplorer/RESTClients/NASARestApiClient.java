@@ -60,6 +60,7 @@ public class NASARestApiClient {
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
                             .setLevel(logLevel))
+                    // Set the timeout periods
                     .readTimeout(60, TimeUnit.SECONDS)
                     .connectTimeout(60, TimeUnit.SECONDS)
                     .build();
