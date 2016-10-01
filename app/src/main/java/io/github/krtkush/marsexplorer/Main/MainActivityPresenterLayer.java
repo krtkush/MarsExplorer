@@ -39,7 +39,8 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     public void checkInternetConnectivity() {
         if(!UtilityMethods.isNetworkAvailable())
             mainActivityContext.showToast(mainActivityContext.getResources()
-                    .getString(R.string.no_internet), Toast.LENGTH_LONG);
+                    .getString(R.string.no_internet),
+                    Toast.LENGTH_LONG);
     }
 
     /**
