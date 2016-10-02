@@ -154,8 +154,10 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photosResultDM.photos().size());
 
-                if(photosResultDM.photos().size() != 0)
+                if(photosResultDM.photos().size() != 0) {
+                    photoList.clear();
                     photoList.addAll(photosResultDM.photos());
+                }
 
                 photosRecyclerViewAdapter.notifyDataSetChanged();
             }
