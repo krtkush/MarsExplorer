@@ -4,8 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.minMarsTemperature) TextView minTemperatureTextView;
     @BindView(R.id.currentSol) TextView currentSolTextView;
     @BindView(R.id.marsPressure) TextView atmosphericPressureTextView;
+    @BindView(R.id.goToCuriosityButtonBackground) ImageView goToCuriosityButtonBackground;
+    @BindView(R.id.goToOpportunityButtonBackground) ImageView goToOpportunityButtonBackground;
+    @BindView(R.id.goToSpiritButtonBackground) ImageView goToSpiritButtonBackground;
+    @BindView(R.id.headerImage) ImageView headerImage;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -34,13 +41,16 @@ public class MainActivity extends AppCompatActivity {
         Timber.tag(MainActivity.this.getClass().getSimpleName());
         presenterInteractor = new MainActivityPresenterLayer(this);
 
-        // Send request to fetch Mars weather data
-        presenterInteractor.getMarsWeather();
-
         // Send request to get max SOL for each rover
         presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
         presenterInteractor.getMaxSol(GeneralConstants.Spirit);
         presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
+
+        // Set the buttons background images
+        setImages(R.drawable.curiosity, goToCuriosityButtonBackground);
+        setImages(R.drawable.spirit, goToOpportunityButtonBackground);
+        setImages(R.drawable.opportunity, goToSpiritButtonBackground);
+        setImages(R.drawable.main_activity_header_mars_image, headerImage);
     }
 
     @Override
@@ -49,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Check internet connectivity
         presenterInteractor.checkInternetConnectivity();
+
+        // Request mars weather
+        presenterInteractor.getMarsWeather();
     }
 
     @Override
@@ -87,15 +100,15 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
 
             case R.id.goToCuriosity:
-                presenterInteractor.goToRoverSection(GeneralConstants.Curiosity);
+                presenterInteractor.goToRoverSection(GeneralConstants.Curiosity, view);
                 break;
 
             case R.id.goToOpportunity:
-                presenterInteractor.goToRoverSection(GeneralConstants.Opportunity);
+                presenterInteractor.goToRoverSection(GeneralConstants.Opportunity, view);
                 break;
 
             case R.id.goToSpirit:
-                presenterInteractor.goToRoverSection(GeneralConstants.Spirit);
+                presenterInteractor.goToRoverSection(GeneralConstants.Spirit, view);
                 break;
         }
     }
@@ -107,5 +120,20 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void showToast(String toastMessage, int toastDuration) {
         Toast.makeText(this, toastMessage, toastDuration).show();
+    }
+
+    /**
+     * Set images of all any Views.
+     * @param drawablePath
+     * @param imageView
+     */
+    private void setImages(int drawablePath, ImageView imageView) {
+
+        Picasso
+                .with(this)
+                .load(drawablePath)
+                .fit()
+                .centerCrop()
+                .into(imageView);
     }
 }

@@ -3,13 +3,15 @@ package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -47,6 +49,17 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
         presenterInteractor.setViewsValue();
         // Prepare the tabs.
         presenterInteractor.prepareAndImplementViewPager(viewPager, tabLayout);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -89,12 +102,23 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
      */
     protected void setCollapsibleToolbarImage(int drawablePath) {
 
-        Picasso
-                .with(this)
+        ActivityCompat.postponeEnterTransition(this);
+        Picasso.with(this.getApplicationContext())
                 .load(drawablePath)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .fit()
                 .centerCrop()
-                .into(collapsibleImage);
+                .into(collapsibleImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        ActivityCompat
+                                .startPostponedEnterTransition(RoverExplorerTabHostActivity.this);
+                    }
+
+                    @Override
+                    public void onError() {
+                        ActivityCompat
+                                .startPostponedEnterTransition(RoverExplorerTabHostActivity.this);
+                    }
+                });
     }
 }
