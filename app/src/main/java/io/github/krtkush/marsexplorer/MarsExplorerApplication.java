@@ -3,7 +3,6 @@ package io.github.krtkush.marsexplorer;
 import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.picasso.Picasso;
 
 import io.github.krtkush.marsexplorer.RESTClients.MarsWeatherClient;
 import io.github.krtkush.marsexplorer.RESTClients.NASARestApiClient;
@@ -45,11 +44,11 @@ public class MarsExplorerApplication extends Application {
 
         // Initialize picasso cache indicator and logging only if in debug mode.
         if(BuildConfig.DEBUG) {
-            Picasso
+            /*Picasso
                     .with(marsExplorerApplicationInstance)
                     .setIndicatorsEnabled(true);
 
-            /*Picasso
+            Picasso
                     .with(marsExplorerApplicationInstance)
                     .setLoggingEnabled(true);*/
         }
