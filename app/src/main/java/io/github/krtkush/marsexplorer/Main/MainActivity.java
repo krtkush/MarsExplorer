@@ -40,34 +40,15 @@ public class MainActivity extends AppCompatActivity {
         Timber.tag(MainActivity.this.getClass().getSimpleName());
         presenterInteractor = new MainActivityPresenterLayer(this);
 
-        // Send request to fetch Mars weather data
-        presenterInteractor.getMarsWeather();
-
         // Send request to get max SOL for each rover
         presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
         presenterInteractor.getMaxSol(GeneralConstants.Spirit);
         presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
 
-        Picasso
-                .with(this)
-                .load(R.drawable.curiosity_full)
-                .fit()
-                .centerCrop()
-                .into(goToCuriosityButtonBackground);
-
-        Picasso
-                .with(this)
-                .load(R.drawable.oppertunity_spirit_full)
-                .fit()
-                .centerCrop()
-                .into(goToOpportunityButtonBackground);
-
-        Picasso
-                .with(this)
-                .load(R.drawable.oppertunity_spirit_full)
-                .fit()
-                .centerCrop()
-                .into(goToSpiritButtonBackground);
+        // Set the buttons background images
+        setButtonBackground(R.drawable.curiosity_full, goToCuriosityButtonBackground);
+        setButtonBackground(R.drawable.oppertunity_spirit_full, goToOpportunityButtonBackground);
+        setButtonBackground(R.drawable.oppertunity_spirit_full, goToSpiritButtonBackground);
     }
 
     @Override
@@ -76,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Check internet connectivity
         presenterInteractor.checkInternetConnectivity();
+
+        // Request mars weather
+        presenterInteractor.getMarsWeather();
     }
 
     @Override
@@ -134,5 +118,20 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void showToast(String toastMessage, int toastDuration) {
         Toast.makeText(this, toastMessage, toastDuration).show();
+    }
+
+    /**
+     * Set the background images of rover buttons.
+     * @param drawablePath
+     * @param imageView
+     */
+    private void setButtonBackground(int drawablePath, ImageView imageView) {
+
+        Picasso
+                .with(this)
+                .load(drawablePath)
+                .fit()
+                .centerCrop()
+                .into(imageView);
     }
 }
