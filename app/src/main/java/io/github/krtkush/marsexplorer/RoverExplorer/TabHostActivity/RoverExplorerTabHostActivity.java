@@ -90,14 +90,11 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
      */
     protected void setCollapsibleToolbarImage(int drawablePath) {
 
-        //collapsibleImage.setImageResource(drawablePath);
-        //collapsibleImage.setImageDrawable(ActivityCompat.getDrawable(this, drawablePath));
-
         ActivityCompat.postponeEnterTransition(this);
         Picasso.with(this.getApplicationContext())
                 .load(drawablePath)
-                .noFade()
                 .fit()
+                .centerCrop()
                 .into(collapsibleImage, new Callback() {
                     @Override
                     public void onSuccess() {

@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.goToCuriosityButtonBackground) ImageView goToCuriosityButtonBackground;
     @BindView(R.id.goToOpportunityButtonBackground) ImageView goToOpportunityButtonBackground;
     @BindView(R.id.goToSpiritButtonBackground) ImageView goToSpiritButtonBackground;
+    @BindView(R.id.headerImage) ImageView headerImage;
 
     private MainActivityPresenterInteractor presenterInteractor;
 
@@ -46,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
         presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
 
         // Set the buttons background images
-        setButtonBackground(R.drawable.curiosity_full, goToCuriosityButtonBackground);
-        setButtonBackground(R.drawable.oppertunity_spirit_full, goToOpportunityButtonBackground);
-        setButtonBackground(R.drawable.oppertunity_spirit_full, goToSpiritButtonBackground);
+        setImages(R.drawable.curiosity, goToCuriosityButtonBackground);
+        setImages(R.drawable.spirit, goToOpportunityButtonBackground);
+        setImages(R.drawable.opportunity, goToSpiritButtonBackground);
+        setImages(R.drawable.main_activity_header_mars_image, headerImage);
     }
 
     @Override
@@ -121,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Set the background images of rover buttons.
+     * Set images of all any Views.
      * @param drawablePath
      * @param imageView
      */
-    private void setButtonBackground(int drawablePath, ImageView imageView) {
+    private void setImages(int drawablePath, ImageView imageView) {
 
         Picasso
                 .with(this)
