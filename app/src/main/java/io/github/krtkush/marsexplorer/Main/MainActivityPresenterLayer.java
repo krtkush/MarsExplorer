@@ -41,7 +41,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     public void checkInternetConnectivity() {
         if(!UtilityMethods.isNetworkAvailable())
             mainActivityContext.showToast(mainActivityContext.getResources()
-                    .getString(R.string.no_internet),
+                            .getString(R.string.no_internet),
                     Toast.LENGTH_LONG);
     }
 
@@ -67,27 +67,27 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
-                mainActivityContext
-                        .setMarsWeather(
-                                " " + mainActivityContext.getResources()
-                                        .getString(R.string.no_temperature),
-                                " " + mainActivityContext.getResources()
-                                        .getString(R.string.no_temperature),
-                                " " + mainActivityContext.getResources()
-                                        .getString(R.string.no_temperature),
-                                " " + mainActivityContext.getResources()
-                                        .getString(R.string.no_temperature));
+                setUiIfNoWeatherData();
             }
 
             @Override
             public void onNext(MarsWeatherResultDM marsWeatherResultDM) {
 
-                // Prepare the text to be displayed
-                mainActivityContext.setMarsWeather(
-                        " " + marsWeatherResultDM.weatherReportList().get(0).maxTemp() + "\u00B0C",
-                        " " + marsWeatherResultDM.weatherReportList().get(0).minTemp() + "\u00B0C",
-                        " " + marsWeatherResultDM.weatherReportList().get(0).sol(),
-                        " " + marsWeatherResultDM.weatherReportList().get(0).pressure() + " atm");
+                if(marsWeatherResultDM.weatherReportList().size() <= 0) {
+                    // The API was success but, ni data was returned.
+                    setUiIfNoWeatherData();
+                } else {
+                    // Prepare the text to be displayed.
+                    mainActivityContext.setMarsWeather(
+                            " " + marsWeatherResultDM.weatherReportList()
+                                    .get(0).maxTemp() + "\u00B0C",
+                            " " + marsWeatherResultDM.weatherReportList()
+                                    .get(0).minTemp() + "\u00B0C",
+                            " " + marsWeatherResultDM.weatherReportList()
+                                    .get(0).sol(),
+                            " " + marsWeatherResultDM.weatherReportList()
+                                    .get(0).pressure() + " atm");
+                }
             }
         };
 
@@ -96,6 +96,22 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(maasMarsWeatherSubscriber);
+    }
+
+    /**
+     * Method to set the UI in case weather API fails.
+     */
+    private void setUiIfNoWeatherData() {
+        mainActivityContext
+                .setMarsWeather(
+                        " " + mainActivityContext.getResources()
+                                .getString(R.string.no_temperature),
+                        " " + mainActivityContext.getResources()
+                                .getString(R.string.no_temperature),
+                        " " + mainActivityContext.getResources()
+                                .getString(R.string.no_temperature),
+                        " " + mainActivityContext.getResources()
+                                .getString(R.string.no_temperature));
     }
 
     /**
@@ -127,7 +143,6 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
 
             @Override
             public void onNext(PhotosResultDM photosResultDM) {
-                //TODO: Handle no data condition
 
                 switch (roverName) {
 
