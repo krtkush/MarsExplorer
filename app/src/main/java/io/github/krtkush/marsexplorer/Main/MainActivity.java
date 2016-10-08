@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Set images of all any Views.
+     * Set images for any view.
      * @param drawablePath
      * @param imageView
      */

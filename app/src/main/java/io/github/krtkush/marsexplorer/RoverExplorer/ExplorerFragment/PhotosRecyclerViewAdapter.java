@@ -87,14 +87,14 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f, 1.0f);
         alphaAnimation.setDuration(1500);
 
-        // Prepare the translate effect
-        TranslateAnimation translateAnimation = new TranslateAnimation(0.0f, 0.0f, 1000.0f, 0.0f);
-        translateAnimation.setDuration(700);
+        // Prepare the scroll effect
+        TranslateAnimation scrollAnimation = new TranslateAnimation(0.0f, 0.0f, 1000.0f, 0.0f);
+        scrollAnimation.setDuration(700);
 
         // Consolidate all the animations
         AnimationSet animationSet = new AnimationSet(true);
         animationSet.addAnimation(alphaAnimation);
-        animationSet.addAnimation(translateAnimation);
+        animationSet.addAnimation(scrollAnimation);
 
         view.startAnimation(animationSet);
     }
