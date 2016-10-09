@@ -2,7 +2,6 @@ package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
+import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.Photos;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -25,7 +26,7 @@ import timber.log.Timber;
  */
 public class RoverExplorerPresenterLayer implements RoverExplorerPresenterInteractor {
 
-    private Fragment fragment;
+    private RoverExplorerFragment fragment;
     private String roverName;
     private String roverSol;
     private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
@@ -35,7 +36,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // List of all the photos and their respective details
     private List<Photos> photoList;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout; // TODO: This view should not be here. A method in an activity should manipulate the view.
 
     /**
      * Handler and Runnable to delay the photos API call by 1.5 seconds.
@@ -147,6 +148,19 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             public void onError(Throwable ex) {
                 ex.printStackTrace();
                 swipeRefreshLayout.setRefreshing(false);
+
+                try {
+                    if(((HttpException) ex).code() == 400 && photoList.size() == 0) {
+                        fragment.viewsVisibilityToggle(fragment.getResources()
+                                .getString(R.string.no_photos_message), false, true);
+                    } else {
+                        fragment.viewsVisibilityToggle(fragment.getResources()
+                                        .getString(R.string.something_went_wrong_message),
+                                false, true);
+                    }
+                } catch (ClassCastException ex2) {
+                    ex2.printStackTrace();
+                }
             }
 
             @Override
@@ -157,6 +171,11 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 if(photosResultDM.photos().size() != 0) {
                     photoList.clear();
                     photoList.addAll(photosResultDM.photos());
+                    fragment.viewsVisibilityToggle(null, true, false);
+                } else if(photoList.size() == 0 && photosResultDM.photos().size() == 0) {
+                    // There are no photos to show at all.
+                    fragment.viewsVisibilityToggle(fragment.getResources()
+                            .getString(R.string.no_photos_message), false, true);
                 }
 
                 photosRecyclerViewAdapter.notifyDataSetChanged();

@@ -137,9 +137,9 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                 public void onPageSelected(int position) {
 
                     // Check if the user has reached the second last or last tab.
-                    // If he/ she has and the SOL is not below 0, add required number of tabs
+                    // If he/ she has and the SOL is not below 1, add required number of tabs
                     if(fragmentList.size() - position <= numberOfTabsLeftAfterWhichToAdd
-                            && roverSolTracker >= 0) {
+                            && roverSolTracker > 0) {
 
                         for(int newTabCount = 0; newTabCount <= numberOfTabsToAdd; newTabCount++) {
 
@@ -171,7 +171,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
      * This request is sent only if the previous fails to send maxSol.
      * @param roverName
      */
-    public void getMaxSol(final String roverName) {
+    private void getMaxSol(final String roverName) {
 
         // Define the observer
         Observable<PhotosResultDM> nasaMarsPhotosObservable

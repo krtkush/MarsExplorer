@@ -9,4 +9,8 @@
     <string name="maximum_temperature">Max Temperature: </string>
     <string name="minimum_temperature">Min Temperature: </string>
     <string name="atmospheric_pressure">Atmospheric Pressure: </string>
+
+    <!-- Rover Explorer -->
+    <string name="no_photos_message">Nothing to show :(</string>
+    <string name="something_went_wrong_message">Something went wrong. Swipe down to try again.</string>
 </resources>

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ public class RoverExplorerFragment extends Fragment {
 
     @BindView(R.id.photosRecyclerView) RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.messageTextHolder) TextView messageTextHolder;
 
     private RoverExplorerPresenterInteractor roverExplorerPresenterInteractor;
     private Unbinder unbinder;
@@ -61,5 +63,27 @@ public class RoverExplorerFragment extends Fragment {
         super.onDestroyView();
 
         unbinder.unbind();
+    }
+
+    /**
+     * Method to pass message for message TextView and toggle visibility.
+     * @param message
+     */
+    protected void viewsVisibilityToggle(String message, boolean showRecyclerView,
+                                         boolean showMessage) {
+
+        if(showMessage) {
+            if(messageTextHolder != null) {
+                messageTextHolder.setVisibility(View.VISIBLE);
+                messageTextHolder.setText(message);
+            }
+            if(recyclerView != null)
+                recyclerView.setVisibility(View.GONE);
+        } else if (showRecyclerView){
+            if(messageTextHolder != null)
+                messageTextHolder.setVisibility(View.GONE);
+            if(recyclerView != null)
+                recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 }
