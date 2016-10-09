@@ -130,6 +130,8 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
      */
     private void requestPhotosApiCall() {
 
+        fragment.viewsVisibilityToggle(null, false, false, true);
+
         // Define the observer
         Observable<PhotosResultDM> nasaMarsPhotosObservable
                 = MarsExplorerApplication.getApplicationInstance()
@@ -152,11 +154,11 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 try {
                     if(((HttpException) ex).code() == 400 && photoList.size() == 0) {
                         fragment.viewsVisibilityToggle(fragment.getResources()
-                                .getString(R.string.no_photos_message), false, true);
+                                .getString(R.string.no_photos_message), false, true, false);
                     } else {
                         fragment.viewsVisibilityToggle(fragment.getResources()
                                         .getString(R.string.something_went_wrong_message),
-                                false, true);
+                                false, true, false);
                     }
                 } catch (ClassCastException ex2) {
                     ex2.printStackTrace();
@@ -170,11 +172,11 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 if(photosResultDM.photos().size() != 0) {
                     photoList.clear();
                     photoList.addAll(photosResultDM.photos());
-                    fragment.viewsVisibilityToggle(null, true, false);
+                    fragment.viewsVisibilityToggle(null, true, false, false);
                 } else if(photoList.size() == 0 && photosResultDM.photos().size() == 0) {
                     // There are no photos to show at all.
                     fragment.viewsVisibilityToggle(fragment.getResources()
-                            .getString(R.string.no_photos_message), false, true);
+                            .getString(R.string.no_photos_message), false, true, false);
                 }
 
                 photosRecyclerViewAdapter.notifyDataSetChanged();

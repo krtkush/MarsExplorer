@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -24,6 +25,7 @@ public class RoverExplorerFragment extends Fragment {
     @BindView(R.id.photosRecyclerView) RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.messageTextHolder) TextView messageTextHolder;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
 
     private RoverExplorerPresenterInteractor roverExplorerPresenterInteractor;
     private Unbinder unbinder;
@@ -70,20 +72,35 @@ public class RoverExplorerFragment extends Fragment {
      * @param message
      */
     protected void viewsVisibilityToggle(String message, boolean showRecyclerView,
-                                         boolean showMessage) {
+                                         boolean showMessage, boolean showProgress) {
 
+        // Toggle visibility of the message TextView
         if(showMessage) {
             if(messageTextHolder != null) {
                 messageTextHolder.setVisibility(View.VISIBLE);
                 messageTextHolder.setText(message);
             }
-            if(recyclerView != null)
-                recyclerView.setVisibility(View.GONE);
-        } else if (showRecyclerView){
+        } else {
             if(messageTextHolder != null)
                 messageTextHolder.setVisibility(View.GONE);
+        }
+
+        // Toggle the visibility of the RecyclerView
+        if (showRecyclerView){
             if(recyclerView != null)
                 recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            if(recyclerView != null)
+                recyclerView.setVisibility(View.GONE);
+        }
+
+        // Toggle the visibility of the progress bar
+        if(showProgress) {
+            if(progressBar != null)
+                progressBar.setVisibility(View.VISIBLE);
+        } else {
+            if(progressBar != null)
+                progressBar.setVisibility(View.GONE);
         }
     }
 }
