@@ -165,7 +165,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
             @Override
             public void onNext(PhotosResultDM photosResultDM) {
-                //TODO: Handle no data condition
                 Timber.i("%s photos fetched", photosResultDM.photos().size());
 
                 if(photosResultDM.photos().size() != 0) {
