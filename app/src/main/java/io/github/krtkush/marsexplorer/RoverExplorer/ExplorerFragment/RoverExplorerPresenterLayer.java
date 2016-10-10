@@ -74,6 +74,13 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     @Override
     public void getRoverPhotos(boolean delayApiRequest) {
 
+        // Show the loading animation.
+        try {
+            fragment.viewsVisibilityToggle(null, false, false, true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         if(delayApiRequest)
             fetchPhotosRunnable.run();
         else
@@ -126,12 +133,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
      * Always call this method via getRoverPhotos(flag) method not directly.
      */
     private void requestPhotosApiCall() {
-
-        try {
-            fragment.viewsVisibilityToggle(null, false, false, true);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
 
         // Define the observer
         Observable<PhotosResultDM> nasaMarsPhotosObservable
