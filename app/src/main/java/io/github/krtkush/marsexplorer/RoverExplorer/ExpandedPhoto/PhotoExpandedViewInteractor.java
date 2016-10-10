@@ -8,9 +8,8 @@ public interface PhotoExpandedViewInteractor {
 
     /**
      * Method to retrieve the image URL from the previous activity.
-     * @param imageUrl
      */
-    void getImageUrl(String imageUrl);
+    void getImageUrl();
 
     /**
      * Method to set the image into the ImageView.

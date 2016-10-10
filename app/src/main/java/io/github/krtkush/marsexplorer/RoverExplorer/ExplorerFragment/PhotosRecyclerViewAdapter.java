@@ -1,6 +1,7 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,10 +19,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.Photos;
 import io.github.krtkush.marsexplorer.R;
-import timber.log.Timber;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.Photos;
+import io.github.krtkush.marsexplorer.RoverExplorer.ExpandedPhoto.PhotoExpandedViewActivity;
 
 /**
  * Created by kartikeykushwaha on 25/08/16.
@@ -49,7 +49,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
         // Animate the view
@@ -73,6 +73,17 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         // Camera Initials
         photosViewHolder.cameraInitial.setText(photos.get(position).camera().name());
+
+        // On click action
+        photosViewHolder.photoHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToPhotoExpandedActivity =
+                        new Intent(context, PhotoExpandedViewActivity.class);
+                goToPhotoExpandedActivity.putExtra("ImageUrl", photos.get(position).imgSource());
+                context.startActivity(goToPhotoExpandedActivity);
+            }
+        });
     }
 
     /**
@@ -120,12 +131,6 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         public PhotosViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-        }
-
-        @OnClick(R.id.photoHolderLayout)
-        public void expandPhoto() {
-
-            Timber.i("PhotosResultDM clicked");
         }
     }
 }
