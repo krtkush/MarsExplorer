@@ -110,6 +110,7 @@ public class RoverExplorerFragment extends Fragment {
      * @param setRefreshingFlag
      */
     protected void toggleSwipeRefreshing(boolean setRefreshingFlag) {
-        swipeRefreshLayout.setRefreshing(setRefreshingFlag);
+        if(swipeRefreshLayout != null)
+            swipeRefreshLayout.setRefreshing(setRefreshingFlag);
     }
 }
