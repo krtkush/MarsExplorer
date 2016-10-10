@@ -70,7 +70,7 @@ public class RoverExplorerFragment extends Fragment {
      * @param message
      */
     protected void viewsVisibilityToggle(String message, boolean showRecyclerView,
-                                         boolean showMessage) {
+                                         boolean showMessage) throws Exception {
 
         if(showMessage) {
             if(messageTextHolder != null) {

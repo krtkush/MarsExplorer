@@ -158,7 +158,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                                         .getString(R.string.something_went_wrong_message),
                                 false, true);
                     }
-                } catch (ClassCastException ex2) {
+                } catch (Exception ex2) {
                     ex2.printStackTrace();
                 }
             }
@@ -170,11 +170,21 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 if(photosResultDM.photos().size() != 0) {
                     photoList.clear();
                     photoList.addAll(photosResultDM.photos());
-                    fragment.viewsVisibilityToggle(null, true, false);
+
+                    try {
+                        fragment.viewsVisibilityToggle(null, true, false);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
                 } else if(photoList.size() == 0 && photosResultDM.photos().size() == 0) {
                     // There are no photos to show at all.
-                    fragment.viewsVisibilityToggle(fragment.getResources()
-                            .getString(R.string.no_photos_message), false, true);
+                    try {
+                        fragment.viewsVisibilityToggle(fragment.getResources()
+                                .getString(R.string.no_photos_message), false, true);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
 
                 photosRecyclerViewAdapter.notifyDataSetChanged();
