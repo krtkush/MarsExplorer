@@ -72,7 +72,8 @@ public class RoverExplorerFragment extends Fragment {
      * @param message
      */
     protected void viewsVisibilityToggle(String message, boolean showRecyclerView,
-                                         boolean showMessage, boolean showProgress) {
+                                         boolean showMessage, boolean showProgress)
+            throws Exception {
 
         // Toggle visibility of the message TextView
         if(showMessage) {
