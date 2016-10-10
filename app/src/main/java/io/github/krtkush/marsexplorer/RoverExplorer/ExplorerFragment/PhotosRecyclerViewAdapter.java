@@ -1,8 +1,10 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,10 +33,12 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private Context context;
     private List<Photos> photos;
     private int lastPosition;
+    private Activity activity;
 
     public PhotosRecyclerViewAdapter(Context context, List<Photos> photos) {
         this.context = context;
         this.photos = photos;
+        this.activity = (Activity) context;
     }
 
     @Override
@@ -77,11 +81,17 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         // On click action
         photosViewHolder.photoHolder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(activity, view, "expandImageTransition");
+
                 Intent goToPhotoExpandedActivity =
                         new Intent(context, PhotoExpandedViewActivity.class);
+
                 goToPhotoExpandedActivity.putExtra("ImageUrl", photos.get(position).imgSource());
-                context.startActivity(goToPhotoExpandedActivity);
+
+                context.startActivity(goToPhotoExpandedActivity, activityOptionsCompat.toBundle());
             }
         });
     }
