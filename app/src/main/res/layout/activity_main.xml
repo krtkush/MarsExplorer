@@ -175,7 +175,9 @@
                 <ImageView
                     android:id="@+id/goToOpportunityButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:transitionName="roverImageTransition"/>
 
                 <TextView
                     android:id="@+id/goToOpportunity"
@@ -204,7 +206,9 @@
                 <ImageView
                     android:id="@+id/goToSpiritButtonBackground"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp" />
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:transitionName="roverImageTransition"/>
 
                 <TextView
                     android:id="@+id/goToSpirit"
