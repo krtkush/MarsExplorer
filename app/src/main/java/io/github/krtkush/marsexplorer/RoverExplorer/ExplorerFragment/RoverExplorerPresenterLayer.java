@@ -36,8 +36,6 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
     // List of all the photos and their respective details
     private List<Photos> photoList;
 
-    private SwipeRefreshLayout swipeRefreshLayout; // TODO: This view should not be here. A method in an activity should manipulate the view.
-
     /**
      * Handler and Runnable to delay the photos API call by 1.5 seconds.
      */
@@ -84,7 +82,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
 
     @Override
     public void prepareRecyclerViewAndAddData(RecyclerView recyclerView,
-                                              final SwipeRefreshLayout swipeRefreshLayout) {
+                                              SwipeRefreshLayout swipeRefreshLayout) {
 
         // Number of columns to show in the GridView
         int numberOfColumns = 2;
@@ -103,11 +101,10 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
         recyclerView.setAdapter(photosRecyclerViewAdapter);
 
         // Define the action when user pulls down to refresh.
-        this.swipeRefreshLayout = swipeRefreshLayout;
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(true);
+                fragment.toggleSwipeRefreshing(false);
                 getRoverPhotos(false);
             }
         });
@@ -147,13 +144,13 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
             @Override
             public void onCompleted() {
                 Timber.i("Photos of %s retrieved", roverName);
-                swipeRefreshLayout.setRefreshing(false);
+                fragment.toggleSwipeRefreshing(false);
             }
 
             @Override
             public void onError(Throwable ex) {
                 ex.printStackTrace();
-                swipeRefreshLayout.setRefreshing(false);
+                fragment.toggleSwipeRefreshing(false);
 
                 try {
                     if(((HttpException) ex).code() == 400 && photoList.size() == 0) {

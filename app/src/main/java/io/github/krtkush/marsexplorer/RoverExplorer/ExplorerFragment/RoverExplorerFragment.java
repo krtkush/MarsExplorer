@@ -104,4 +104,12 @@ public class RoverExplorerFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
         }
     }
+
+    /**
+     * Method to toggle the visibility of the pull down to refresh animation.
+     * @param setRefreshingFlag
+     */
+    protected void toggleSwipeRefreshing(boolean setRefreshingFlag) {
+        swipeRefreshLayout.setRefreshing(setRefreshingFlag);
+    }
 }
