@@ -1,7 +1,9 @@
 # Mars Explorer
 
-Mars Explorer is a work in progress Android application. The app retrieves images sent from the exploration rovers 
-currently on Mars (Including the now defunct Spirit) and displays them neatly for the user to browse.  
+Mars Explorer is a work in progress Android application. The app retrieves images sent from the three exploration rovers
+currently on Mars - [Curiosity](https://en.wikipedia.org/wiki/Curiosity_(rover)),
+[Opportunity](https://en.wikipedia.org/wiki/Opportunity_(rover)),
+and (now defunct) [Spirit](https://en.wikipedia.org/wiki/Spirit_(rover)) and displays them neatly for the user to browse.
 
 The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-photo-api) for the images and [REMS API] (http://cab.inta-csic.es/rems/wp-content/plugins/marsweather-widget/api.php) for the weather report.
 
