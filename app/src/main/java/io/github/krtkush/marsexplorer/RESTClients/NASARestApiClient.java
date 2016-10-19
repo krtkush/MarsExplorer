@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
+import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RESTClients.Interceptors.OfflineResponseCacheInterceptor;
 import io.github.krtkush.marsexplorer.RESTClients.Interceptors.ResponseCacheInterceptor;
@@ -56,7 +57,9 @@ public class NASARestApiClient {
                             .getCacheDir(), RestClientConstants.apiResponsesCache),
                             5 * 1024 * 1024))
                     // Add the api key by default
-                    .addInterceptor(new DefaultValuesInterceptor(RestClientConstants.apiKey))
+                    .addInterceptor(new DefaultValuesInterceptor
+                            (MarsExplorerApplication.getApplicationInstance()
+                                    .getString(R.string.NASA_API_KEY)))
                     // Enable logging
                     .addInterceptor(new HttpLoggingInterceptor()
                             .setLevel(logLevel))

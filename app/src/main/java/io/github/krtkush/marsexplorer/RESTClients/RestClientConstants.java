@@ -5,9 +5,6 @@ package io.github.krtkush.marsexplorer.RESTClients;
  */
 public class RestClientConstants {
 
-    // NASA API key
-    public static final String apiKey = "pnfYfjK3FhG77VCRO2ZwtjI4w9hq0fXRozkZ0VbY";
-
     // Strings related to NASA's API
     private static final String nasaApiEndPoint = "https://api.nasa.gov/";
     private static final String nasaApiServiceName = "mars-photos/";
