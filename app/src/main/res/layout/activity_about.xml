@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_about"
     android:layout_width="match_parent"
@@ -8,6 +9,191 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="io.github.krtkush.marsexplorer.About">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/versionDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/versionIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_version"/>
+
+        <TextView
+            android:id="@+id/versionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/versionIcon"
+            android:layout_toEndOf="@+id/versionIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Version"/>
+
+        <TextView
+            android:id="@+id/versionValue"
+            android:layout_below="@id/versionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/versionIcon"
+            android:layout_toEndOf="@+id/versionIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="0.3.0"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/librariesDetails"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/librariesIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_libraries"/>
+
+        <TextView
+            android:id="@+id/creditsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/librariesIcon"
+            android:layout_toEndOf="@+id/librariesIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Credits"/>
+
+        <TextView
+            android:id="@+id/creditsSubTitle"
+            android:layout_below="@id/creditsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/librariesIcon"
+            android:layout_toEndOf="@+id/librariesIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Stuff that keeps Mars Explorer running."/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/githubDetails"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/githubIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_github"/>
+
+        <TextView
+            android:id="@+id/githubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/githubIcon"
+            android:layout_toEndOf="@+id/githubIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Github"/>
+
+        <TextView
+            android:id="@+id/githubSubTitle"
+            android:layout_below="@id/githubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/githubIcon"
+            android:layout_toEndOf="@+id/githubIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Mars Explorer is a free and open source app. Find it on Github."/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/developerDetails"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/developerIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_bust"/>
+
+        <TextView
+            android:id="@+id/developerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/developerIcon"
+            android:layout_toEndOf="@+id/developerIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Developed by"/>
+
+        <TextView
+            android:id="@+id/developerSubTitle"
+            android:layout_below="@id/developerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/developerIcon"
+            android:layout_toEndOf="@+id/developerIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="Kartikey Kushwaha"/>
+
+        <TextView
+            android:id="@+id/developerSubTitleTwo"
+            android:layout_below="@id/developerSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/developerIcon"
+            android:layout_toEndOf="@+id/developerIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryLightText"
+            android:text="krtkush.github.io"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
