@@ -38,7 +38,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Version"/>
+            android:text="@string/version_title"/>
 
         <TextView
             android:id="@+id/versionValue"
@@ -50,8 +50,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimaryLightText"
-            android:text="0.3.0"/>
+            android:textColor="@color/colorPrimaryLightText" />
 
     </RelativeLayout>
 

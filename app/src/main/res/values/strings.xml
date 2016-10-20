@@ -15,6 +15,7 @@
     <string name="something_went_wrong_message">Something went wrong. Swipe down to try again.</string>
 
     <!-- About -->
+    <string name="version_title">Version</string>
     <string name="credits_title">Credits</string>
     <string name="credits_sub_title">Stuff that keeps Mars Explorer running.</string>
     <string name="github_title">Github</string>
