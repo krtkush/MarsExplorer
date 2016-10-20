@@ -15,7 +15,8 @@
     <RelativeLayout
         android:id="@+id/versionDetails"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/versionIcon"
@@ -58,7 +59,8 @@
         android:id="@+id/librariesDetails"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/librariesIcon"
@@ -80,7 +82,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Credits"/>
+            android:text="@string/credits_title"/>
 
         <TextView
             android:id="@+id/creditsSubTitle"
@@ -93,7 +95,7 @@
             android:layout_marginStart="10dp"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Stuff that keeps Mars Explorer running."/>
+            android:text="@string/credits_sub_title"/>
 
     </RelativeLayout>
 
@@ -101,7 +103,8 @@
         android:id="@+id/githubDetails"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/githubIcon"
@@ -123,7 +126,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Github"/>
+            android:text="@string/github_title"/>
 
         <TextView
             android:id="@+id/githubSubTitle"
@@ -136,7 +139,7 @@
             android:layout_marginStart="10dp"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Mars Explorer is a free and open source app. Find it on Github."/>
+            android:text="@string/github_sub_title"/>
 
     </RelativeLayout>
 
@@ -144,7 +147,8 @@
         android:id="@+id/developerDetails"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/developerIcon"
@@ -166,7 +170,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Developed by"/>
+            android:text="@string/developer_title"/>
 
         <TextView
             android:id="@+id/developerSubTitle"
@@ -179,7 +183,7 @@
             android:layout_marginStart="10dp"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="Kartikey Kushwaha"/>
+            android:text="@string/developer_sub_title"/>
 
         <TextView
             android:id="@+id/developerSubTitleTwo"
@@ -192,7 +196,7 @@
             android:layout_marginStart="10dp"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryLightText"
-            android:text="krtkush.github.io"/>
+            android:text="@string/developer_sub_title_two"/>
 
     </RelativeLayout>
 
