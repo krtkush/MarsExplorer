@@ -14,7 +14,7 @@
     <string name="no_photos_message">Nothing to show :(</string>
     <string name="something_went_wrong_message">Something went wrong. Swipe down to try again.</string>
 
-    <!-- About -->
+    <!-- AboutActivity -->
     <string name="version_title">Version</string>
     <string name="credits_title">Credits</string>
     <string name="credits_sub_title">Stuff that keeps Mars Explorer running.</string>

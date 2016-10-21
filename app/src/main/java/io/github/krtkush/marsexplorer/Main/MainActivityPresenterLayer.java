@@ -24,7 +24,7 @@ import timber.log.Timber;
  */
 public class MainActivityPresenterLayer implements MainActivityPresenterInteractor {
 
-    private MainActivity mainActivityContext;
+    private MainActivity activity;
     private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
     private Subscriber<MarsWeatherResultDM> maasMarsWeatherSubscriber;
 
@@ -33,14 +33,14 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
      */
     private String curiosityMaxSol, opportunityMaxSol, spiritMaxSol;
 
-    public MainActivityPresenterLayer(MainActivity mainActivityContext) {
-        this.mainActivityContext = mainActivityContext;
+    public MainActivityPresenterLayer(MainActivity activity) {
+        this.activity = activity;
     }
 
     @Override
     public void checkInternetConnectivity() {
         if(!UtilityMethods.isNetworkAvailable())
-            mainActivityContext.showToast(mainActivityContext.getResources()
+            activity.showToast(activity.getResources()
                             .getString(R.string.no_internet),
                     Toast.LENGTH_LONG);
     }
@@ -78,7 +78,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                     setUiIfNoWeatherData();
                 } else {
                     // Prepare the text to be displayed.
-                    mainActivityContext.setMarsWeather(
+                    activity.setMarsWeather(
                             " " + marsWeatherResultDM.weatherReportList()
                                     .get(0).maxTemp() + "\u00B0C",
                             " " + marsWeatherResultDM.weatherReportList()
@@ -102,15 +102,15 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
      * Method to set the UI in case weather API fails.
      */
     private void setUiIfNoWeatherData() {
-        mainActivityContext
+        activity
                 .setMarsWeather(
-                        " " + mainActivityContext.getResources()
+                        " " + activity.getResources()
                                 .getString(R.string.no_temperature),
-                        " " + mainActivityContext.getResources()
+                        " " + activity.getResources()
                                 .getString(R.string.no_temperature),
-                        " " + mainActivityContext.getResources()
+                        " " + activity.getResources()
                                 .getString(R.string.no_temperature),
-                        " " + mainActivityContext.getResources()
+                        " " + activity.getResources()
                                 .getString(R.string.no_temperature));
     }
 
@@ -191,9 +191,9 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     public void goToRoverSection(String roverName, View view) {
 
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(mainActivityContext, view, "roverImageTransition");
+                makeSceneTransitionAnimation(activity, view, "roverImageTransition");
 
-        Intent goToRoverExplorer = new Intent(mainActivityContext,
+        Intent goToRoverExplorer = new Intent(activity,
                 RoverExplorerTabHostActivity.class);
 
         switch (roverName) {
@@ -220,6 +220,6 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                 break;
         }
 
-        mainActivityContext.startActivity(goToRoverExplorer, activityOptionsCompat.toBundle());
+        activity.startActivity(goToRoverExplorer, activityOptionsCompat.toBundle());
     }
 }
