@@ -73,7 +73,7 @@ public class AboutActivity extends AppCompatActivity {
 
         switch (view.getId()) {
             case R.id.librariesDetails:
-
+                presenterInteractor.goToCreditsSection();
                 break;
 
             case R.id.githubDetails:

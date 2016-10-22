@@ -33,4 +33,9 @@ public interface AboutActivityPresenterInteractor {
      * Method to take user to developer personal page.
      */
     void goToDeveloperPage();
+
+    /**
+     * Method to open the credits activity.
+     */
+    void goToCreditsSection();
 }

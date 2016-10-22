@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.About;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import io.github.krtkush.marsexplorer.About.Credits.CreditsActivity;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.UtilityMethods;
 
@@ -51,6 +53,12 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
                 NavUtils.navigateUpFromSameTask(activity);
                 break;
         }
+    }
+
+    @Override
+    public void goToCreditsSection() {
+        Intent goToCreditsList = new Intent(activity, CreditsActivity.class);
+        activity.startActivity(goToCreditsList);
     }
 
     @Override

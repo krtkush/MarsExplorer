@@ -28,6 +28,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.MainActivity" />
         </activity>
+        <activity android:name=".About.Credits.CreditsActivity"></activity>
     </application>
 
 </manifest>
