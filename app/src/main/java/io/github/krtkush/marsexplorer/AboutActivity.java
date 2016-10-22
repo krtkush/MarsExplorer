@@ -28,6 +28,15 @@ public class AboutActivity extends AppCompatActivity {
         ButterKnife.bind(AboutActivity.this);
         Timber.tag(AboutActivity.this.getClass().getSimpleName());
         presenterInteractor = new AboutActivityPresenterLayer(this);
+
+        presenterInteractor.populateVersionNumber();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        presenterInteractor.checkInternetConnectivity();
     }
 
     protected void setVersionNumber(String versionNumber) {

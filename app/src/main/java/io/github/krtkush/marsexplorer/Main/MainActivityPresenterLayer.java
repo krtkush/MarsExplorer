@@ -2,9 +2,11 @@ package io.github.krtkush.marsexplorer.Main;
 
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Toast;
 
+import io.github.krtkush.marsexplorer.AboutActivity;
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.R;
@@ -43,6 +45,18 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
             activity.showToast(activity.getResources()
                             .getString(R.string.no_internet),
                     Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void setupToolbar(ActionBar actionBar) {
+        // We do not want to show any title.
+        actionBar.setTitle("");
+    }
+
+    @Override
+    public void goToAbout() {
+        Intent goToAboutActivity = new Intent(activity, AboutActivity.class);
+        activity.startActivity(goToAboutActivity);
     }
 
     /**

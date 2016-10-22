@@ -3,6 +3,9 @@ package io.github.krtkush.marsexplorer.Main;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.maxMarsTemperature) TextView maxTemperatureTextView;
     @BindView(R.id.minMarsTemperature) TextView minTemperatureTextView;
     @BindView(R.id.currentSol) TextView currentSolTextView;
@@ -40,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(MainActivity.this);
         Timber.tag(MainActivity.this.getClass().getSimpleName());
         presenterInteractor = new MainActivityPresenterLayer(this);
+
+        // Set the toolbar
+        setSupportActionBar(toolbar);
+        presenterInteractor.setupToolbar(getSupportActionBar());
 
         // Send request to get max SOL for each rover
         presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
@@ -77,8 +85,27 @@ public class MainActivity extends AppCompatActivity {
         presenterInteractor.unsubscribeMaxSolRequest();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_about:
+                presenterInteractor.goToAbout();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
-     * Method to set the temperature as provided by the report
+     * Method to set the temperature as provided by the report.
      * @param maxMarsTemperature
      * @param minMarsTemperature
      * @param currentSol

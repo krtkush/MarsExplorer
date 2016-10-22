@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.Main;
 
+import android.support.v7.app.ActionBar;
 import android.view.View;
 
 /**
@@ -33,4 +34,14 @@ public interface MainActivityPresenterInteractor {
      * in case of latter.
      */
     void checkInternetConnectivity();
+
+    /**
+     * Method to take user to the about activity.
+     */
+    void goToAbout();
+
+    /**
+     * Prepare the toolbar
+     */
+    void setupToolbar(ActionBar actionBar);
 }
