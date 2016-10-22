@@ -5,17 +5,26 @@
     android:id="@+id/activity_about"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="io.github.krtkush.marsexplorer.AboutActivity">
+    tools:context="io.github.krtkush.marsexplorer.About.AboutActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:layout_gravity="top" />
 
     <RelativeLayout
         android:id="@+id/versionDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
@@ -35,7 +44,7 @@
             android:layout_toEndOf="@+id/versionIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/version_title"/>
@@ -49,16 +58,20 @@
             android:layout_toEndOf="@+id/versionIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryLightText" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/librariesDetails"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
@@ -78,7 +91,7 @@
             android:layout_toEndOf="@+id/librariesIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/credits_title"/>
@@ -92,7 +105,7 @@
             android:layout_toEndOf="@+id/librariesIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/credits_sub_title"/>
 
@@ -100,9 +113,13 @@
 
     <RelativeLayout
         android:id="@+id/githubDetails"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
@@ -122,7 +139,7 @@
             android:layout_toEndOf="@+id/githubIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/github_title"/>
@@ -136,7 +153,7 @@
             android:layout_toEndOf="@+id/githubIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/github_sub_title"/>
 
@@ -144,9 +161,13 @@
 
     <RelativeLayout
         android:id="@+id/developerDetails"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
@@ -166,7 +187,7 @@
             android:layout_toEndOf="@+id/developerIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/developer_title"/>
@@ -180,7 +201,7 @@
             android:layout_toEndOf="@+id/developerIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/developer_sub_title"/>
 
@@ -193,7 +214,7 @@
             android:layout_toEndOf="@+id/developerIcon"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/colorPrimaryLightText"
             android:text="@string/developer_sub_title_two"/>
 

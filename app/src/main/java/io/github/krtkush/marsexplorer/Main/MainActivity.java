@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Timber.tag(MainActivity.this.getClass().getSimpleName());
         presenterInteractor = new MainActivityPresenterLayer(this);
 
-        // Set the toolbar
+        // Setup the toolbar
         setSupportActionBar(toolbar);
         presenterInteractor.setupToolbar(getSupportActionBar());
 

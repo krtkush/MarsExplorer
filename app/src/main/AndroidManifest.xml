@@ -23,7 +23,11 @@
             android:name=".RoverExplorer.TabHostActivity.RoverExplorerTabHostActivity"
             android:parentActivityName=".Main.MainActivity" />
         <activity android:name=".RoverExplorer.ExpandedPhoto.PhotoExpandedViewActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".About.AboutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

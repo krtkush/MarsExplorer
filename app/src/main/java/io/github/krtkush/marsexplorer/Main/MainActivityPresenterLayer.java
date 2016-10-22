@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Toast;
 
-import io.github.krtkush.marsexplorer.AboutActivity;
+import io.github.krtkush.marsexplorer.About.AboutActivity;
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.R;

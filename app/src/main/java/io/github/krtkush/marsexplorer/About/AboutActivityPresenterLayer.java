@@ -1,8 +1,11 @@
-package io.github.krtkush.marsexplorer;
+package io.github.krtkush.marsexplorer.About;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
+
+import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.UtilityMethods;
 
 /**
  * Created by kartikeykushwaha on 21/10/16.
