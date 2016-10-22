@@ -2,6 +2,10 @@ package io.github.krtkush.marsexplorer.About;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import io.github.krtkush.marsexplorer.R;
@@ -37,5 +41,31 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
         } catch (PackageManager.NameNotFoundException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void handleOptionsSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(activity);
+                break;
+        }
+    }
+
+    @Override
+    public void goToDeveloperPage() {
+        String url = "https://krtkush.github.io";
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(activity, Uri.parse(url));
+    }
+
+    @Override
+    public void goToGithubPage() {
+        String url = "https://github.com/krtkush/MarsExplorer";
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(activity, Uri.parse(url));
     }
 }

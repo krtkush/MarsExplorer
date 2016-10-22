@@ -1,5 +1,7 @@
 package io.github.krtkush.marsexplorer.About;
 
+import android.view.MenuItem;
+
 /**
  * Created by kartikeykushwaha on 21/10/16.
  */
@@ -16,4 +18,19 @@ public interface AboutActivityPresenterInteractor {
      * Method to populate the version number from the gradle file.
      */
     void populateVersionNumber();
+
+    /**
+     * Method to handle taps on actionbar items.
+     */
+    void handleOptionsSelected(MenuItem item);
+
+    /**
+     * Method to take user to the Mars Explorer github page.
+     */
+    void goToGithubPage();
+
+    /**
+     * Method to take user to developer personal page.
+     */
+    void goToDeveloperPage();
 }

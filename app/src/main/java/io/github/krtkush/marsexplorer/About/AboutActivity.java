@@ -1,16 +1,17 @@
 package io.github.krtkush.marsexplorer.About;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
 
@@ -50,12 +51,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
+        presenterInteractor.handleOptionsSelected(item);
         return super.onOptionsItemSelected(item);
     }
 
@@ -70,5 +66,23 @@ public class AboutActivity extends AppCompatActivity {
      */
     protected void showToast(String toastMessage, int toastDuration) {
         Toast.makeText(this, toastMessage, toastDuration).show();
+    }
+
+    @OnClick({R.id.librariesDetails, R.id.githubDetails, R.id.developerDetails})
+    public void goToGithubPage(View view) {
+
+        switch (view.getId()) {
+            case R.id.librariesDetails:
+
+                break;
+
+            case R.id.githubDetails:
+                presenterInteractor.goToGithubPage();
+                break;
+
+            case R.id.developerDetails:
+                presenterInteractor.goToDeveloperPage();
+                break;
+        }
     }
 }

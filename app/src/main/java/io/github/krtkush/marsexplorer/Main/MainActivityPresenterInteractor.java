@@ -1,6 +1,7 @@
 package io.github.krtkush.marsexplorer.Main;
 
 import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -36,9 +37,9 @@ public interface MainActivityPresenterInteractor {
     void checkInternetConnectivity();
 
     /**
-     * Method to take user to the about activity.
+     * Method to handle taps on actionbar
      */
-    void goToAbout();
+    void handleOptionsSelected(MenuItem item);
 
     /**
      * Prepare the toolbar

@@ -3,6 +3,7 @@ package io.github.krtkush.marsexplorer.Main;
 import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -54,9 +55,14 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     }
 
     @Override
-    public void goToAbout() {
-        Intent goToAboutActivity = new Intent(activity, AboutActivity.class);
-        activity.startActivity(goToAboutActivity);
+    public void handleOptionsSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_about:
+                Intent goToAboutActivity = new Intent(activity, AboutActivity.class);
+                activity.startActivity(goToAboutActivity);
+                break;
+        }
     }
 
     /**
