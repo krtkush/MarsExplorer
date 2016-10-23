@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.About.Credits;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CreditsActivity extends AppCompatActivity {
 
@@ -34,6 +36,11 @@ public class CreditsActivity extends AppCompatActivity {
 
         // Show the credit list
         presenterInteractor.prepareRecyclerViewAndAddData(recyclerView);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

@@ -32,3 +32,48 @@
 
 # OkHttp
 -dontwarn com.squareup.okhttp.**
+
+# autovalue gson extension
+-keep class **.AutoParcelGson_*
+-keepnames @auto.parcelgson.AutoParcelGson class *
+
+# Leak canary
+-dontwarn com.squareup.haha.guava.**
+-dontwarn com.squareup.haha.perflib.**
+-dontwarn com.squareup.haha.trove.**
+-dontwarn com.squareup.leakcanary.**
+-keep class com.squareup.haha.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+# Marshmallow removed Notification.setLatestEventInfo()
+-dontwarn android.app.Notification
+
+# Calligraphy
+-keep class uk.co.chrisjenx.calligraphy.* { *; }
+-keep class uk.co.chrisjenx.calligraphy.*$* { *; }
+
+# Picasso
+# Checks for OkHttp versions on the classpath to determine Downloader to use.
+-dontnote com.squareup.picasso.Utils
+# Downloader used only when OkHttp 2.x is present on the classpath.
+-dontwarn com.squareup.picasso.OkHttpDownloader
+# Downloader used only when OkHttp 3.x is present on the classpath.
+-dontwarn com.squareup.picasso.OkHttp3Downloader
+
+# Okio
+# java.nio.file.* usage which cannot be used at runtime. Animal sniffer annotation.
+-dontwarn okio.Okio
+# JDK 7-only method which is @hide on Android. Animal sniffer annotation.
+-dontwarn okio.DeflaterSink
+
+# Reactive
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontwarn sun.misc.Unsafe

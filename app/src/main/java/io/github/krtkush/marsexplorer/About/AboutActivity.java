@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.About;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.krtkush.marsexplorer.R;
 import timber.log.Timber;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -40,6 +42,11 @@ public class AboutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenterInteractor.populateVersionNumber();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override
