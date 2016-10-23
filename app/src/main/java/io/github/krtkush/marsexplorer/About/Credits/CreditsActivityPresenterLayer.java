@@ -42,7 +42,7 @@ public class CreditsActivityPresenterLayer implements CreditsActivityPresenterIn
     }
 
     /**
-     * Method to populate the
+     * Method to populate the data structure with credit title and their respective sub titles.
      * @return
      */
     private CreditsListDataStructure populateCreditsDsWithValues() {
