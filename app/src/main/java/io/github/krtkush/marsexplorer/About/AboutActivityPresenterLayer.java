@@ -19,7 +19,7 @@ import io.github.krtkush.marsexplorer.UtilityMethods;
 
 public class AboutActivityPresenterLayer implements AboutActivityPresenterInteractor {
 
-    AboutActivity activity;
+    private AboutActivity activity;
 
     public AboutActivityPresenterLayer(AboutActivity activity) {
         this.activity = activity;

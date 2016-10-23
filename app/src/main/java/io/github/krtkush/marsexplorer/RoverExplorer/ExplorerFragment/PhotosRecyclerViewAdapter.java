@@ -46,7 +46,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.photos_grid_element_layout, parent, false);
+        View view = inflater.inflate(R.layout.photos_grid_item_layout, parent, false);
         viewHolder = new PhotosViewHolder(view);
 
         return viewHolder;
