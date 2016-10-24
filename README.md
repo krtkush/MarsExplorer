@@ -16,4 +16,4 @@ The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-p
 
 **Contributing**
 
-Any kind of contribution is highly appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikey92@gmail.com.
+Any kind of contribution will be appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikey92@gmail.com.
