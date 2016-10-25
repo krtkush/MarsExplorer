@@ -40,6 +40,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     private String GITHUB_PAGE = "https://github.com/krtkush/MarsExplorer";
 
     public AboutActivityPresenterLayer(AboutActivity activity) {
+
         this.activity = activity;
 
         prepareIntentValues();
@@ -135,11 +136,12 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
         CustomTabsClient.bindCustomTabsService(activity,
                 CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
 
+        // Define the icon and title for the share option.
         String shareLabel = activity.getString(R.string.share);
         Bitmap icon = BitmapFactory.decodeResource(activity.getResources(),
                 R.drawable.ic_share);
 
-        //Create a PendingIntent to your BroadCastReceiver implementation
+        // Create a PendingIntent to the ShareUrlReceiver BroadCastReceiver implementation
         Intent shareIntent = new Intent(activity, ShareUrlReceiver.class);
         PendingIntent pendingShareIntent =
                 PendingIntent.getBroadcast(
