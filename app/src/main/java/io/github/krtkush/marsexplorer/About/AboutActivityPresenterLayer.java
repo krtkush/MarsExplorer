@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -34,8 +33,6 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     private CustomTabsIntent customTabsIntent;
     private CustomTabsClient customTabsClient;
     private CustomTabsSession customTabsSession;
-    private int URI_ANDROID_APP_SCHEME;
-    private String EXTRA_REFERRER;
     private String DEVELOPER_PAGE = "https://krtkush.github.io";
     private String GITHUB_PAGE = "https://github.com/krtkush/MarsExplorer";
 
@@ -43,7 +40,6 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
         this.activity = activity;
 
-        prepareIntentKeys();
         prepareCustomTabs();
     }
 
@@ -90,23 +86,6 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     @Override
     public void goToGithubPage() {
         customTabsIntent.launchUrl(activity, Uri.parse(GITHUB_PAGE));
-    }
-
-    /**
-     * Method to prepare for SDK version compatibility problems.
-     */
-    private void prepareIntentKeys() {
-        final int version = Build.VERSION.SDK_INT;
-
-        if(version < 17)
-            EXTRA_REFERRER = "android.intent.extra.REFERRER";
-        else
-            EXTRA_REFERRER = Intent.EXTRA_REFERRER;
-
-        if(version < 22)
-            URI_ANDROID_APP_SCHEME = 1<<1;
-        else
-            URI_ANDROID_APP_SCHEME = Intent.URI_ANDROID_APP_SCHEME;
     }
 
     /**
@@ -158,7 +137,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
                 .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
                 .build();
 
-        customTabsIntent.intent.putExtra(EXTRA_REFERRER,
-                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
+        customTabsIntent.intent.putExtra(UtilityMethods.customTabReferrerKey(),
+                UtilityMethods.customTabReferrerString());
     }
 }

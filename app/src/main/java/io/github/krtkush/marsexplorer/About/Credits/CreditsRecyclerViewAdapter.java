@@ -3,9 +3,7 @@ package io.github.krtkush.marsexplorer.About.Credits;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -20,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.UtilityMethods;
 
 /**
  * Created by kartikeykushwaha on 23/10/16.
@@ -35,8 +34,6 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private CustomTabsIntent customTabsIntent;
     private CustomTabsClient customTabsClient;
     private CustomTabsSession customTabsSession;
-    private int URI_ANDROID_APP_SCHEME;
-    private String EXTRA_REFERRER;
 
     public CreditsRecyclerViewAdapter(Context context,
                                       CreditsListDataStructure creditsListDataStructure) {
@@ -45,7 +42,6 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         this.creditsListDataStructure = creditsListDataStructure;
         this.activity = (Activity) context;
 
-        prepareIntentKeys();
         prepareCustomTabs();
     }
 
@@ -94,23 +90,6 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     /**
-     * Method to prepare for SDK version compatibility problems.
-     */
-    private void prepareIntentKeys() {
-        final int version = Build.VERSION.SDK_INT;
-
-        if(version < 17)
-            EXTRA_REFERRER = "android.intent.extra.REFERRER";
-        else
-            EXTRA_REFERRER = Intent.EXTRA_REFERRER;
-
-        if(version < 22)
-            URI_ANDROID_APP_SCHEME = 1<<1;
-        else
-            URI_ANDROID_APP_SCHEME = Intent.URI_ANDROID_APP_SCHEME;
-    }
-
-    /**
      * Method to prepare the CustomTabs.
      */
     private void prepareCustomTabs() {
@@ -141,7 +120,7 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
                 .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
                 .build();
 
-        customTabsIntent.intent.putExtra(EXTRA_REFERRER,
-                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
+        customTabsIntent.intent.putExtra(UtilityMethods.customTabReferrerKey(),
+                UtilityMethods.customTabReferrerString());
     }
 }
