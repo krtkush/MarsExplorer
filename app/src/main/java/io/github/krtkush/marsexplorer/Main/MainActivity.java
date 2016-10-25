@@ -49,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         presenterInteractor.setupToolbar(getSupportActionBar());
 
-        // Send request to get max SOL for each rover
-        presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
-        presenterInteractor.getMaxSol(GeneralConstants.Spirit);
-        presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
-
         // Set the buttons background images
         setImages(R.drawable.curiosity, goToCuriosityButtonBackground);
         setImages(R.drawable.spirit, goToOpportunityButtonBackground);
@@ -62,14 +57,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Send request to get max SOL for each rover
+        presenterInteractor.getMaxSol(GeneralConstants.Curiosity);
+        presenterInteractor.getMaxSol(GeneralConstants.Spirit);
+        presenterInteractor.getMaxSol(GeneralConstants.Opportunity);
+
+        // Request mars weather
+        presenterInteractor.getMarsWeather();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
         // Check internet connectivity
         presenterInteractor.checkInternetConnectivity();
-
-        // Request mars weather
-        presenterInteractor.getMarsWeather();
     }
 
     @Override

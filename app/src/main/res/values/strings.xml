@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Mars Explorer</string>
-    <string name="no_temperature">--</string>
+    <string name="no_weather">--</string>
+    <string name="loading_weather">...</string>
     <string name="no_internet">Check your internet connection and try again.</string>
 
     <!-- Main Activity -->

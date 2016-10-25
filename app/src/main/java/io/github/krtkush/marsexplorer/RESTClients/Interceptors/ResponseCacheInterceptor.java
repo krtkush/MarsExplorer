@@ -13,9 +13,9 @@ import timber.log.Timber;
  */
 
 /**
- * Interceptor to cache data and maintain it for an hour.
+ * Interceptor to cache data and maintain it for six hour.
  *
- * If the same network request is sent within a minute, the response is retrieved from cache.
+ * If the same network request is sent within six hour, the response is retrieved from cache.
  */
 public class ResponseCacheInterceptor implements Interceptor {
     @Override
@@ -27,7 +27,7 @@ public class ResponseCacheInterceptor implements Interceptor {
             Response originalResponse = chain.proceed(chain.request());
             return originalResponse.newBuilder()
                     .removeHeader(RestClientConstants.responseCachingFlagHeader)
-                    .header("Cache-Control", "public, max-age=" + 3600)
+                    .header("Cache-Control", "public, max-age=" + (3600 * 6))
                     .build();
         } else {
             Timber.i("Response cache not applied");

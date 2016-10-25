@@ -71,6 +71,18 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     @Override
     public void getMarsWeather() {
 
+        // Show dots when loading data.
+        activity
+                .setMarsWeather(
+                        " " + activity.getResources()
+                                .getString(R.string.loading_weather),
+                        " " + activity.getResources()
+                                .getString(R.string.loading_weather),
+                        " " + activity.getResources()
+                                .getString(R.string.loading_weather),
+                        " " + activity.getResources()
+                                .getString(R.string.loading_weather));
+
         // Define the observer
         Observable<MarsWeatherResultDM> marsWeatherDMObservable
                 = MarsExplorerApplication.getApplicationInstance()
@@ -125,13 +137,13 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
         activity
                 .setMarsWeather(
                         " " + activity.getResources()
-                                .getString(R.string.no_temperature),
+                                .getString(R.string.no_weather),
                         " " + activity.getResources()
-                                .getString(R.string.no_temperature),
+                                .getString(R.string.no_weather),
                         " " + activity.getResources()
-                                .getString(R.string.no_temperature),
+                                .getString(R.string.no_weather),
                         " " + activity.getResources()
-                                .getString(R.string.no_temperature));
+                                .getString(R.string.no_weather));
     }
 
     /**
