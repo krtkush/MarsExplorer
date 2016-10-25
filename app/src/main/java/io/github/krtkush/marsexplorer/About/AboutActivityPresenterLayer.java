@@ -1,9 +1,12 @@
 package io.github.krtkush.marsexplorer.About;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.support.customtabs.CustomTabsClient;
@@ -110,6 +113,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
      */
     private void prepareCustomTabs() {
         final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
+        final int REQUEST_CODE = 100;
 
         CustomTabsServiceConnection customTabsServiceConnection =
                 new CustomTabsServiceConnection() {
@@ -131,11 +135,27 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
         CustomTabsClient.bindCustomTabsService(activity,
                 CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
 
+        String shareLabel = activity.getString(R.string.share);
+        Bitmap icon = BitmapFactory.decodeResource(activity.getResources(),
+                R.drawable.ic_share);
+
+        //Create a PendingIntent to your BroadCastReceiver implementation
+        Intent shareIntent = new Intent(activity, ShareUrlReceiver.class);
+        PendingIntent pendingShareIntent =
+                PendingIntent.getBroadcast(
+                        activity,
+                        REQUEST_CODE,
+                        shareIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+
         customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .setActionButton(icon, shareLabel, pendingShareIntent)
+                .setShowTitle(true)
                 .setStartAnimations(activity, R.anim.slide_up_enter, R.anim.stay)
                 .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
                 .build();
+
         customTabsIntent.intent.putExtra(EXTRA_REFERRER,
                 Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
     }
