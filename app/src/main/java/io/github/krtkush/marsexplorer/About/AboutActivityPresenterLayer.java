@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -20,9 +22,26 @@ import io.github.krtkush.marsexplorer.UtilityMethods;
 public class AboutActivityPresenterLayer implements AboutActivityPresenterInteractor {
 
     private AboutActivity activity;
+    private CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+    private String EXTRA_REFERRER;
+    private int URI_ANDROID_APP_SCHEME;
 
     public AboutActivityPresenterLayer(AboutActivity activity) {
         this.activity = activity;
+        builder.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary));
+
+        // Prepare for SDK compatibility problems.
+        final int version = Build.VERSION.SDK_INT;
+
+        if(version < 17)
+            EXTRA_REFERRER = "android.intent.extra.REFERRER";
+        else
+            EXTRA_REFERRER = Intent.EXTRA_REFERRER;
+
+        if(version < 22)
+            URI_ANDROID_APP_SCHEME = 1<<1;
+        else
+            URI_ANDROID_APP_SCHEME = Intent.URI_ANDROID_APP_SCHEME;
     }
 
     @Override
@@ -63,17 +82,19 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
     @Override
     public void goToDeveloperPage() {
-        String url = "https://krtkush.github.io";
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(activity, Uri.parse(url));
+        CustomTabsIntent openDeveloperPageTab = builder.build();
+        openDeveloperPageTab.intent.putExtra(EXTRA_REFERRER,
+                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
+
+        openDeveloperPageTab.launchUrl(activity, Uri.parse("https://krtkush.github.io"));
     }
 
     @Override
     public void goToGithubPage() {
-        String url = "https://github.com/krtkush/MarsExplorer";
-        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-        CustomTabsIntent customTabsIntent = builder.build();
-        customTabsIntent.launchUrl(activity, Uri.parse(url));
+        CustomTabsIntent openGithubPageTab = builder.build();
+        openGithubPageTab.intent.putExtra(EXTRA_REFERRER,
+                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
+
+        openGithubPageTab.launchUrl(activity, Uri.parse("https://github.com/krtkush/MarsExplorer"));
     }
 }
