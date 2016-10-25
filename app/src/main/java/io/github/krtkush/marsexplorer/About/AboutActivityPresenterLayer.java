@@ -1,11 +1,15 @@
 package io.github.krtkush.marsexplorer.About;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.CustomTabsServiceConnection;
+import android.support.customtabs.CustomTabsSession;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
@@ -22,33 +26,21 @@ import io.github.krtkush.marsexplorer.UtilityMethods;
 public class AboutActivityPresenterLayer implements AboutActivityPresenterInteractor {
 
     private AboutActivity activity;
-    private CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-    private String EXTRA_REFERRER;
+
+    // Variables for CustomTabs.
     private CustomTabsIntent customTabsIntent;
+    private CustomTabsClient customTabsClient;
+    private CustomTabsSession customTabsSession;
+    private int URI_ANDROID_APP_SCHEME;
+    private String EXTRA_REFERRER;
+    private String DEVELOPER_PAGE = "https://krtkush.github.io";
+    private String GITHUB_PAGE = "https://github.com/krtkush/MarsExplorer";
 
     public AboutActivityPresenterLayer(AboutActivity activity) {
         this.activity = activity;
-        builder.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary));
 
-        // Prepare for SDK compatibility problems.
-        final int version = Build.VERSION.SDK_INT;
-        int URI_ANDROID_APP_SCHEME;
-
-        if(version < 17)
-            EXTRA_REFERRER = "android.intent.extra.REFERRER";
-        else
-            EXTRA_REFERRER = Intent.EXTRA_REFERRER;
-
-        if(version < 22)
-            URI_ANDROID_APP_SCHEME = 1<<1;
-        else
-            URI_ANDROID_APP_SCHEME = Intent.URI_ANDROID_APP_SCHEME;
-
-        // Prepare the custom tab.
-        customTabsIntent = builder.build();
-        customTabsIntent.intent.putExtra(EXTRA_REFERRER,
-                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
-
+        prepareIntentValues();
+        prepareCustomTabs();
     }
 
     @Override
@@ -61,7 +53,6 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
     @Override
     public void populateVersionNumber() {
-
         try {
             PackageInfo packageInfo = activity.getPackageManager()
                     .getPackageInfo(activity.getPackageName(), 0);
@@ -89,11 +80,61 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
     @Override
     public void goToDeveloperPage() {
-        customTabsIntent.launchUrl(activity, Uri.parse("https://krtkush.github.io"));
+        customTabsIntent.launchUrl(activity, Uri.parse(DEVELOPER_PAGE));
     }
 
     @Override
     public void goToGithubPage() {
-        customTabsIntent.launchUrl(activity, Uri.parse("https://github.com/krtkush/MarsExplorer"));
+        customTabsIntent.launchUrl(activity, Uri.parse(GITHUB_PAGE));
+    }
+
+    /**
+     * Method to prepare for SDK version compatibility problems.
+     */
+    private void prepareIntentValues() {
+        final int version = Build.VERSION.SDK_INT;
+
+        if(version < 17)
+            EXTRA_REFERRER = "android.intent.extra.REFERRER";
+        else
+            EXTRA_REFERRER = Intent.EXTRA_REFERRER;
+
+        if(version < 22)
+            URI_ANDROID_APP_SCHEME = 1<<1;
+        else
+            URI_ANDROID_APP_SCHEME = Intent.URI_ANDROID_APP_SCHEME;
+    }
+
+    /**
+     * Method to prepare the CustomTabs.
+     */
+    private void prepareCustomTabs() {
+        final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
+
+        CustomTabsServiceConnection customTabsServiceConnection =
+                new CustomTabsServiceConnection() {
+                    @Override
+                    public void onCustomTabsServiceConnected(ComponentName name,
+                                                             CustomTabsClient client) {
+                        customTabsClient = client;
+                        customTabsClient.warmup(0L);
+                        customTabsSession = customTabsClient.newSession(null);
+                        customTabsSession.mayLaunchUrl(Uri.parse(GITHUB_PAGE), null, null);
+                    }
+
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        customTabsClient = null;
+                    }
+                };
+
+        CustomTabsClient.bindCustomTabsService(activity,
+                CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
+
+        customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .build();
+        customTabsIntent.intent.putExtra(EXTRA_REFERRER,
+                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
     }
 }
