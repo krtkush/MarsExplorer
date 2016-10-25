@@ -133,6 +133,8 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
         customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .setStartAnimations(activity, R.anim.slide_up_enter, R.anim.stay)
+                .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
                 .build();
         customTabsIntent.intent.putExtra(EXTRA_REFERRER,
                 Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
