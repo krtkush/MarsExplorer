@@ -43,7 +43,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
         this.activity = activity;
 
-        prepareIntentValues();
+        prepareIntentKeys();
         prepareCustomTabs();
     }
 
@@ -95,7 +95,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     /**
      * Method to prepare for SDK version compatibility problems.
      */
-    private void prepareIntentValues() {
+    private void prepareIntentKeys() {
         final int version = Build.VERSION.SDK_INT;
 
         if(version < 17)

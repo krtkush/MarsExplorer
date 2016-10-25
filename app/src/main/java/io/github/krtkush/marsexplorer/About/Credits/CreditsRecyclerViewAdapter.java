@@ -45,7 +45,7 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         this.creditsListDataStructure = creditsListDataStructure;
         this.activity = (Activity) context;
 
-        prepareIntentValues();
+        prepareIntentKeys();
         prepareCustomTabs();
     }
 
@@ -96,7 +96,7 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     /**
      * Method to prepare for SDK version compatibility problems.
      */
-    private void prepareIntentValues() {
+    private void prepareIntentKeys() {
         final int version = Build.VERSION.SDK_INT;
 
         if(version < 17)
