@@ -132,8 +132,8 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
         Bitmap icon = BitmapFactory.decodeResource(activity.getResources(),
                 R.drawable.ic_share);
 
-        // Create a PendingIntent to the ShareUrlReceiver BroadCastReceiver implementation
-        Intent shareIntent = new Intent(activity, ShareUrlReceiver.class);
+        // Create a PendingIntent to the ShareUrlBroadcastReceiver BroadCastReceiver implementation
+        Intent shareIntent = new Intent(activity, ShareUrlBroadcastReceiver.class);
         PendingIntent pendingShareIntent =
                 PendingIntent.getBroadcast(
                         activity,

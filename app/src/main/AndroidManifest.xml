@@ -30,7 +30,7 @@
         </activity>
         <activity android:name=".About.Credits.CreditsActivity"></activity>
 
-        <receiver android:name=".About.ShareUrlReceiver"/>
+        <receiver android:name=".About.ShareUrlBroadcastReceiver"/>
     </application>
 
 </manifest>

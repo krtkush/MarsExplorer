@@ -11,7 +11,7 @@ import io.github.krtkush.marsexplorer.R;
  * Created by kartikeykushwaha on 25/10/16.
  */
 
-public class ShareUrlReceiver extends BroadcastReceiver {
+public class ShareUrlBroadcastReceiver extends BroadcastReceiver {
 
     /**
      * Broadcast receiver to show the share pop-up.
