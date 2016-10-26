@@ -3,6 +3,7 @@ package io.github.krtkush.marsexplorer.About.Credits;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
@@ -34,6 +35,8 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private CustomTabsIntent customTabsIntent;
     private CustomTabsClient customTabsClient;
     private CustomTabsSession customTabsSession;
+    // Keep track if the CustomTab is up and running. If not, open the links in the browser.
+    private boolean isConnectedToCustomTabService;
 
     public CreditsRecyclerViewAdapter(Context context,
                                       CreditsListDataStructure creditsListDataStructure) {
@@ -67,7 +70,13 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             public void onClick(View v) {
                 String url = creditsListDataStructure.getSubTitle()
                         .get(viewHolder.getAdapterPosition());
-                customTabsIntent.launchUrl(activity, Uri.parse(url));
+
+                if(isConnectedToCustomTabService)
+                    customTabsIntent.launchUrl(activity, Uri.parse(url));
+                else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    activity.startActivity(browserIntent);
+                }
             }
         });
     }
@@ -111,7 +120,7 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
                     }
                 };
 
-        CustomTabsClient.bindCustomTabsService(activity,
+        isConnectedToCustomTabService = CustomTabsClient.bindCustomTabsService(activity,
                 CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
 
         customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)

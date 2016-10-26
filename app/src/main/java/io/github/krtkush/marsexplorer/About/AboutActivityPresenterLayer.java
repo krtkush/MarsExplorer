@@ -35,6 +35,8 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     private CustomTabsSession customTabsSession;
     private String DEVELOPER_PAGE = "https://krtkush.github.io";
     private String GITHUB_PAGE = "https://github.com/krtkush/MarsExplorer";
+    // Keep track if the CustomTab is up and running. If not, open the links in the browser.
+    private boolean isConnectedToCustomTabService;
 
     public AboutActivityPresenterLayer(AboutActivity activity) {
 
@@ -80,12 +82,22 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
     @Override
     public void goToDeveloperPage() {
-        customTabsIntent.launchUrl(activity, Uri.parse(DEVELOPER_PAGE));
+        if(isConnectedToCustomTabService)
+            customTabsIntent.launchUrl(activity, Uri.parse(DEVELOPER_PAGE));
+        else {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(DEVELOPER_PAGE));
+            activity.startActivity(browserIntent);
+        }
     }
 
     @Override
     public void goToGithubPage() {
-        customTabsIntent.launchUrl(activity, Uri.parse(GITHUB_PAGE));
+        if(isConnectedToCustomTabService)
+            customTabsIntent.launchUrl(activity, Uri.parse(GITHUB_PAGE));
+        else {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_PAGE));
+            activity.startActivity(browserIntent);
+        }
     }
 
     /**
@@ -112,7 +124,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
                     }
                 };
 
-        CustomTabsClient.bindCustomTabsService(activity,
+        isConnectedToCustomTabService = CustomTabsClient.bindCustomTabsService(activity,
                 CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
 
         // Define the icon and title for the share option.
