@@ -112,7 +112,8 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                             makeSceneTransitionAnimation(activity, view,
                                     activity.getString(R.string.expandImageTransition));
 
-                    context.startActivity(goToPhotoExpandedActivity, activityOptionsCompat.toBundle());
+                    context.startActivity(goToPhotoExpandedActivity,
+                            activityOptionsCompat.toBundle());
                 }
             }
         });
