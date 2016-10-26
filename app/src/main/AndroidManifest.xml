@@ -29,6 +29,8 @@
                 android:value=".Main.MainActivity" />
         </activity>
         <activity android:name=".About.Credits.CreditsActivity"></activity>
+
+        <receiver android:name=".About.ShareUrlBroadcastReceiver"/>
     </application>
 
 </manifest>

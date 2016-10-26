@@ -1,11 +1,13 @@
 package io.github.krtkush.marsexplorer.About;
 
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -31,15 +33,15 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     private CustomTabsIntent customTabsIntent;
     private CustomTabsClient customTabsClient;
     private CustomTabsSession customTabsSession;
-    private int URI_ANDROID_APP_SCHEME;
-    private String EXTRA_REFERRER;
     private String DEVELOPER_PAGE = "https://krtkush.github.io";
     private String GITHUB_PAGE = "https://github.com/krtkush/MarsExplorer";
+    // Keep track if the CustomTab is up and running. If not, open the links in the browser.
+    private boolean isConnectedToCustomTabService;
 
     public AboutActivityPresenterLayer(AboutActivity activity) {
+
         this.activity = activity;
 
-        prepareIntentValues();
         prepareCustomTabs();
     }
 
@@ -80,29 +82,22 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
 
     @Override
     public void goToDeveloperPage() {
-        customTabsIntent.launchUrl(activity, Uri.parse(DEVELOPER_PAGE));
+        if(isConnectedToCustomTabService)
+            customTabsIntent.launchUrl(activity, Uri.parse(DEVELOPER_PAGE));
+        else {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(DEVELOPER_PAGE));
+            activity.startActivity(browserIntent);
+        }
     }
 
     @Override
     public void goToGithubPage() {
-        customTabsIntent.launchUrl(activity, Uri.parse(GITHUB_PAGE));
-    }
-
-    /**
-     * Method to prepare for SDK version compatibility problems.
-     */
-    private void prepareIntentValues() {
-        final int version = Build.VERSION.SDK_INT;
-
-        if(version < 17)
-            EXTRA_REFERRER = "android.intent.extra.REFERRER";
-        else
-            EXTRA_REFERRER = Intent.EXTRA_REFERRER;
-
-        if(version < 22)
-            URI_ANDROID_APP_SCHEME = 1<<1;
-        else
-            URI_ANDROID_APP_SCHEME = Intent.URI_ANDROID_APP_SCHEME;
+        if(isConnectedToCustomTabService)
+            customTabsIntent.launchUrl(activity, Uri.parse(GITHUB_PAGE));
+        else {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_PAGE));
+            activity.startActivity(browserIntent);
+        }
     }
 
     /**
@@ -110,6 +105,7 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
      */
     private void prepareCustomTabs() {
         final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
+        final int REQUEST_CODE = 100;
 
         CustomTabsServiceConnection customTabsServiceConnection =
                 new CustomTabsServiceConnection() {
@@ -128,15 +124,32 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
                     }
                 };
 
-        CustomTabsClient.bindCustomTabsService(activity,
+        isConnectedToCustomTabService = CustomTabsClient.bindCustomTabsService(activity,
                 CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
+
+        // Define the icon and title for the share option.
+        String shareLabel = activity.getString(R.string.share);
+        Bitmap icon = BitmapFactory.decodeResource(activity.getResources(),
+                R.drawable.ic_share);
+
+        // Create a PendingIntent to the ShareUrlBroadcastReceiver BroadCastReceiver implementation
+        Intent shareIntent = new Intent(activity, ShareUrlBroadcastReceiver.class);
+        PendingIntent pendingShareIntent =
+                PendingIntent.getBroadcast(
+                        activity,
+                        REQUEST_CODE,
+                        shareIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
 
         customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)
                 .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .setActionButton(icon, shareLabel, pendingShareIntent)
+                .setShowTitle(true)
                 .setStartAnimations(activity, R.anim.slide_up_enter, R.anim.stay)
                 .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
                 .build();
-        customTabsIntent.intent.putExtra(EXTRA_REFERRER,
-                Uri.parse(URI_ANDROID_APP_SCHEME + "//" + activity.getPackageName()));
+
+        customTabsIntent.intent.putExtra(UtilityMethods.customTabReferrerKey(),
+                UtilityMethods.customTabReferrerString());
     }
 }

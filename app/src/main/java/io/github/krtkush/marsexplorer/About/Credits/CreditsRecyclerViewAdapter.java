@@ -1,9 +1,14 @@
 package io.github.krtkush.marsexplorer.About.Credits;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.CustomTabsServiceConnection;
+import android.support.customtabs.CustomTabsSession;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.UtilityMethods;
 
 /**
  * Created by kartikeykushwaha on 23/10/16.
@@ -25,12 +31,21 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private CreditsListDataStructure creditsListDataStructure;
     private Activity activity;
 
+    // Variables for CustomTabs.
+    private CustomTabsIntent customTabsIntent;
+    private CustomTabsClient customTabsClient;
+    private CustomTabsSession customTabsSession;
+    // Keep track if the CustomTab is up and running. If not, open the links in the browser.
+    private boolean isConnectedToCustomTabService;
+
     public CreditsRecyclerViewAdapter(Context context,
                                       CreditsListDataStructure creditsListDataStructure) {
 
         this.context = context;
         this.creditsListDataStructure = creditsListDataStructure;
         this.activity = (Activity) context;
+
+        prepareCustomTabs();
     }
 
     @Override
@@ -55,9 +70,13 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             public void onClick(View v) {
                 String url = creditsListDataStructure.getSubTitle()
                         .get(viewHolder.getAdapterPosition());
-                CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                CustomTabsIntent customTabsIntent = builder.build();
-                customTabsIntent.launchUrl(activity, Uri.parse(url));
+
+                if(isConnectedToCustomTabService)
+                    customTabsIntent.launchUrl(activity, Uri.parse(url));
+                else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    activity.startActivity(browserIntent);
+                }
             }
         });
     }
@@ -77,5 +96,40 @@ public class CreditsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    /**
+     * Method to prepare the CustomTabs.
+     */
+    private void prepareCustomTabs() {
+        final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
+
+        CustomTabsServiceConnection customTabsServiceConnection =
+                new CustomTabsServiceConnection() {
+                    @Override
+                    public void onCustomTabsServiceConnected(ComponentName name,
+                                                             CustomTabsClient client) {
+                        customTabsClient = client;
+                        customTabsClient.warmup(0L);
+                        customTabsSession = customTabsClient.newSession(null);
+                    }
+
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        customTabsClient = null;
+                    }
+                };
+
+        isConnectedToCustomTabService = CustomTabsClient.bindCustomTabsService(activity,
+                CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
+
+        customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)
+                .setShowTitle(true)
+                .setStartAnimations(activity, R.anim.slide_up_enter, R.anim.stay)
+                .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
+                .build();
+
+        customTabsIntent.intent.putExtra(UtilityMethods.customTabReferrerKey(),
+                UtilityMethods.customTabReferrerString());
     }
 }
