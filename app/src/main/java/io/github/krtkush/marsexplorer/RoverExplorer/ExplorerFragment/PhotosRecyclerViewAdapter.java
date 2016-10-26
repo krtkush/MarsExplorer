@@ -15,6 +15,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -55,7 +56,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
-        PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
+        final PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
         // Animate the view
         if(viewHolder.getAdapterPosition() >= lastPosition) {
@@ -71,7 +72,18 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 .placeholder(R.drawable.square_placeholder)
                 .fit()
                 .centerCrop()
-                .into(photosViewHolder.photoHolder);
+                .into(photosViewHolder.photoHolder, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        photosViewHolder.photoHolder.setTag(R.integer.hasImageLoaded,
+                                activity.getString(R.string.imageHasLoaded));
+                    }
+
+                    @Override
+                    public void onError() {
+                        photosViewHolder.photoHolder.setTag(R.integer.hasImageLoaded, null);
+                    }
+                });
 
         // Photo Id
         photosViewHolder.photoId
@@ -86,21 +98,28 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             @Override
             public void onClick(View view) {
 
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity, view,
-                                activity.getString(R.string.expandImageTransition));
                 Intent goToPhotoExpandedActivity =
                         new Intent(context, PhotoExpandedViewActivity.class);
                 goToPhotoExpandedActivity.putExtra(ExpandedPhotosConstants.imageUrl,
                         photos.get(viewHolder.getAdapterPosition()).imgSource());
 
-                context.startActivity(goToPhotoExpandedActivity, activityOptionsCompat.toBundle());
+                // If the image has not yet been loaded by Picasso.
+                // Open the expanded activity without shared element transition animation.
+                if(photosViewHolder.photoHolder.getTag(R.integer.hasImageLoaded) == null) {
+                    activity.startActivity(goToPhotoExpandedActivity);
+                } else {
+                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(activity, view,
+                                    activity.getString(R.string.expandImageTransition));
+
+                    context.startActivity(goToPhotoExpandedActivity, activityOptionsCompat.toBundle());
+                }
             }
         });
     }
 
     /**
-     * Method to add
+     * Method to add -
      * 1. Fade in effect
      * 2. Scroll up animation
      * @param view item to which the affects are to be applied.
