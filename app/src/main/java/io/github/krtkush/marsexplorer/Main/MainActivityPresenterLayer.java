@@ -223,7 +223,8 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
     public void goToRoverSection(String roverName, View view) {
 
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(activity, view, "roverImageTransition");
+                makeSceneTransitionAnimation(activity, view,
+                        activity.getString(R.string.roverImageTransition));
 
         Intent goToRoverExplorer = new Intent(activity,
                 RoverExplorerTabHostActivity.class);

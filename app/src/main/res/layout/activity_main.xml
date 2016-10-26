@@ -146,7 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:transitionName="roverImageTransition" />
+                    android:transitionName="@string/roverImageTransition"/>
 
                 <TextView
                     android:id="@+id/goToCuriosity"
@@ -177,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:transitionName="roverImageTransition"/>
+                    android:transitionName="@string/roverImageTransition"/>
 
                 <TextView
                     android:id="@+id/goToOpportunity"
@@ -208,7 +208,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:scaleType="centerCrop"
-                    android:transitionName="roverImageTransition"/>
+                    android:transitionName="@string/roverImageTransition"/>
 
                 <TextView
                     android:id="@+id/goToSpirit"

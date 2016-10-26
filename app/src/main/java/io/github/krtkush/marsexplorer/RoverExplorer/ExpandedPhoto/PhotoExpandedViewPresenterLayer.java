@@ -14,7 +14,7 @@ public class PhotoExpandedViewPresenterLayer implements  PhotoExpandedViewIntera
 
     @Override
     public void getImageUrl() {
-        setImage(activity.getIntent().getStringExtra("ImageUrl"));
+        setImage(activity.getIntent().getStringExtra(ExpandedPhotosConstants.imageUrl));
     }
 
     @Override

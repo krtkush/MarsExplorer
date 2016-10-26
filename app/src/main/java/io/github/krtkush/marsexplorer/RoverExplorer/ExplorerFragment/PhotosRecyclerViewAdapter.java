@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.Photos;
+import io.github.krtkush.marsexplorer.RoverExplorer.ExpandedPhoto.ExpandedPhotosConstants;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExpandedPhoto.PhotoExpandedViewActivity;
 
 /**
@@ -53,7 +54,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         PhotosViewHolder photosViewHolder = (PhotosViewHolder) viewHolder;
 
         // Animate the view
@@ -73,10 +74,12 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 .into(photosViewHolder.photoHolder);
 
         // Photo Id
-        photosViewHolder.photoId.setText(String.valueOf(photos.get(position).id()));
+        photosViewHolder.photoId
+                .setText(String.valueOf(photos.get(viewHolder.getAdapterPosition()).id()));
 
         // Camera Initials
-        photosViewHolder.cameraInitial.setText(photos.get(position).camera().name());
+        photosViewHolder.cameraInitial
+                .setText(photos.get(viewHolder.getAdapterPosition()).camera().name());
 
         // On click action
         photosViewHolder.photoHolder.setOnClickListener(new View.OnClickListener() {
@@ -84,12 +87,12 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             public void onClick(View view) {
 
                 ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity, view, "expandImageTransition");
-
+                        makeSceneTransitionAnimation(activity, view,
+                                activity.getString(R.string.expandImageTransition));
                 Intent goToPhotoExpandedActivity =
                         new Intent(context, PhotoExpandedViewActivity.class);
-
-                goToPhotoExpandedActivity.putExtra("ImageUrl", photos.get(position).imgSource());
+                goToPhotoExpandedActivity.putExtra(ExpandedPhotosConstants.imageUrl,
+                        photos.get(viewHolder.getAdapterPosition()).imgSource());
 
                 context.startActivity(goToPhotoExpandedActivity, activityOptionsCompat.toBundle());
             }

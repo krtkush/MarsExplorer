@@ -8,7 +8,8 @@
     <ImageView
         android:id="@+id/photoHolder"
         android:layout_width="210dp"
-        android:layout_height="250dp" />
+        android:layout_height="250dp"
+        android:transitionName="@string/expandImageTransition"/>
 
     <RelativeLayout
         android:layout_width="210dp"
