@@ -167,7 +167,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:foreground="@drawable/ripple_effect">
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/developerIcon"
