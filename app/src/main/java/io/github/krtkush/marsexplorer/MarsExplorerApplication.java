@@ -2,8 +2,6 @@ package io.github.krtkush.marsexplorer;
 
 import android.app.Application;
 
-import com.squareup.leakcanary.LeakCanary;
-
 import io.github.krtkush.marsexplorer.RESTClients.MarsWeatherClient;
 import io.github.krtkush.marsexplorer.RESTClients.NASARestApiClient;
 import timber.log.Timber;
@@ -54,8 +52,8 @@ public class MarsExplorerApplication extends Application {
         }
 
         // Initialize Leak Canary
-        if(BuildConfig.DEBUG)
-            LeakCanary.install(this);
+        /*if(BuildConfig.DEBUG)
+            LeakCanary.install(this);*/
     }
 
     /**

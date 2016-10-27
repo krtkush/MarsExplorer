@@ -13,6 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -94,7 +95,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 .setText(photos.get(viewHolder.getAdapterPosition()).camera().name());
 
         // On click action
-        photosViewHolder.photoHolder.setOnClickListener(new View.OnClickListener() {
+        photosViewHolder.photoHolderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -157,6 +158,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     public class PhotosViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.photoHolderLayout) RelativeLayout photoHolderLayout;
         @BindView(R.id.photoHolder) ImageView photoHolder;
         @BindView(R.id.cameraInitial) TextView cameraInitial;
         @BindView(R.id.photoId) TextView photoId;

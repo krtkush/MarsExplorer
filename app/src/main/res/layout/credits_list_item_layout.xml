@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:id="@+id/creditItem"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:foreground="@drawable/ripple_effect"
     android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -34,12 +34,5 @@
             android:textColor="@color/colorSecondaryLightText"/>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_below="@+id/textHolders"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:background="@color/colorAccent"/>
 
 </RelativeLayout>
