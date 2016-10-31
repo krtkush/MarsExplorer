@@ -14,6 +14,10 @@ The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-p
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExplorerTwo.png" width="200" height="350" />
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/About.png" width="200" height="350" />
 
+**Download**
+
+All the released APKs can be found in the [Download directory](https://github.com/krtkush/MarsExplorer/tree/master/Downloads).
+
 **Contributing**
 
 Any kind of contribution will be appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikey92@gmail.com.
