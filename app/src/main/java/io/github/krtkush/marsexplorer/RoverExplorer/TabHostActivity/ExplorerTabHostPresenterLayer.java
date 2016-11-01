@@ -1,5 +1,6 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
 import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
+import io.github.krtkush.marsexplorer.RoverExplorer.AboutRover.AboutRoverActivity;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.UtilityMethods;
@@ -72,7 +74,9 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                 break;
 
             case R.id.action_rover_details:
-
+                Intent goToAboutRover = new Intent(activity, AboutRoverActivity.class);
+                goToAboutRover.putExtra(RoverExplorerConstants.roverNameExtra, roverName);
+                activity.startActivity(goToAboutRover);
                 break;
         }
     }

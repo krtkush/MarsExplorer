@@ -28,9 +28,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.MainActivity" />
         </activity>
-        <activity android:name=".About.Credits.CreditsActivity"></activity>
+        <activity android:name=".About.Credits.CreditsActivity" />
 
-        <receiver android:name=".About.ShareUrlBroadcastReceiver"/>
+        <receiver android:name=".About.ShareUrlBroadcastReceiver" />
+
+        <activity android:name=".RoverExplorer.AboutRover.AboutRoverActivity"></activity>
     </application>
 
 </manifest>
