@@ -36,7 +36,6 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     // Variable to keep track of how many SOLs have had their respective tabs added
     // to the viewpager.
     private int roverSolTracker;
-
     // Viewpager and TabLayout instance. Only used and initiated if maxSol is not passed
     // from previous activity.
     private ViewPager viewPager = null;
@@ -188,7 +187,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     }
 
     /**
-     * Method to get the max SOL of the selected rover.
+     * Method to get the max SOL of the selected rover. This method is called only when the
+     * previous activity fails to pass maxSol to this activity.
      * This request is sent only if the previous fails to send maxSol.
      * @param roverName
      */
