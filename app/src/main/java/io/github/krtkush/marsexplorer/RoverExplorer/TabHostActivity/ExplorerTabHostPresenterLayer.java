@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import java.util.List;
 
 import io.github.krtkush.marsexplorer.GeneralConstants;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.R;
+import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.ExplorerFragment.RoverExplorerFragment;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
 import io.github.krtkush.marsexplorer.UtilityMethods;
@@ -30,7 +31,8 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private RoverExplorerTabHostActivity activity;
     private String roverName;
     private String roverSol;
-    // Variable to keep track of how many SOLs have had their respective tabs added to the viewpager.
+    // Variable to keep track of how many SOLs have had their respective tabs added
+    // to the viewpager.
     private int roverSolTracker;
 
     // Viewpager and TabLayout instance. Only used and initiated if maxSol is not passed
@@ -58,6 +60,21 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
 
         roverSol = activity.getIntent()
                 .getStringExtra(RoverExplorerConstants.roverMaxSolExtra);
+    }
+
+    @Override
+    public void handleOptionsSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                // Respond to the action bar's Up/Home button
+                activity.supportFinishAfterTransition();
+                break;
+
+            case R.id.action_rover_details:
+
+                break;
+        }
     }
 
     @Override

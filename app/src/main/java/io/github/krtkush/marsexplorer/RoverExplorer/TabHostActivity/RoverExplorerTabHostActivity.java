@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -52,13 +53,14 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.rover_explorer_activity_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                supportFinishAfterTransition();
-                return true;
-        }
+        presenterInteractor.handleOptionsSelected(item);
         return super.onOptionsItemSelected(item);
     }
 
@@ -80,9 +82,9 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to make toast on this activity
-     * @param toastMessage The message to be displayed
-     * @param toastDuration Duration for the toast to be visible
+     * Method to make toast on this activity.
+     * @param toastMessage The message to be displayed.
+     * @param toastDuration Duration for the toast to be visible.
      */
     protected void showToast(String toastMessage, int toastDuration) {
         Toast.makeText(this, toastMessage, toastDuration).show();
@@ -97,7 +99,7 @@ public class RoverExplorerTabHostActivity extends AppCompatActivity {
     }
 
     /**
-     * Method to set the image of the collapsible toolbar
+     * Method to set the image of the collapsible toolbar.
      * @param drawablePath
      */
     protected void setCollapsibleToolbarImage(int drawablePath) {

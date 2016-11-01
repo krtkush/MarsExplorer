@@ -2,6 +2,7 @@ package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 /**
  * Created by kartikeykushwaha on 01/09/16.
@@ -31,4 +32,9 @@ public interface ExplorerTabHostPresenterInteractor {
     void setViewsValue();
 
     void unsubscribeMaxSolRequest();
+
+    /**
+     * Method to handle taps on actionbar's buttons.
+     */
+    void handleOptionsSelected(MenuItem item);
 }

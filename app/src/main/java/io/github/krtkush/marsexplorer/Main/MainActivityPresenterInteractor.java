@@ -37,7 +37,7 @@ public interface MainActivityPresenterInteractor {
     void checkInternetConnectivity();
 
     /**
-     * Method to handle taps on actionbar
+     * Method to handle taps on actionbar's buttons.
      */
     void handleOptionsSelected(MenuItem item);
 
