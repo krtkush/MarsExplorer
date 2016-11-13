@@ -68,7 +68,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                // Respond to the action bar's Up/Home button
+                // Respond to the action bar's Up/Home button.
                 activity.supportFinishAfterTransition();
                 break;
 

@@ -31,8 +31,6 @@
         <activity android:name=".About.Credits.CreditsActivity" />
 
         <receiver android:name=".About.ShareUrlBroadcastReceiver" />
-
-        <activity android:name=".RoverExplorer.AboutRover.AboutRoverActivity"></activity>
     </application>
 
 </manifest>
