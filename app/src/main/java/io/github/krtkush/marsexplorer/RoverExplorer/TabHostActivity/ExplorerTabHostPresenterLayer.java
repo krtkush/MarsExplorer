@@ -1,8 +1,16 @@
 package io.github.krtkush.marsexplorer.RoverExplorer.TabHostActivity;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsClient;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.CustomTabsServiceConnection;
+import android.support.customtabs.CustomTabsSession;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -39,10 +47,21 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     private ViewPager viewPager = null;
     private TabLayout tabLayout = null;
 
+    // Variables for CustomTabs.
+    private CustomTabsIntent customTabsIntent;
+    private CustomTabsClient customTabsClient;
+    private CustomTabsSession customTabsSession;
+    private String OPPORTUNITY_WIKIPEDIA_PAGE = "https://en.wikipedia.org/wiki/Opportunity_(rover)";
+    private String SPIRIT_WIKIPEDIA_PAGE = "https://en.wikipedia.org/wiki/Spirit_(rover)";
+    private String CURIOSITY_WIKIPEDIA_PAGE = "https://en.wikipedia.org/wiki/Curiosity_(rover)";
+    // Keep track if the CustomTab is up and running. If not, open the links in the browser.
+    private boolean isConnectedToCustomTabService;
+
     private Subscriber<PhotosResultDM> nasaMarsPhotoSubscriber;
 
     public ExplorerTabHostPresenterLayer(RoverExplorerTabHostActivity activity) {
         this.activity = activity;
+        prepareCustomTabs();
     }
 
     @Override
@@ -71,7 +90,7 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
                 break;
 
             case R.id.action_rover_details:
-
+                openInformationPage();
                 break;
         }
     }
@@ -228,5 +247,91 @@ public class ExplorerTabHostPresenterLayer implements ExplorerTabHostPresenterIn
     public void unsubscribeMaxSolRequest() {
         if(nasaMarsPhotoSubscriber != null)
             nasaMarsPhotoSubscriber.unsubscribe();
+    }
+
+    /**
+     * Method to prepare the CustomTabs.
+     */
+    private void prepareCustomTabs() {
+        final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
+
+        CustomTabsServiceConnection customTabsServiceConnection =
+                new CustomTabsServiceConnection() {
+                    @Override
+                    public void onCustomTabsServiceConnected(ComponentName name,
+                                                             CustomTabsClient client) {
+                        customTabsClient = client;
+                        customTabsClient.warmup(0L);
+                        customTabsSession = customTabsClient.newSession(null);
+                        switch (roverName) {
+                            case GeneralConstants.Curiosity:
+                                customTabsSession.mayLaunchUrl(Uri.parse(CURIOSITY_WIKIPEDIA_PAGE),
+                                        null, null);
+                                break;
+                            case GeneralConstants.Opportunity:
+                                customTabsSession.mayLaunchUrl(Uri.parse(OPPORTUNITY_WIKIPEDIA_PAGE),
+                                        null, null);
+                                break;
+                            case GeneralConstants.Spirit:
+                                customTabsSession.mayLaunchUrl(Uri.parse(SPIRIT_WIKIPEDIA_PAGE),
+                                        null, null);
+                                break;
+                        }
+                    }
+
+                    @Override
+                    public void onServiceDisconnected(ComponentName name) {
+                        customTabsClient = null;
+                    }
+                };
+
+        isConnectedToCustomTabService = CustomTabsClient.bindCustomTabsService(activity,
+                CUSTOM_TAB_PACKAGE_NAME, customTabsServiceConnection);
+
+        customTabsIntent = new CustomTabsIntent.Builder(customTabsSession)
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .setShowTitle(true)
+                .setStartAnimations(activity, R.anim.slide_up_enter, R.anim.stay)
+                .setExitAnimations(activity, R.anim.stay, R.anim.slide_down_exit)
+                .build();
+
+        customTabsIntent.intent.putExtra(UtilityMethods.customTabReferrerKey(),
+                UtilityMethods.customTabReferrerString());
+    }
+
+    /**
+     * Method to open information page for respective rovers.
+     */
+    private void openInformationPage() {
+
+        switch (roverName) {
+            case GeneralConstants.Curiosity:
+                if(isConnectedToCustomTabService)
+                    customTabsIntent.launchUrl(activity, Uri.parse(CURIOSITY_WIKIPEDIA_PAGE));
+                else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(CURIOSITY_WIKIPEDIA_PAGE));
+                    activity.startActivity(browserIntent);
+                }
+                break;
+            case GeneralConstants.Opportunity:
+                if(isConnectedToCustomTabService)
+                    customTabsIntent.launchUrl(activity, Uri.parse(OPPORTUNITY_WIKIPEDIA_PAGE));
+                else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(OPPORTUNITY_WIKIPEDIA_PAGE));
+                    activity.startActivity(browserIntent);
+                }
+                break;
+            case GeneralConstants.Spirit:
+                if(isConnectedToCustomTabService)
+                    customTabsIntent.launchUrl(activity, Uri.parse(SPIRIT_WIKIPEDIA_PAGE));
+                else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(SPIRIT_WIKIPEDIA_PAGE));
+                    activity.startActivity(browserIntent);
+                }
+                break;
+        }
     }
 }

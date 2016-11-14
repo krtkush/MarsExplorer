@@ -41,7 +41,6 @@ public class AboutActivityPresenterLayer implements AboutActivityPresenterIntera
     public AboutActivityPresenterLayer(AboutActivity activity) {
 
         this.activity = activity;
-
         prepareCustomTabs();
     }
 
