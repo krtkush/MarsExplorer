@@ -44,12 +44,19 @@ public class RoverExplorerFragment extends Fragment {
         // Get the details from the intent
         roverExplorerPresenterInteractor.getValuesFromIntent();
 
-        // Request data for photos from API
+        // Prepare the recycler view
         roverExplorerPresenterInteractor.prepareRecyclerViewAndAddData(recyclerView,
                 swipeRefreshLayout);
-        roverExplorerPresenterInteractor.getRoverPhotos(true);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Request data for photos from API
+        roverExplorerPresenterInteractor.getRoverPhotos(true);
     }
 
     @Override
