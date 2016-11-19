@@ -48,15 +48,10 @@ public class RoverExplorerFragment extends Fragment {
         roverExplorerPresenterInteractor.prepareRecyclerViewAndAddData(recyclerView,
                 swipeRefreshLayout);
 
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         // Request data for photos from API
         roverExplorerPresenterInteractor.getRoverPhotos(true);
+
+        return view;
     }
 
     @Override
