@@ -20,4 +20,4 @@ All the released APKs can be found in the [Download directory](https://github.co
 
 ## Contributing
 
-Any kind of contribution will be appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikey9[at]gmail.com.
+Any kind of contribution will be appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikey92[at]gmail.com.
