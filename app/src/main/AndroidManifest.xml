@@ -15,7 +15,6 @@
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,6 +30,9 @@
         <activity android:name=".About.Credits.CreditsActivity" />
 
         <receiver android:name=".About.ShareUrlBroadcastReceiver" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="@string/FABRIC_API_KEY" />
     </application>
 
 </manifest>
