@@ -44,6 +44,7 @@ public class PhotoExpandedViewActivity extends AppCompatActivity {
                 .load(imagePath)
                 .fit()
                 .centerCrop()
+                .placeholder(R.drawable.square_placeholder)
                 .into(expandedPhotoHolder, new Callback() {
                     @Override
                     public void onSuccess() {

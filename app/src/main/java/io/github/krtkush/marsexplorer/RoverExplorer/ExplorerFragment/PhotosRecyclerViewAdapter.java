@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,18 +103,8 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 goToPhotoExpandedActivity.putExtra(ExpandedPhotosConstants.imageUrl,
                         photos.get(viewHolder.getAdapterPosition()).imgSource());
 
-                // If the image has not yet been loaded by Picasso.
-                // Open the expanded activity without shared element transition animation.
-                if(photosViewHolder.photoHolder.getTag(R.integer.hasImageLoaded) == null) {
-                    activity.startActivity(goToPhotoExpandedActivity);
-                } else {
-                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(activity, view,
-                                    activity.getString(R.string.expandImageTransition));
-
-                    context.startActivity(goToPhotoExpandedActivity,
-                            activityOptionsCompat.toBundle());
-                }
+                // Open expanded image in new activity.
+                activity.startActivity(goToPhotoExpandedActivity);
             }
         });
     }

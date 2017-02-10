@@ -11,7 +11,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         // <Major>.<Minor>.<Patch/Upgrade>
-        versionName "0.4.0-alpha.2"
+        versionName "1.0.0-alpha.3"
     }
     buildTypes {
         release {
