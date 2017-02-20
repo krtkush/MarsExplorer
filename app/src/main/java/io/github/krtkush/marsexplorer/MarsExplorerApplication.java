@@ -2,9 +2,11 @@ package io.github.krtkush.marsexplorer;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
 
+import io.fabric.sdk.android.Fabric;
 import io.github.krtkush.marsexplorer.RESTClients.MarsWeatherClient;
 import io.github.krtkush.marsexplorer.RESTClients.NASARestApiClient;
 import timber.log.Timber;
@@ -32,16 +34,16 @@ public class MarsExplorerApplication extends Application {
         nasaMarsPhotosApiInterface = NASARestApiClient.getNasaMarsPhotosApiInterface();
         marsWeatherInterface = MarsWeatherClient.getMarsWeatherInterface();
 
-        // Initialize timber logging tool only if in debug mode.
-        if(BuildConfig.DEBUG)
-            Timber.plant(new Timber.DebugTree());
-
         // Initialize calligraphy with the preferred font.
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Lato-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+
+        // Initialize timber logging tool only if in debug mode.
+        if(BuildConfig.DEBUG)
+            Timber.plant(new Timber.DebugTree());
 
         // Initialize picasso cache indicator and logging only if in debug mode.
         if(BuildConfig.DEBUG) {
@@ -54,9 +56,13 @@ public class MarsExplorerApplication extends Application {
                     .setLoggingEnabled(true);
         }
 
-        // Initialize Leak Canary
+        // Initialize Leak Canary only if in debug mode.
         if(BuildConfig.DEBUG)
             LeakCanary.install(this);
+
+        // Initialize fabric only if NOT in debug mode.
+        if(!BuildConfig.DEBUG)
+            Fabric.with(this, new Crashlytics());
     }
 
     /**

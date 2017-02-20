@@ -7,3 +7,5 @@
 /.idea
 /app/src/main/res/values/api_keys.xml
 /MarsExplorerKeyStore.jks
+/gradle.properties
+/app/fabric.properties

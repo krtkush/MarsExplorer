@@ -10,13 +10,12 @@
     <ImageView
         android:id="@+id/photoHolder"
         android:layout_width="210dp"
-        android:layout_height="250dp"
-        />
+        android:layout_height="250dp" />
 
     <RelativeLayout
         android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:padding="5dp"
+        android:layout_height="68dp"
+        android:padding="16dp"
         android:background="@color/colorTransparentBackground"
         android:layout_alignBottom="@+id/photoHolder">
 
@@ -24,7 +23,7 @@
             android:id="@+id/photoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/colorAccent" />
 
         <TextView
@@ -32,7 +31,7 @@
             android:layout_below="@+id/photoId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textColor="@color/colorAccent" />
 
     </RelativeLayout>
