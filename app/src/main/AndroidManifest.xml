@@ -30,9 +30,6 @@
         <activity android:name=".About.Credits.CreditsActivity" />
 
         <receiver android:name=".About.ShareUrlBroadcastReceiver" />
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="@string/FABRIC_API_KEY" />
     </application>
 
 </manifest>
