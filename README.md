@@ -11,7 +11,7 @@ The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-p
 
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/Home.png" width="200" height="350" />
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExploreOne.png" width="200" height="350" />
-<img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExplorerTwo.png" width="200" height="350" />
+<img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExploreTwo.png" width="200" height="350" />
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/About.png" width="200" height="350" />
 
 ## Download
