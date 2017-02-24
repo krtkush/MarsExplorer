@@ -16,7 +16,9 @@ The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-p
 
 ## Download
 
-The app is currently available on the [Play Store as a beta version](https://play.google.com/store/apps/details?id=io.github.krtkush.marsexplorer).
+The app is currently available on the [Play Store](https://play.google.com/store/apps/details?id=io.github.krtkush.marsexplorer).
+
+You can chose to be part of the test group by clicking on this [opt-in link](https://play.google.com/apps/testing/io.github.krtkush.marsexplorer).
 
 As an alternative, all the released APKs can be found in the [Download directory](https://github.com/krtkush/MarsExplorer/tree/master/Downloads).
 
