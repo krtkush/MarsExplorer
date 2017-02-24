@@ -11,13 +11,15 @@ The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-p
 
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/Home.png" width="200" height="350" />
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExploreOne.png" width="200" height="350" />
-<img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExplorerTwo.png" width="200" height="350" />
+<img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/ExploreTwo.png" width="200" height="350" />
 <img src="https://github.com/krtkush/MarsExplorer/blob/master/Screenshots/About.png" width="200" height="350" />
 
 ## Download
 
-All the released APKs can be found in the [Download directory](https://github.com/krtkush/MarsExplorer/tree/master/Downloads).
+The app is currently available on the [Play Store as a beta version](https://play.google.com/store/apps/details?id=io.github.krtkush.marsexplorer).
+
+As an alternative, all the released APKs can be found in the [Download directory](https://github.com/krtkush/MarsExplorer/tree/master/Downloads).
 
 ## Contributing
 
-Any kind of contribution will be appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikey92[at]gmail.com.
+Any kind of contribution will be appreciated; feel free to create a pull request or file issues on the issue tracker. If you'd like to contact me, you can reach me at kartikeykushwaha.apps[at]gmail.com.
