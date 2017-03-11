@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/krtkush/MarsExplorer/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+
 # Mars Explorer
 
 Mars Explorer is a work in progress Android application. The app retrieves images sent from the three exploration rovers
