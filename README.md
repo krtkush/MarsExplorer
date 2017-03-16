@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/krtkush/MarsExplorer/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+
 # Mars Explorer
 
 Mars Explorer is a work in progress Android application. The app retrieves images sent from the three exploration rovers
@@ -16,7 +18,7 @@ The application consumes [Mars Photo API](https://github.com/chrisccerami/mars-p
 
 ## Download
 
-The app is currently available on the [Play Store](https://play.google.com/store/apps/details?id=io.github.krtkush.marsexplorer).
+<a href='https://play.google.com/store/apps/details?id=io.github.krtkush.marsexplorer&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/ width="160" height="65"></a>
 
 You can chose to be part of the test group by clicking on this [opt-in link](https://play.google.com/apps/testing/io.github.krtkush.marsexplorer).
 
