@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/krtkush/MarsExplorer/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+<img src="https://raw.githubusercontent.com/krtkush/MarsExplorer/master/app/src/main/res/drawable-xxhdpi/icon_high_res.png" height="200" width="200" />
 
 # Mars Explorer
 
