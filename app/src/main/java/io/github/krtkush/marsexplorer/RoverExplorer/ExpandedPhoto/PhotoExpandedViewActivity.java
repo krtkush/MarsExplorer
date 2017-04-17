@@ -29,7 +29,7 @@ public class PhotoExpandedViewActivity extends AppCompatActivity {
         Timber.tag(PhotoExpandedViewActivity.this.getClass().getSimpleName());
         presenterInteractor = new PhotoExpandedViewPresenterLayer(this);
 
-        // Fetch the url of the image to be displayed and show that image.
+        // Fetch the url of the image to be displayed and then show that image.
         presenterInteractor.getImageUrl();
     }
 
