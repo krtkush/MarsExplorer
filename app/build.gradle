@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'com.neenbedankt.android-apt'
 
 buildscript {
     repositories {
@@ -17,13 +16,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "io.github.krtkush.marsexplorer"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 2
         // <Major>.<Minor>.<Patch/Upgrade>
         versionName "1.0.0"
@@ -40,47 +39,46 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Android Support Libraries
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:customtabs:25.3.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:customtabs:27.1.1'
     // Retrofit (API handling)
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     // Retrofit - gson
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
     // Retrofit - rxJava
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     // OkHttp (Networking)
-    compile 'com.squareup.okhttp3:okhttp:3.6.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     // Butterknife (View injection)
-    compile 'com.jakewharton:butterknife:8.5.1'
-    apt 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Rx (Reactive programming)
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    implementation 'io.reactivex:rxandroid:1.2.0'
+    implementation 'io.reactivex:rxjava:1.2.0'
     // Timber (Logging)
-    compile 'com.jakewharton.timber:timber:4.5.1'
+    implementation 'com.jakewharton.timber:timber:4.5.1'
     // Calligraphy (Custom fonts)
-    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
     // Picasso (Image loading)
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     // Leak Canary (Detect memory leaks)
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     // AutoValues (Replacements for POJOs)
-    apt 'com.google.auto.value:auto-value:1.2'
-    annotationProcessor 'com.google.auto.value:auto-value:1.4'
-    provided 'com.jakewharton.auto.value:auto-value-annotations:1.4'
-    apt 'com.ryanharter.auto.value:auto-value-gson:0.4.6'
-    provided 'com.ryanharter.auto.value:auto-value-gson:0.4.6'
+    api "com.google.auto.value:auto-value-annotations:1.6"
+    annotationProcessor "com.google.auto.value:auto-value:1.6"
+    annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.8.0'
+    implementation 'com.ryanharter.auto.value:auto-value-gson-annotations:0.8.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
     // Fabric
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
-        transitive = true;
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
+        transitive = true
     }
 }

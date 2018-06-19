@@ -1,7 +1,6 @@
 package io.github.krtkush.marsexplorer.RESTClients;
 
 import com.google.gson.GsonBuilder;
-import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 
 import java.io.File;
 import java.io.IOException;

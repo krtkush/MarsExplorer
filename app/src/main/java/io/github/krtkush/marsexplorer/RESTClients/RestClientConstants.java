@@ -3,7 +3,7 @@ package io.github.krtkush.marsexplorer.RESTClients;
 /**
  * Created by kartikeykushwaha on 14/05/16.
  */
-public class RestClientConstants {
+public class  RestClientConstants {
 
     // Strings related to NASA's API
     private static final String nasaApiEndPoint = "https://api.nasa.gov/";
