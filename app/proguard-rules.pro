@@ -32,6 +32,11 @@
 
 # OkHttp
 -dontwarn com.squareup.okhttp.**
+-dontwarn okio.**
+-dontwarn com.squareup.okhttp3.**
+-keep interface com.squareup.okhttp3.** { *; }
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
 
 # autovalue gson extension
 -keep class **.AutoParcelGson_*
