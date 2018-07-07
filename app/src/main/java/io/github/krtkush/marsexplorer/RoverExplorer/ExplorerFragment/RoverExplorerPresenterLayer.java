@@ -14,7 +14,6 @@ import io.github.krtkush.marsexplorer.R;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.Photos;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.PhotosJsonDataModels.PhotosResultDM;
 import io.github.krtkush.marsexplorer.RoverExplorer.RoverExplorerConstants;
-import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -154,7 +153,7 @@ public class RoverExplorerPresenterLayer implements RoverExplorerPresenterIntera
                 fragment.toggleSwipeRefreshing(false);
 
                 try {
-                    if(((HttpException) ex).code() == 400 && photoList.size() == 0) {
+                    if(((retrofit2.HttpException) ex).code() == 400 && photoList.size() == 0) {
                         fragment.viewsVisibilityToggle(fragment.getResources()
                                 .getString(R.string.no_photos_message), false, true, false);
                     } else {
