@@ -118,7 +118,7 @@ public class MainActivityPresenterLayer implements MainActivityPresenterInteract
                             " " + marsWeatherResultDM.weatherReportList()
                                     .get(0).sol(),
                             " " + marsWeatherResultDM.weatherReportList()
-                                    .get(0).pressure() + " atm");
+                                    .get(0).pressure());
                 }
             }
         };
