@@ -59,12 +59,12 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Rx (Reactive programming)
-    implementation 'io.reactivex:rxandroid:1.2.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex:rxjava:1.2.0'
     // Timber (Logging)
-    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
     // Calligraphy (Custom fonts)
-    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     // Picasso (Image loading)
     implementation 'com.squareup.picasso:picasso:2.5.2'
     // Leak Canary (Detect memory leaks)

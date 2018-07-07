@@ -1,14 +1,13 @@
 package io.github.krtkush.marsexplorer.RESTClients;
 
 import com.google.gson.GsonBuilder;
-import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 
 import java.io.File;
 
 import io.github.krtkush.marsexplorer.BuildConfig;
 import io.github.krtkush.marsexplorer.MarsExplorerApplication;
-import io.github.krtkush.marsexplorer.RESTClients.Interceptors.ResponseCacheInterceptor;
 import io.github.krtkush.marsexplorer.RESTClients.DataModels.WeatherJsonDataModel.MarsWeatherResultDM;
+import io.github.krtkush.marsexplorer.RESTClients.Interceptors.ResponseCacheInterceptor;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -52,7 +51,7 @@ public class MarsWeatherClient {
 
             GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
                     new GsonBuilder()
-                            .registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+                            .registerTypeAdapterFactory(GsonTypeAdapterAdapterFactory.create())
                             .create()
             );
 

@@ -2,11 +2,9 @@ package io.github.krtkush.marsexplorer;
 
 import android.app.Application;
 
-import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.picasso.Picasso;
 
-import io.fabric.sdk.android.Fabric;
 import io.github.krtkush.marsexplorer.RESTClients.MarsWeatherClient;
 import io.github.krtkush.marsexplorer.RESTClients.NASARestApiClient;
 import timber.log.Timber;
@@ -61,8 +59,8 @@ public class MarsExplorerApplication extends Application {
             LeakCanary.install(this);
 
         // Initialize fabric only if NOT in debug mode.
-        if(!BuildConfig.DEBUG)
-            Fabric.with(this, new Crashlytics());
+/*        if(!BuildConfig.DEBUG)
+            Fabric.with(this, new Crashlytics());*/
     }
 
     /**

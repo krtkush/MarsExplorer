@@ -69,7 +69,7 @@ public class NASARestApiClient {
 
             GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create(
                     new GsonBuilder()
-                            .registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+                            .registerTypeAdapterFactory(GsonTypeAdapterAdapterFactory.create())
                             .create()
             );
 
