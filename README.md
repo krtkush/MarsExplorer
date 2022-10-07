@@ -2,6 +2,8 @@
 
 # Mars Explorer
 
+**This project has been archived and there are no plans to develop it further or suppor it.**
+
 Mars Explorer is an Android application. The app retrieves images sent from the three exploration rovers
 currently on Mars - [Curiosity](https://en.wikipedia.org/wiki/Curiosity_(rover)),
 [Opportunity](https://en.wikipedia.org/wiki/Opportunity_(rover)),
